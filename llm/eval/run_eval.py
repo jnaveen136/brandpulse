@@ -69,6 +69,7 @@ def main() -> None:
     args = ap.parse_args()
 
     a = Assistant()
+    a.tools.kb.wait(600)  # evaluate with the full hybrid retrieval, not the keyword-only start-up mode
     provider = a.cfg.provider
     RUNS.mkdir(parents=True, exist_ok=True)
     store = RUNS / f"{provider}.jsonl"

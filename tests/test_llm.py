@@ -132,6 +132,7 @@ def test_tool_results_go_back_with_the_assistant_message_intact(offline):
 
 def test_knowledge_survives_its_collection_being_deleted(offline):
     kb = offline.tools.kb
+    kb.wait(300)
     if kb.collection is None:
         pytest.skip("chromadb not installed")
     kb._client.delete_collection(kb._name)  # what another process used to do
@@ -142,3 +143,11 @@ def test_knowledge_survives_its_collection_being_deleted(offline):
 def test_unexpected_tool_failure_becomes_an_error_message(offline, monkeypatch):
     monkeypatch.setattr(offline.tools, "get_health_scores", lambda period=None: 1 / 0)
     assert "ZeroDivisionError" in offline.tools.run("get_health_scores", {})["error"]
+
+
+def test_search_answers_immediately_while_index_builds(offline):
+    from llm.knowledge import Knowledge
+    kb = Knowledge(offline.tools.s)  # background build: keyword search must work right away
+    hits = kb.search("which brands have no market share data")
+    assert hits and any("market share" in h["text"].lower() for h in hits)
+    assert kb.wait(300)

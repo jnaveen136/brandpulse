@@ -15,6 +15,7 @@ import hashlib
 import json
 import math
 import re
+import threading
 from collections import Counter
 from pathlib import Path
 
@@ -93,40 +94,72 @@ class BM25:
         return out
 
 
+_INIT_LOCK = threading.Lock()  # one embedding-model download / index build per process, never two at once
+
+
 class Knowledge:
-    def __init__(self, service):
+    """Keyword search works the moment this is created. The semantic index (which may need a one-off
+    79 MB model download) is built in a background thread and joins in when it is ready."""
+
+    def __init__(self, service, background: bool = True):
         self.chunks = build_chunks(service)
         self.bm25 = BM25([c["title"] + " " + c["text"] for c in self.chunks])
         self.collection = None
-        self.mode = "bm25"
+        self.ready = threading.Event()
         try:
-            import chromadb
-            from chromadb.utils import embedding_functions as ef
-            self._client = chromadb.PersistentClient(path=str(CHROMA_DIR))
-            self._ef = ef.DefaultEmbeddingFunction()
-            # One collection per knowledge-base version. Old versions are left in place: another process
-            # (API, tests, evaluation) may still be reading them; they are small and rebuilt on `make data`.
-            self._name = "brandpulse_" + hashlib.md5(json.dumps(self.chunks, sort_keys=True).encode()).hexdigest()[:12]
-            self._open()
-            self.mode = "hybrid (Chroma all-MiniLM-L6-v2 + BM25)"
-        except Exception:  # chromadb missing or model unavailable: keyword search still works
+            import chromadb  # noqa: F401
+        except ImportError:
+            self.mode = "bm25 (chromadb not installed)"
+            self.ready.set()
+            return
+        self.mode = "bm25 (semantic index loading)"
+        if background:
+            threading.Thread(target=self._init_semantic, name="knowledge-index", daemon=True).start()
+        else:
+            self._init_semantic()
+
+    def wait(self, timeout: float | None = None) -> bool:
+        """Block until the semantic index is ready (or has failed). Used by the evaluation and tests."""
+        return self.ready.wait(timeout)
+
+    def _init_semantic(self) -> None:
+        try:
+            with _INIT_LOCK:
+                import chromadb
+                from chromadb.utils import embedding_functions as ef
+                self._client = chromadb.PersistentClient(path=str(CHROMA_DIR))
+                self._ef = ef.DefaultEmbeddingFunction()
+                # One collection per knowledge-base version. Old versions are left in place: another process
+                # (API, tests, evaluation) may still be reading them; they are small and rebuilt on `make data`.
+                self._name = "brandpulse_" + hashlib.md5(json.dumps(self.chunks, sort_keys=True).encode()).hexdigest()[:12]
+                self._open()
+                self.mode = "hybrid (Chroma all-MiniLM-L6-v2 + BM25)"
+        except Exception as e:  # model download failed, offline, ...: keyword search keeps working
             self.collection = None
+            self.mode = f"bm25 (semantic index unavailable: {type(e).__name__})"
+        finally:
+            self.ready.set()
 
     def _open(self) -> None:
-        self.collection = self._client.get_or_create_collection(self._name, embedding_function=self._ef,
-                                                                metadata={"hnsw:space": "cosine"})
-        if self.collection.count() != len(self.chunks):
-            self.collection.upsert(ids=[c["id"] for c in self.chunks], documents=[c["text"] for c in self.chunks],
-                                   metadatas=[{"source": c["source"], "title": c["title"]} for c in self.chunks])
+        col = self._client.get_or_create_collection(self._name, embedding_function=self._ef,
+                                                    metadata={"hnsw:space": "cosine"})
+        if col.count() != len(self.chunks):
+            col.upsert(ids=[c["id"] for c in self.chunks], documents=[c["text"] for c in self.chunks],
+                       metadatas=[{"source": c["source"], "title": c["title"]} for c in self.chunks])
+        self.collection = col  # only published once fully built, so searches never see a half-built index
 
     def _semantic(self, query: str) -> list[str]:
         for attempt in range(2):
+            col = self.collection
+            if col is None:
+                return []
             try:
-                return self.collection.query(query_texts=[query], n_results=min(20, len(self.chunks)))["ids"][0]
+                return col.query(query_texts=[query], n_results=min(20, len(self.chunks)))["ids"][0]
             except Exception:
                 if attempt == 0:
                     try:
-                        self._open()  # collection removed underneath us: rebuild once
+                        with _INIT_LOCK:
+                            self._open()  # collection removed underneath us: rebuild once
                         continue
                     except Exception:
                         pass
@@ -142,6 +175,15 @@ class Knowledge:
         if self.collection is not None:
             idx = {c["id"]: i for i, c in enumerate(self.chunks)}
             for r, cid in enumerate(self._semantic(query)):
-                ranks[idx[cid]] = ranks.get(idx[cid], 0) + 1 / (60 + r)
+                if cid in idx:
+                    ranks[idx[cid]] = ranks.get(idx[cid], 0) + 1 / (60 + r)
         best = sorted(ranks, key=lambda i: -ranks[i])[:k]
         return [{"source": self.chunks[i]["source"], "title": self.chunks[i]["title"], "text": self.chunks[i]["text"]} for i in best]
+
+
+if __name__ == "__main__":
+    # Pre-download the embedding model and build the index:  python -m llm.knowledge
+    from api.service import Service
+    print("Building the knowledge index (first run downloads the 79 MB all-MiniLM-L6-v2 model once)...")
+    kb = Knowledge(Service(), background=False)
+    print(f"Done: {len(kb.chunks)} passages, retrieval = {kb.mode}")

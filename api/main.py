@@ -14,6 +14,7 @@ from __future__ import annotations
 
 import json
 import os
+import threading
 from pathlib import Path
 
 from fastapi import Depends, FastAPI, HTTPException, Query
@@ -31,12 +32,15 @@ app = FastAPI(title="BrandPulse API", version="1.0",
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
 
 _service: Service | None = None
+_service_lock = threading.Lock()
 
 
 def svc() -> Service:
     global _service
     if _service is None:
-        _service = Service()
+        with _service_lock:
+            if _service is None:
+                _service = Service()
     return _service
 
 

@@ -1,6 +1,8 @@
 """FastAPI routes for the Q&A layer: /api/ask, /api/ask/explain, /api/ask/status."""
 from __future__ import annotations
 
+import threading
+
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel, Field
 
@@ -9,14 +11,19 @@ from pipeline.schema import CORE_BRANDS
 
 router = APIRouter(prefix="/api/ask", tags=["ask"])
 _assistant = None
+_lock = threading.Lock()
 
 
 def assistant():
+    """One assistant per server. The page fires /status and /ask together; the lock stops both
+    requests from building their own copy (and downloading the embedding model twice)."""
     global _assistant
     if _assistant is None:
-        from api.main import svc  # share the API's engine and caches
-        from .assistant import Assistant
-        _assistant = Assistant(svc())
+        with _lock:
+            if _assistant is None:
+                from api.main import svc  # share the API's engine and caches
+                from .assistant import Assistant
+                _assistant = Assistant(svc())
     return _assistant
 
 
