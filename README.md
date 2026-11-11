@@ -31,7 +31,7 @@ All numbers in the dashboard, the workbench and the Q&A come from the same `kpi.
 python -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
 make data        # validate the workbook and build data/processed/
-make test        # 49 tests: KPIs recomputed by hand from the raw Excel
+make test        # 61 tests: KPIs recomputed by hand from the raw Excel
 make notebook    # re-run the Phase 1 EDA notebook
 ```
 
@@ -53,6 +53,23 @@ eng.timeseries("revenue", grain="W", filters=dettol, period="R90")
 **Time Intelligence presets:** `WTD MTD QTD YTD R7 R30 R90 PM PQ L13W PY ALL`, or a `(start, end)` tuple.
 **Comparison modes:** `previous` (the period before, same shape) and `yoy` (same period last year).
 
+### Competitors and diagnostics
+
+```python
+from kpi.competitive import Competitive
+from kpi.diagnostics import Diagnostics
+
+comp = Competitive(eng)
+comp.closest_rivals("Dettol")            # external brands ranked by variant overlap
+comp.variant_table("Dettol", "YTD")      # each variant vs its 3-tier rivals
+comp.price_position("Dettol", "YTD")     # price gap %, discount gap, competitor discount %
+comp.answers("Dettol", "YTD")            # who is discounting / gained share / launched
+
+Diagnostics(eng, comp).explain("Harpic", "MTD", "previous")   # why revenue moved
+```
+
+The full variant-to-rival mapping is in [reports/competitor_map.csv](reports/competitor_map.csv).
+
 **KPIs:** run `python -c "from kpi.registry import catalog; print(catalog()[['id','name','formula_text']])"` to list them with their formulas.
 
 ## Project status
@@ -61,7 +78,7 @@ eng.timeseries("revenue", grain="W", filters=dettol, period="R90")
 |---|---|---|
 | 0 | Repo, CI, Makefile | ✅ |
 | 1 | Validation, data model, KPI engine, Time Intelligence, Health Score, tests, EDA notebook | ✅ |
-| 2 | Competitor mapping (3 tiers), competitor KPIs, diagnostics engine | ⏳ |
+| 2 | Competitor mapping (3 tiers), competitor KPIs, diagnostics engine | ✅ |
 | 3 | FastAPI | ⏳ |
 | 4 | React dashboard | ⏳ |
 | 5 | Streamlit workbench | ⏳ |

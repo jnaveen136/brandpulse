@@ -1,0 +1,274 @@
+CoreBrand,CoreProductID,CoreProductName,CoreCategory,SubCategory,Tier,RivalProductID,RivalProductName,RivalBrand,RivalManufacturer,RivalCategory
+Dettol,SKU0002,Dettol Variant 2,Health & Hygiene,Cleaner,self,SKU0004,Dettol Variant 4,Dettol,Reckitt,Personal Care
+Dettol,SKU0002,Dettol Variant 2,Health & Hygiene,Cleaner,self,SKU0005,Dettol Variant 5,Dettol,Reckitt,Personal Care
+Dettol,SKU0002,Dettol Variant 2,Health & Hygiene,Cleaner,reckitt,SKU0018,Lizol Variant 3,Lizol,Reckitt,Health & Hygiene
+Dettol,SKU0002,Dettol Variant 2,Health & Hygiene,Cleaner,reckitt,SKU0024,Mortein Variant 4,Mortein,Reckitt,Health & Hygiene
+Dettol,SKU0002,Dettol Variant 2,Health & Hygiene,Cleaner,reckitt,SKU0012,Veet Variant 2,Veet,Reckitt,Personal Care
+Dettol,SKU0002,Dettol Variant 2,Health & Hygiene,Cleaner,external,SKU0041,Ariel Variant 1,Ariel,P&G,Home Care
+Dettol,SKU0002,Dettol Variant 2,Health & Hygiene,Cleaner,external,SKU0035,Domex Variant 5,Domex,Unilever,Personal Care
+Dettol,SKU0002,Dettol Variant 2,Health & Hygiene,Cleaner,external,SKU0051,Gillette Variant 1,Gillette,P&G,Personal Care
+Dettol,SKU0002,Dettol Variant 2,Health & Hygiene,Cleaner,external,SKU0026,Lifebuoy Variant 1,Lifebuoy,Unilever,Health & Hygiene
+Dettol,SKU0002,Dettol Variant 2,Health & Hygiene,Cleaner,external,SKU0036,Lux Variant 1,Lux,Unilever,Health & Hygiene
+Dettol,SKU0002,Dettol Variant 2,Health & Hygiene,Cleaner,external,SKU0040,Lux Variant 5,Lux,Unilever,Health & Hygiene
+Dettol,SKU0004,Dettol Variant 4,Personal Care,Cleaner,self,SKU0002,Dettol Variant 2,Dettol,Reckitt,Health & Hygiene
+Dettol,SKU0004,Dettol Variant 4,Personal Care,Cleaner,self,SKU0005,Dettol Variant 5,Dettol,Reckitt,Personal Care
+Dettol,SKU0004,Dettol Variant 4,Personal Care,Cleaner,reckitt,SKU0018,Lizol Variant 3,Lizol,Reckitt,Health & Hygiene
+Dettol,SKU0004,Dettol Variant 4,Personal Care,Cleaner,reckitt,SKU0024,Mortein Variant 4,Mortein,Reckitt,Health & Hygiene
+Dettol,SKU0004,Dettol Variant 4,Personal Care,Cleaner,reckitt,SKU0012,Veet Variant 2,Veet,Reckitt,Personal Care
+Dettol,SKU0004,Dettol Variant 4,Personal Care,Cleaner,external,SKU0041,Ariel Variant 1,Ariel,P&G,Home Care
+Dettol,SKU0004,Dettol Variant 4,Personal Care,Cleaner,external,SKU0035,Domex Variant 5,Domex,Unilever,Personal Care
+Dettol,SKU0004,Dettol Variant 4,Personal Care,Cleaner,external,SKU0051,Gillette Variant 1,Gillette,P&G,Personal Care
+Dettol,SKU0004,Dettol Variant 4,Personal Care,Cleaner,external,SKU0026,Lifebuoy Variant 1,Lifebuoy,Unilever,Health & Hygiene
+Dettol,SKU0004,Dettol Variant 4,Personal Care,Cleaner,external,SKU0036,Lux Variant 1,Lux,Unilever,Health & Hygiene
+Dettol,SKU0004,Dettol Variant 4,Personal Care,Cleaner,external,SKU0040,Lux Variant 5,Lux,Unilever,Health & Hygiene
+Dettol,SKU0005,Dettol Variant 5,Personal Care,Cleaner,self,SKU0002,Dettol Variant 2,Dettol,Reckitt,Health & Hygiene
+Dettol,SKU0005,Dettol Variant 5,Personal Care,Cleaner,self,SKU0004,Dettol Variant 4,Dettol,Reckitt,Personal Care
+Dettol,SKU0005,Dettol Variant 5,Personal Care,Cleaner,reckitt,SKU0018,Lizol Variant 3,Lizol,Reckitt,Health & Hygiene
+Dettol,SKU0005,Dettol Variant 5,Personal Care,Cleaner,reckitt,SKU0024,Mortein Variant 4,Mortein,Reckitt,Health & Hygiene
+Dettol,SKU0005,Dettol Variant 5,Personal Care,Cleaner,reckitt,SKU0012,Veet Variant 2,Veet,Reckitt,Personal Care
+Dettol,SKU0005,Dettol Variant 5,Personal Care,Cleaner,external,SKU0041,Ariel Variant 1,Ariel,P&G,Home Care
+Dettol,SKU0005,Dettol Variant 5,Personal Care,Cleaner,external,SKU0035,Domex Variant 5,Domex,Unilever,Personal Care
+Dettol,SKU0005,Dettol Variant 5,Personal Care,Cleaner,external,SKU0051,Gillette Variant 1,Gillette,P&G,Personal Care
+Dettol,SKU0005,Dettol Variant 5,Personal Care,Cleaner,external,SKU0026,Lifebuoy Variant 1,Lifebuoy,Unilever,Health & Hygiene
+Dettol,SKU0005,Dettol Variant 5,Personal Care,Cleaner,external,SKU0036,Lux Variant 1,Lux,Unilever,Health & Hygiene
+Dettol,SKU0005,Dettol Variant 5,Personal Care,Cleaner,external,SKU0040,Lux Variant 5,Lux,Unilever,Health & Hygiene
+Dettol,SKU0001,Dettol Variant 1,Home Care,Liquid,reckitt,SKU0016,Lizol Variant 1,Lizol,Reckitt,Home Care
+Dettol,SKU0001,Dettol Variant 1,Home Care,Liquid,external,SKU0043,Ariel Variant 3,Ariel,P&G,Personal Care
+Dettol,SKU0001,Dettol Variant 1,Home Care,Liquid,external,SKU0032,Domex Variant 2,Domex,Unilever,Home Care
+Dettol,SKU0001,Dettol Variant 1,Home Care,Liquid,external,SKU0048,Head & Shoulders Variant 3,Head & Shoulders,P&G,Health & Hygiene
+Dettol,SKU0003,Dettol Variant 3,Health & Hygiene,Soap,reckitt,SKU0020,Lizol Variant 5,Lizol,Reckitt,Home Care
+Dettol,SKU0003,Dettol Variant 3,Health & Hygiene,Soap,reckitt,SKU0011,Veet Variant 1,Veet,Reckitt,Home Care
+Dettol,SKU0003,Dettol Variant 3,Health & Hygiene,Soap,reckitt,SKU0013,Veet Variant 3,Veet,Reckitt,Personal Care
+Dettol,SKU0003,Dettol Variant 3,Health & Hygiene,Soap,reckitt,SKU0014,Veet Variant 4,Veet,Reckitt,Home Care
+Dettol,SKU0003,Dettol Variant 3,Health & Hygiene,Soap,external,SKU0045,Ariel Variant 5,Ariel,P&G,Home Care
+Dettol,SKU0003,Dettol Variant 3,Health & Hygiene,Soap,external,SKU0034,Domex Variant 4,Domex,Unilever,Personal Care
+Dettol,SKU0003,Dettol Variant 3,Health & Hygiene,Soap,external,SKU0054,Gillette Variant 4,Gillette,P&G,Home Care
+Dettol,SKU0003,Dettol Variant 3,Health & Hygiene,Soap,external,SKU0046,Head & Shoulders Variant 1,Head & Shoulders,P&G,Home Care
+Dettol,SKU0003,Dettol Variant 3,Health & Hygiene,Soap,external,SKU0047,Head & Shoulders Variant 2,Head & Shoulders,P&G,Health & Hygiene
+Dettol,SKU0003,Dettol Variant 3,Health & Hygiene,Soap,external,SKU0049,Head & Shoulders Variant 4,Head & Shoulders,P&G,Home Care
+Dettol,SKU0003,Dettol Variant 3,Health & Hygiene,Soap,external,SKU0027,Lifebuoy Variant 2,Lifebuoy,Unilever,Health & Hygiene
+Dettol,SKU0003,Dettol Variant 3,Health & Hygiene,Soap,external,SKU0030,Lifebuoy Variant 5,Lifebuoy,Unilever,Personal Care
+Dettol,SKU0003,Dettol Variant 3,Health & Hygiene,Soap,external,SKU0039,Lux Variant 4,Lux,Unilever,Personal Care
+Harpic,SKU0007,Harpic Variant 2,Health & Hygiene,Cream,self,SKU0010,Harpic Variant 5,Harpic,Reckitt,Health & Hygiene
+Harpic,SKU0007,Harpic Variant 2,Health & Hygiene,Cream,reckitt,SKU0021,Mortein Variant 1,Mortein,Reckitt,Home Care
+Harpic,SKU0007,Harpic Variant 2,Health & Hygiene,Cream,reckitt,SKU0023,Mortein Variant 3,Mortein,Reckitt,Home Care
+Harpic,SKU0007,Harpic Variant 2,Health & Hygiene,Cream,reckitt,SKU0025,Mortein Variant 5,Mortein,Reckitt,Personal Care
+Harpic,SKU0007,Harpic Variant 2,Health & Hygiene,Cream,external,SKU0042,Ariel Variant 2,Ariel,P&G,Personal Care
+Harpic,SKU0007,Harpic Variant 2,Health & Hygiene,Cream,external,SKU0052,Gillette Variant 2,Gillette,P&G,Home Care
+Harpic,SKU0007,Harpic Variant 2,Health & Hygiene,Cream,external,SKU0053,Gillette Variant 3,Gillette,P&G,Personal Care
+Harpic,SKU0007,Harpic Variant 2,Health & Hygiene,Cream,external,SKU0050,Head & Shoulders Variant 5,Head & Shoulders,P&G,Personal Care
+Harpic,SKU0007,Harpic Variant 2,Health & Hygiene,Cream,external,SKU0028,Lifebuoy Variant 3,Lifebuoy,Unilever,Personal Care
+Harpic,SKU0007,Harpic Variant 2,Health & Hygiene,Cream,external,SKU0029,Lifebuoy Variant 4,Lifebuoy,Unilever,Personal Care
+Harpic,SKU0010,Harpic Variant 5,Health & Hygiene,Cream,self,SKU0007,Harpic Variant 2,Harpic,Reckitt,Health & Hygiene
+Harpic,SKU0010,Harpic Variant 5,Health & Hygiene,Cream,reckitt,SKU0021,Mortein Variant 1,Mortein,Reckitt,Home Care
+Harpic,SKU0010,Harpic Variant 5,Health & Hygiene,Cream,reckitt,SKU0023,Mortein Variant 3,Mortein,Reckitt,Home Care
+Harpic,SKU0010,Harpic Variant 5,Health & Hygiene,Cream,reckitt,SKU0025,Mortein Variant 5,Mortein,Reckitt,Personal Care
+Harpic,SKU0010,Harpic Variant 5,Health & Hygiene,Cream,external,SKU0042,Ariel Variant 2,Ariel,P&G,Personal Care
+Harpic,SKU0010,Harpic Variant 5,Health & Hygiene,Cream,external,SKU0052,Gillette Variant 2,Gillette,P&G,Home Care
+Harpic,SKU0010,Harpic Variant 5,Health & Hygiene,Cream,external,SKU0053,Gillette Variant 3,Gillette,P&G,Personal Care
+Harpic,SKU0010,Harpic Variant 5,Health & Hygiene,Cream,external,SKU0050,Head & Shoulders Variant 5,Head & Shoulders,P&G,Personal Care
+Harpic,SKU0010,Harpic Variant 5,Health & Hygiene,Cream,external,SKU0028,Lifebuoy Variant 3,Lifebuoy,Unilever,Personal Care
+Harpic,SKU0010,Harpic Variant 5,Health & Hygiene,Cream,external,SKU0029,Lifebuoy Variant 4,Lifebuoy,Unilever,Personal Care
+Harpic,SKU0006,Harpic Variant 1,Personal Care,Spray,self,SKU0008,Harpic Variant 3,Harpic,Reckitt,Health & Hygiene
+Harpic,SKU0006,Harpic Variant 1,Personal Care,Spray,self,SKU0009,Harpic Variant 4,Harpic,Reckitt,Health & Hygiene
+Harpic,SKU0006,Harpic Variant 1,Personal Care,Spray,reckitt,SKU0017,Lizol Variant 2,Lizol,Reckitt,Personal Care
+Harpic,SKU0006,Harpic Variant 1,Personal Care,Spray,reckitt,SKU0019,Lizol Variant 4,Lizol,Reckitt,Home Care
+Harpic,SKU0006,Harpic Variant 1,Personal Care,Spray,reckitt,SKU0022,Mortein Variant 2,Mortein,Reckitt,Personal Care
+Harpic,SKU0006,Harpic Variant 1,Personal Care,Spray,reckitt,SKU0015,Veet Variant 5,Veet,Reckitt,Home Care
+Harpic,SKU0006,Harpic Variant 1,Personal Care,Spray,external,SKU0044,Ariel Variant 4,Ariel,P&G,Personal Care
+Harpic,SKU0006,Harpic Variant 1,Personal Care,Spray,external,SKU0031,Domex Variant 1,Domex,Unilever,Personal Care
+Harpic,SKU0006,Harpic Variant 1,Personal Care,Spray,external,SKU0033,Domex Variant 3,Domex,Unilever,Personal Care
+Harpic,SKU0006,Harpic Variant 1,Personal Care,Spray,external,SKU0055,Gillette Variant 5,Gillette,P&G,Personal Care
+Harpic,SKU0006,Harpic Variant 1,Personal Care,Spray,external,SKU0037,Lux Variant 2,Lux,Unilever,Personal Care
+Harpic,SKU0006,Harpic Variant 1,Personal Care,Spray,external,SKU0038,Lux Variant 3,Lux,Unilever,Home Care
+Harpic,SKU0008,Harpic Variant 3,Health & Hygiene,Spray,self,SKU0006,Harpic Variant 1,Harpic,Reckitt,Personal Care
+Harpic,SKU0008,Harpic Variant 3,Health & Hygiene,Spray,self,SKU0009,Harpic Variant 4,Harpic,Reckitt,Health & Hygiene
+Harpic,SKU0008,Harpic Variant 3,Health & Hygiene,Spray,reckitt,SKU0017,Lizol Variant 2,Lizol,Reckitt,Personal Care
+Harpic,SKU0008,Harpic Variant 3,Health & Hygiene,Spray,reckitt,SKU0019,Lizol Variant 4,Lizol,Reckitt,Home Care
+Harpic,SKU0008,Harpic Variant 3,Health & Hygiene,Spray,reckitt,SKU0022,Mortein Variant 2,Mortein,Reckitt,Personal Care
+Harpic,SKU0008,Harpic Variant 3,Health & Hygiene,Spray,reckitt,SKU0015,Veet Variant 5,Veet,Reckitt,Home Care
+Harpic,SKU0008,Harpic Variant 3,Health & Hygiene,Spray,external,SKU0044,Ariel Variant 4,Ariel,P&G,Personal Care
+Harpic,SKU0008,Harpic Variant 3,Health & Hygiene,Spray,external,SKU0031,Domex Variant 1,Domex,Unilever,Personal Care
+Harpic,SKU0008,Harpic Variant 3,Health & Hygiene,Spray,external,SKU0033,Domex Variant 3,Domex,Unilever,Personal Care
+Harpic,SKU0008,Harpic Variant 3,Health & Hygiene,Spray,external,SKU0055,Gillette Variant 5,Gillette,P&G,Personal Care
+Harpic,SKU0008,Harpic Variant 3,Health & Hygiene,Spray,external,SKU0037,Lux Variant 2,Lux,Unilever,Personal Care
+Harpic,SKU0008,Harpic Variant 3,Health & Hygiene,Spray,external,SKU0038,Lux Variant 3,Lux,Unilever,Home Care
+Harpic,SKU0009,Harpic Variant 4,Health & Hygiene,Spray,self,SKU0006,Harpic Variant 1,Harpic,Reckitt,Personal Care
+Harpic,SKU0009,Harpic Variant 4,Health & Hygiene,Spray,self,SKU0008,Harpic Variant 3,Harpic,Reckitt,Health & Hygiene
+Harpic,SKU0009,Harpic Variant 4,Health & Hygiene,Spray,reckitt,SKU0017,Lizol Variant 2,Lizol,Reckitt,Personal Care
+Harpic,SKU0009,Harpic Variant 4,Health & Hygiene,Spray,reckitt,SKU0019,Lizol Variant 4,Lizol,Reckitt,Home Care
+Harpic,SKU0009,Harpic Variant 4,Health & Hygiene,Spray,reckitt,SKU0022,Mortein Variant 2,Mortein,Reckitt,Personal Care
+Harpic,SKU0009,Harpic Variant 4,Health & Hygiene,Spray,reckitt,SKU0015,Veet Variant 5,Veet,Reckitt,Home Care
+Harpic,SKU0009,Harpic Variant 4,Health & Hygiene,Spray,external,SKU0044,Ariel Variant 4,Ariel,P&G,Personal Care
+Harpic,SKU0009,Harpic Variant 4,Health & Hygiene,Spray,external,SKU0031,Domex Variant 1,Domex,Unilever,Personal Care
+Harpic,SKU0009,Harpic Variant 4,Health & Hygiene,Spray,external,SKU0033,Domex Variant 3,Domex,Unilever,Personal Care
+Harpic,SKU0009,Harpic Variant 4,Health & Hygiene,Spray,external,SKU0055,Gillette Variant 5,Gillette,P&G,Personal Care
+Harpic,SKU0009,Harpic Variant 4,Health & Hygiene,Spray,external,SKU0037,Lux Variant 2,Lux,Unilever,Personal Care
+Harpic,SKU0009,Harpic Variant 4,Health & Hygiene,Spray,external,SKU0038,Lux Variant 3,Lux,Unilever,Home Care
+Lizol,SKU0018,Lizol Variant 3,Health & Hygiene,Cleaner,reckitt,SKU0002,Dettol Variant 2,Dettol,Reckitt,Health & Hygiene
+Lizol,SKU0018,Lizol Variant 3,Health & Hygiene,Cleaner,reckitt,SKU0004,Dettol Variant 4,Dettol,Reckitt,Personal Care
+Lizol,SKU0018,Lizol Variant 3,Health & Hygiene,Cleaner,reckitt,SKU0005,Dettol Variant 5,Dettol,Reckitt,Personal Care
+Lizol,SKU0018,Lizol Variant 3,Health & Hygiene,Cleaner,reckitt,SKU0024,Mortein Variant 4,Mortein,Reckitt,Health & Hygiene
+Lizol,SKU0018,Lizol Variant 3,Health & Hygiene,Cleaner,reckitt,SKU0012,Veet Variant 2,Veet,Reckitt,Personal Care
+Lizol,SKU0018,Lizol Variant 3,Health & Hygiene,Cleaner,external,SKU0041,Ariel Variant 1,Ariel,P&G,Home Care
+Lizol,SKU0018,Lizol Variant 3,Health & Hygiene,Cleaner,external,SKU0035,Domex Variant 5,Domex,Unilever,Personal Care
+Lizol,SKU0018,Lizol Variant 3,Health & Hygiene,Cleaner,external,SKU0051,Gillette Variant 1,Gillette,P&G,Personal Care
+Lizol,SKU0018,Lizol Variant 3,Health & Hygiene,Cleaner,external,SKU0026,Lifebuoy Variant 1,Lifebuoy,Unilever,Health & Hygiene
+Lizol,SKU0018,Lizol Variant 3,Health & Hygiene,Cleaner,external,SKU0036,Lux Variant 1,Lux,Unilever,Health & Hygiene
+Lizol,SKU0018,Lizol Variant 3,Health & Hygiene,Cleaner,external,SKU0040,Lux Variant 5,Lux,Unilever,Health & Hygiene
+Lizol,SKU0016,Lizol Variant 1,Home Care,Liquid,reckitt,SKU0001,Dettol Variant 1,Dettol,Reckitt,Home Care
+Lizol,SKU0016,Lizol Variant 1,Home Care,Liquid,external,SKU0043,Ariel Variant 3,Ariel,P&G,Personal Care
+Lizol,SKU0016,Lizol Variant 1,Home Care,Liquid,external,SKU0032,Domex Variant 2,Domex,Unilever,Home Care
+Lizol,SKU0016,Lizol Variant 1,Home Care,Liquid,external,SKU0048,Head & Shoulders Variant 3,Head & Shoulders,P&G,Health & Hygiene
+Lizol,SKU0020,Lizol Variant 5,Home Care,Soap,reckitt,SKU0003,Dettol Variant 3,Dettol,Reckitt,Health & Hygiene
+Lizol,SKU0020,Lizol Variant 5,Home Care,Soap,reckitt,SKU0011,Veet Variant 1,Veet,Reckitt,Home Care
+Lizol,SKU0020,Lizol Variant 5,Home Care,Soap,reckitt,SKU0013,Veet Variant 3,Veet,Reckitt,Personal Care
+Lizol,SKU0020,Lizol Variant 5,Home Care,Soap,reckitt,SKU0014,Veet Variant 4,Veet,Reckitt,Home Care
+Lizol,SKU0020,Lizol Variant 5,Home Care,Soap,external,SKU0045,Ariel Variant 5,Ariel,P&G,Home Care
+Lizol,SKU0020,Lizol Variant 5,Home Care,Soap,external,SKU0034,Domex Variant 4,Domex,Unilever,Personal Care
+Lizol,SKU0020,Lizol Variant 5,Home Care,Soap,external,SKU0054,Gillette Variant 4,Gillette,P&G,Home Care
+Lizol,SKU0020,Lizol Variant 5,Home Care,Soap,external,SKU0046,Head & Shoulders Variant 1,Head & Shoulders,P&G,Home Care
+Lizol,SKU0020,Lizol Variant 5,Home Care,Soap,external,SKU0047,Head & Shoulders Variant 2,Head & Shoulders,P&G,Health & Hygiene
+Lizol,SKU0020,Lizol Variant 5,Home Care,Soap,external,SKU0049,Head & Shoulders Variant 4,Head & Shoulders,P&G,Home Care
+Lizol,SKU0020,Lizol Variant 5,Home Care,Soap,external,SKU0027,Lifebuoy Variant 2,Lifebuoy,Unilever,Health & Hygiene
+Lizol,SKU0020,Lizol Variant 5,Home Care,Soap,external,SKU0030,Lifebuoy Variant 5,Lifebuoy,Unilever,Personal Care
+Lizol,SKU0020,Lizol Variant 5,Home Care,Soap,external,SKU0039,Lux Variant 4,Lux,Unilever,Personal Care
+Lizol,SKU0017,Lizol Variant 2,Personal Care,Spray,self,SKU0019,Lizol Variant 4,Lizol,Reckitt,Home Care
+Lizol,SKU0017,Lizol Variant 2,Personal Care,Spray,reckitt,SKU0006,Harpic Variant 1,Harpic,Reckitt,Personal Care
+Lizol,SKU0017,Lizol Variant 2,Personal Care,Spray,reckitt,SKU0008,Harpic Variant 3,Harpic,Reckitt,Health & Hygiene
+Lizol,SKU0017,Lizol Variant 2,Personal Care,Spray,reckitt,SKU0009,Harpic Variant 4,Harpic,Reckitt,Health & Hygiene
+Lizol,SKU0017,Lizol Variant 2,Personal Care,Spray,reckitt,SKU0022,Mortein Variant 2,Mortein,Reckitt,Personal Care
+Lizol,SKU0017,Lizol Variant 2,Personal Care,Spray,reckitt,SKU0015,Veet Variant 5,Veet,Reckitt,Home Care
+Lizol,SKU0017,Lizol Variant 2,Personal Care,Spray,external,SKU0044,Ariel Variant 4,Ariel,P&G,Personal Care
+Lizol,SKU0017,Lizol Variant 2,Personal Care,Spray,external,SKU0031,Domex Variant 1,Domex,Unilever,Personal Care
+Lizol,SKU0017,Lizol Variant 2,Personal Care,Spray,external,SKU0033,Domex Variant 3,Domex,Unilever,Personal Care
+Lizol,SKU0017,Lizol Variant 2,Personal Care,Spray,external,SKU0055,Gillette Variant 5,Gillette,P&G,Personal Care
+Lizol,SKU0017,Lizol Variant 2,Personal Care,Spray,external,SKU0037,Lux Variant 2,Lux,Unilever,Personal Care
+Lizol,SKU0017,Lizol Variant 2,Personal Care,Spray,external,SKU0038,Lux Variant 3,Lux,Unilever,Home Care
+Lizol,SKU0019,Lizol Variant 4,Home Care,Spray,self,SKU0017,Lizol Variant 2,Lizol,Reckitt,Personal Care
+Lizol,SKU0019,Lizol Variant 4,Home Care,Spray,reckitt,SKU0006,Harpic Variant 1,Harpic,Reckitt,Personal Care
+Lizol,SKU0019,Lizol Variant 4,Home Care,Spray,reckitt,SKU0008,Harpic Variant 3,Harpic,Reckitt,Health & Hygiene
+Lizol,SKU0019,Lizol Variant 4,Home Care,Spray,reckitt,SKU0009,Harpic Variant 4,Harpic,Reckitt,Health & Hygiene
+Lizol,SKU0019,Lizol Variant 4,Home Care,Spray,reckitt,SKU0022,Mortein Variant 2,Mortein,Reckitt,Personal Care
+Lizol,SKU0019,Lizol Variant 4,Home Care,Spray,reckitt,SKU0015,Veet Variant 5,Veet,Reckitt,Home Care
+Lizol,SKU0019,Lizol Variant 4,Home Care,Spray,external,SKU0044,Ariel Variant 4,Ariel,P&G,Personal Care
+Lizol,SKU0019,Lizol Variant 4,Home Care,Spray,external,SKU0031,Domex Variant 1,Domex,Unilever,Personal Care
+Lizol,SKU0019,Lizol Variant 4,Home Care,Spray,external,SKU0033,Domex Variant 3,Domex,Unilever,Personal Care
+Lizol,SKU0019,Lizol Variant 4,Home Care,Spray,external,SKU0055,Gillette Variant 5,Gillette,P&G,Personal Care
+Lizol,SKU0019,Lizol Variant 4,Home Care,Spray,external,SKU0037,Lux Variant 2,Lux,Unilever,Personal Care
+Lizol,SKU0019,Lizol Variant 4,Home Care,Spray,external,SKU0038,Lux Variant 3,Lux,Unilever,Home Care
+Mortein,SKU0024,Mortein Variant 4,Health & Hygiene,Cleaner,reckitt,SKU0002,Dettol Variant 2,Dettol,Reckitt,Health & Hygiene
+Mortein,SKU0024,Mortein Variant 4,Health & Hygiene,Cleaner,reckitt,SKU0004,Dettol Variant 4,Dettol,Reckitt,Personal Care
+Mortein,SKU0024,Mortein Variant 4,Health & Hygiene,Cleaner,reckitt,SKU0005,Dettol Variant 5,Dettol,Reckitt,Personal Care
+Mortein,SKU0024,Mortein Variant 4,Health & Hygiene,Cleaner,reckitt,SKU0018,Lizol Variant 3,Lizol,Reckitt,Health & Hygiene
+Mortein,SKU0024,Mortein Variant 4,Health & Hygiene,Cleaner,reckitt,SKU0012,Veet Variant 2,Veet,Reckitt,Personal Care
+Mortein,SKU0024,Mortein Variant 4,Health & Hygiene,Cleaner,external,SKU0041,Ariel Variant 1,Ariel,P&G,Home Care
+Mortein,SKU0024,Mortein Variant 4,Health & Hygiene,Cleaner,external,SKU0035,Domex Variant 5,Domex,Unilever,Personal Care
+Mortein,SKU0024,Mortein Variant 4,Health & Hygiene,Cleaner,external,SKU0051,Gillette Variant 1,Gillette,P&G,Personal Care
+Mortein,SKU0024,Mortein Variant 4,Health & Hygiene,Cleaner,external,SKU0026,Lifebuoy Variant 1,Lifebuoy,Unilever,Health & Hygiene
+Mortein,SKU0024,Mortein Variant 4,Health & Hygiene,Cleaner,external,SKU0036,Lux Variant 1,Lux,Unilever,Health & Hygiene
+Mortein,SKU0024,Mortein Variant 4,Health & Hygiene,Cleaner,external,SKU0040,Lux Variant 5,Lux,Unilever,Health & Hygiene
+Mortein,SKU0021,Mortein Variant 1,Home Care,Cream,self,SKU0023,Mortein Variant 3,Mortein,Reckitt,Home Care
+Mortein,SKU0021,Mortein Variant 1,Home Care,Cream,self,SKU0025,Mortein Variant 5,Mortein,Reckitt,Personal Care
+Mortein,SKU0021,Mortein Variant 1,Home Care,Cream,reckitt,SKU0007,Harpic Variant 2,Harpic,Reckitt,Health & Hygiene
+Mortein,SKU0021,Mortein Variant 1,Home Care,Cream,reckitt,SKU0010,Harpic Variant 5,Harpic,Reckitt,Health & Hygiene
+Mortein,SKU0021,Mortein Variant 1,Home Care,Cream,external,SKU0042,Ariel Variant 2,Ariel,P&G,Personal Care
+Mortein,SKU0021,Mortein Variant 1,Home Care,Cream,external,SKU0052,Gillette Variant 2,Gillette,P&G,Home Care
+Mortein,SKU0021,Mortein Variant 1,Home Care,Cream,external,SKU0053,Gillette Variant 3,Gillette,P&G,Personal Care
+Mortein,SKU0021,Mortein Variant 1,Home Care,Cream,external,SKU0050,Head & Shoulders Variant 5,Head & Shoulders,P&G,Personal Care
+Mortein,SKU0021,Mortein Variant 1,Home Care,Cream,external,SKU0028,Lifebuoy Variant 3,Lifebuoy,Unilever,Personal Care
+Mortein,SKU0021,Mortein Variant 1,Home Care,Cream,external,SKU0029,Lifebuoy Variant 4,Lifebuoy,Unilever,Personal Care
+Mortein,SKU0023,Mortein Variant 3,Home Care,Cream,self,SKU0021,Mortein Variant 1,Mortein,Reckitt,Home Care
+Mortein,SKU0023,Mortein Variant 3,Home Care,Cream,self,SKU0025,Mortein Variant 5,Mortein,Reckitt,Personal Care
+Mortein,SKU0023,Mortein Variant 3,Home Care,Cream,reckitt,SKU0007,Harpic Variant 2,Harpic,Reckitt,Health & Hygiene
+Mortein,SKU0023,Mortein Variant 3,Home Care,Cream,reckitt,SKU0010,Harpic Variant 5,Harpic,Reckitt,Health & Hygiene
+Mortein,SKU0023,Mortein Variant 3,Home Care,Cream,external,SKU0042,Ariel Variant 2,Ariel,P&G,Personal Care
+Mortein,SKU0023,Mortein Variant 3,Home Care,Cream,external,SKU0052,Gillette Variant 2,Gillette,P&G,Home Care
+Mortein,SKU0023,Mortein Variant 3,Home Care,Cream,external,SKU0053,Gillette Variant 3,Gillette,P&G,Personal Care
+Mortein,SKU0023,Mortein Variant 3,Home Care,Cream,external,SKU0050,Head & Shoulders Variant 5,Head & Shoulders,P&G,Personal Care
+Mortein,SKU0023,Mortein Variant 3,Home Care,Cream,external,SKU0028,Lifebuoy Variant 3,Lifebuoy,Unilever,Personal Care
+Mortein,SKU0023,Mortein Variant 3,Home Care,Cream,external,SKU0029,Lifebuoy Variant 4,Lifebuoy,Unilever,Personal Care
+Mortein,SKU0025,Mortein Variant 5,Personal Care,Cream,self,SKU0021,Mortein Variant 1,Mortein,Reckitt,Home Care
+Mortein,SKU0025,Mortein Variant 5,Personal Care,Cream,self,SKU0023,Mortein Variant 3,Mortein,Reckitt,Home Care
+Mortein,SKU0025,Mortein Variant 5,Personal Care,Cream,reckitt,SKU0007,Harpic Variant 2,Harpic,Reckitt,Health & Hygiene
+Mortein,SKU0025,Mortein Variant 5,Personal Care,Cream,reckitt,SKU0010,Harpic Variant 5,Harpic,Reckitt,Health & Hygiene
+Mortein,SKU0025,Mortein Variant 5,Personal Care,Cream,external,SKU0042,Ariel Variant 2,Ariel,P&G,Personal Care
+Mortein,SKU0025,Mortein Variant 5,Personal Care,Cream,external,SKU0052,Gillette Variant 2,Gillette,P&G,Home Care
+Mortein,SKU0025,Mortein Variant 5,Personal Care,Cream,external,SKU0053,Gillette Variant 3,Gillette,P&G,Personal Care
+Mortein,SKU0025,Mortein Variant 5,Personal Care,Cream,external,SKU0050,Head & Shoulders Variant 5,Head & Shoulders,P&G,Personal Care
+Mortein,SKU0025,Mortein Variant 5,Personal Care,Cream,external,SKU0028,Lifebuoy Variant 3,Lifebuoy,Unilever,Personal Care
+Mortein,SKU0025,Mortein Variant 5,Personal Care,Cream,external,SKU0029,Lifebuoy Variant 4,Lifebuoy,Unilever,Personal Care
+Mortein,SKU0022,Mortein Variant 2,Personal Care,Spray,reckitt,SKU0006,Harpic Variant 1,Harpic,Reckitt,Personal Care
+Mortein,SKU0022,Mortein Variant 2,Personal Care,Spray,reckitt,SKU0008,Harpic Variant 3,Harpic,Reckitt,Health & Hygiene
+Mortein,SKU0022,Mortein Variant 2,Personal Care,Spray,reckitt,SKU0009,Harpic Variant 4,Harpic,Reckitt,Health & Hygiene
+Mortein,SKU0022,Mortein Variant 2,Personal Care,Spray,reckitt,SKU0017,Lizol Variant 2,Lizol,Reckitt,Personal Care
+Mortein,SKU0022,Mortein Variant 2,Personal Care,Spray,reckitt,SKU0019,Lizol Variant 4,Lizol,Reckitt,Home Care
+Mortein,SKU0022,Mortein Variant 2,Personal Care,Spray,reckitt,SKU0015,Veet Variant 5,Veet,Reckitt,Home Care
+Mortein,SKU0022,Mortein Variant 2,Personal Care,Spray,external,SKU0044,Ariel Variant 4,Ariel,P&G,Personal Care
+Mortein,SKU0022,Mortein Variant 2,Personal Care,Spray,external,SKU0031,Domex Variant 1,Domex,Unilever,Personal Care
+Mortein,SKU0022,Mortein Variant 2,Personal Care,Spray,external,SKU0033,Domex Variant 3,Domex,Unilever,Personal Care
+Mortein,SKU0022,Mortein Variant 2,Personal Care,Spray,external,SKU0055,Gillette Variant 5,Gillette,P&G,Personal Care
+Mortein,SKU0022,Mortein Variant 2,Personal Care,Spray,external,SKU0037,Lux Variant 2,Lux,Unilever,Personal Care
+Mortein,SKU0022,Mortein Variant 2,Personal Care,Spray,external,SKU0038,Lux Variant 3,Lux,Unilever,Home Care
+Veet,SKU0012,Veet Variant 2,Personal Care,Cleaner,reckitt,SKU0002,Dettol Variant 2,Dettol,Reckitt,Health & Hygiene
+Veet,SKU0012,Veet Variant 2,Personal Care,Cleaner,reckitt,SKU0004,Dettol Variant 4,Dettol,Reckitt,Personal Care
+Veet,SKU0012,Veet Variant 2,Personal Care,Cleaner,reckitt,SKU0005,Dettol Variant 5,Dettol,Reckitt,Personal Care
+Veet,SKU0012,Veet Variant 2,Personal Care,Cleaner,reckitt,SKU0018,Lizol Variant 3,Lizol,Reckitt,Health & Hygiene
+Veet,SKU0012,Veet Variant 2,Personal Care,Cleaner,reckitt,SKU0024,Mortein Variant 4,Mortein,Reckitt,Health & Hygiene
+Veet,SKU0012,Veet Variant 2,Personal Care,Cleaner,external,SKU0041,Ariel Variant 1,Ariel,P&G,Home Care
+Veet,SKU0012,Veet Variant 2,Personal Care,Cleaner,external,SKU0035,Domex Variant 5,Domex,Unilever,Personal Care
+Veet,SKU0012,Veet Variant 2,Personal Care,Cleaner,external,SKU0051,Gillette Variant 1,Gillette,P&G,Personal Care
+Veet,SKU0012,Veet Variant 2,Personal Care,Cleaner,external,SKU0026,Lifebuoy Variant 1,Lifebuoy,Unilever,Health & Hygiene
+Veet,SKU0012,Veet Variant 2,Personal Care,Cleaner,external,SKU0036,Lux Variant 1,Lux,Unilever,Health & Hygiene
+Veet,SKU0012,Veet Variant 2,Personal Care,Cleaner,external,SKU0040,Lux Variant 5,Lux,Unilever,Health & Hygiene
+Veet,SKU0011,Veet Variant 1,Home Care,Soap,self,SKU0013,Veet Variant 3,Veet,Reckitt,Personal Care
+Veet,SKU0011,Veet Variant 1,Home Care,Soap,self,SKU0014,Veet Variant 4,Veet,Reckitt,Home Care
+Veet,SKU0011,Veet Variant 1,Home Care,Soap,reckitt,SKU0003,Dettol Variant 3,Dettol,Reckitt,Health & Hygiene
+Veet,SKU0011,Veet Variant 1,Home Care,Soap,reckitt,SKU0020,Lizol Variant 5,Lizol,Reckitt,Home Care
+Veet,SKU0011,Veet Variant 1,Home Care,Soap,external,SKU0045,Ariel Variant 5,Ariel,P&G,Home Care
+Veet,SKU0011,Veet Variant 1,Home Care,Soap,external,SKU0034,Domex Variant 4,Domex,Unilever,Personal Care
+Veet,SKU0011,Veet Variant 1,Home Care,Soap,external,SKU0054,Gillette Variant 4,Gillette,P&G,Home Care
+Veet,SKU0011,Veet Variant 1,Home Care,Soap,external,SKU0046,Head & Shoulders Variant 1,Head & Shoulders,P&G,Home Care
+Veet,SKU0011,Veet Variant 1,Home Care,Soap,external,SKU0047,Head & Shoulders Variant 2,Head & Shoulders,P&G,Health & Hygiene
+Veet,SKU0011,Veet Variant 1,Home Care,Soap,external,SKU0049,Head & Shoulders Variant 4,Head & Shoulders,P&G,Home Care
+Veet,SKU0011,Veet Variant 1,Home Care,Soap,external,SKU0027,Lifebuoy Variant 2,Lifebuoy,Unilever,Health & Hygiene
+Veet,SKU0011,Veet Variant 1,Home Care,Soap,external,SKU0030,Lifebuoy Variant 5,Lifebuoy,Unilever,Personal Care
+Veet,SKU0011,Veet Variant 1,Home Care,Soap,external,SKU0039,Lux Variant 4,Lux,Unilever,Personal Care
+Veet,SKU0013,Veet Variant 3,Personal Care,Soap,self,SKU0011,Veet Variant 1,Veet,Reckitt,Home Care
+Veet,SKU0013,Veet Variant 3,Personal Care,Soap,self,SKU0014,Veet Variant 4,Veet,Reckitt,Home Care
+Veet,SKU0013,Veet Variant 3,Personal Care,Soap,reckitt,SKU0003,Dettol Variant 3,Dettol,Reckitt,Health & Hygiene
+Veet,SKU0013,Veet Variant 3,Personal Care,Soap,reckitt,SKU0020,Lizol Variant 5,Lizol,Reckitt,Home Care
+Veet,SKU0013,Veet Variant 3,Personal Care,Soap,external,SKU0045,Ariel Variant 5,Ariel,P&G,Home Care
+Veet,SKU0013,Veet Variant 3,Personal Care,Soap,external,SKU0034,Domex Variant 4,Domex,Unilever,Personal Care
+Veet,SKU0013,Veet Variant 3,Personal Care,Soap,external,SKU0054,Gillette Variant 4,Gillette,P&G,Home Care
+Veet,SKU0013,Veet Variant 3,Personal Care,Soap,external,SKU0046,Head & Shoulders Variant 1,Head & Shoulders,P&G,Home Care
+Veet,SKU0013,Veet Variant 3,Personal Care,Soap,external,SKU0047,Head & Shoulders Variant 2,Head & Shoulders,P&G,Health & Hygiene
+Veet,SKU0013,Veet Variant 3,Personal Care,Soap,external,SKU0049,Head & Shoulders Variant 4,Head & Shoulders,P&G,Home Care
+Veet,SKU0013,Veet Variant 3,Personal Care,Soap,external,SKU0027,Lifebuoy Variant 2,Lifebuoy,Unilever,Health & Hygiene
+Veet,SKU0013,Veet Variant 3,Personal Care,Soap,external,SKU0030,Lifebuoy Variant 5,Lifebuoy,Unilever,Personal Care
+Veet,SKU0013,Veet Variant 3,Personal Care,Soap,external,SKU0039,Lux Variant 4,Lux,Unilever,Personal Care
+Veet,SKU0014,Veet Variant 4,Home Care,Soap,self,SKU0011,Veet Variant 1,Veet,Reckitt,Home Care
+Veet,SKU0014,Veet Variant 4,Home Care,Soap,self,SKU0013,Veet Variant 3,Veet,Reckitt,Personal Care
+Veet,SKU0014,Veet Variant 4,Home Care,Soap,reckitt,SKU0003,Dettol Variant 3,Dettol,Reckitt,Health & Hygiene
+Veet,SKU0014,Veet Variant 4,Home Care,Soap,reckitt,SKU0020,Lizol Variant 5,Lizol,Reckitt,Home Care
+Veet,SKU0014,Veet Variant 4,Home Care,Soap,external,SKU0045,Ariel Variant 5,Ariel,P&G,Home Care
+Veet,SKU0014,Veet Variant 4,Home Care,Soap,external,SKU0034,Domex Variant 4,Domex,Unilever,Personal Care
+Veet,SKU0014,Veet Variant 4,Home Care,Soap,external,SKU0054,Gillette Variant 4,Gillette,P&G,Home Care
+Veet,SKU0014,Veet Variant 4,Home Care,Soap,external,SKU0046,Head & Shoulders Variant 1,Head & Shoulders,P&G,Home Care
+Veet,SKU0014,Veet Variant 4,Home Care,Soap,external,SKU0047,Head & Shoulders Variant 2,Head & Shoulders,P&G,Health & Hygiene
+Veet,SKU0014,Veet Variant 4,Home Care,Soap,external,SKU0049,Head & Shoulders Variant 4,Head & Shoulders,P&G,Home Care
+Veet,SKU0014,Veet Variant 4,Home Care,Soap,external,SKU0027,Lifebuoy Variant 2,Lifebuoy,Unilever,Health & Hygiene
+Veet,SKU0014,Veet Variant 4,Home Care,Soap,external,SKU0030,Lifebuoy Variant 5,Lifebuoy,Unilever,Personal Care
+Veet,SKU0014,Veet Variant 4,Home Care,Soap,external,SKU0039,Lux Variant 4,Lux,Unilever,Personal Care
+Veet,SKU0015,Veet Variant 5,Home Care,Spray,reckitt,SKU0006,Harpic Variant 1,Harpic,Reckitt,Personal Care
+Veet,SKU0015,Veet Variant 5,Home Care,Spray,reckitt,SKU0008,Harpic Variant 3,Harpic,Reckitt,Health & Hygiene
+Veet,SKU0015,Veet Variant 5,Home Care,Spray,reckitt,SKU0009,Harpic Variant 4,Harpic,Reckitt,Health & Hygiene
+Veet,SKU0015,Veet Variant 5,Home Care,Spray,reckitt,SKU0017,Lizol Variant 2,Lizol,Reckitt,Personal Care
+Veet,SKU0015,Veet Variant 5,Home Care,Spray,reckitt,SKU0019,Lizol Variant 4,Lizol,Reckitt,Home Care
+Veet,SKU0015,Veet Variant 5,Home Care,Spray,reckitt,SKU0022,Mortein Variant 2,Mortein,Reckitt,Personal Care
+Veet,SKU0015,Veet Variant 5,Home Care,Spray,external,SKU0044,Ariel Variant 4,Ariel,P&G,Personal Care
+Veet,SKU0015,Veet Variant 5,Home Care,Spray,external,SKU0031,Domex Variant 1,Domex,Unilever,Personal Care
+Veet,SKU0015,Veet Variant 5,Home Care,Spray,external,SKU0033,Domex Variant 3,Domex,Unilever,Personal Care
+Veet,SKU0015,Veet Variant 5,Home Care,Spray,external,SKU0055,Gillette Variant 5,Gillette,P&G,Personal Care
+Veet,SKU0015,Veet Variant 5,Home Care,Spray,external,SKU0037,Lux Variant 2,Lux,Unilever,Personal Care
+Veet,SKU0015,Veet Variant 5,Home Care,Spray,external,SKU0038,Lux Variant 3,Lux,Unilever,Home Care

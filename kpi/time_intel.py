@@ -74,7 +74,7 @@ def resolve(preset: str, as_of, data_start=None) -> Period:
     p = preset.upper()
     d = pd.Timestamp(as_of).normalize()
     if p == "WTD":
-        return Period(d - pd.Timedelta(days=d.dayofweek), d, PRESETS[p])
+        return Period(d - pd.Timedelta(days=d.weekday()), d, PRESETS[p])
     if p == "MTD":
         return Period(d.replace(day=1), d, PRESETS[p])
     if p == "QTD":

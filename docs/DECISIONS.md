@@ -12,6 +12,17 @@ Short record of every judgement call, so anyone presenting the dashboard can exp
 - Rivals are shown in **3 tiers**: same brand's other variants, other Reckitt brands, external competitors.
 - **Closest rival** counts external competitors only: the brand present in the most of the core brand's variants.
 
+## Competitor KPIs (always against the selected brand's own competitive set)
+- **Price Gap %** = our ASP vs. the external rivals' ASP *in the same SubCategory*. The brand-level figure weights each SubCategory by our revenue there, so a brand is compared like for like (Soap vs Soap), not on product mix.
+- **Discount Gap (pp)** = our discount % − rivals' discount %, same weighting. **Competitor Discount %** = the rivals' side of it.
+- **Market Share Gap (pp)** = our market share − each external rival's, only where both have data (Dettol, Harpic, Veet vs Ariel, Domex, Lifebuoy).
+- **Share of SubCategory** = a brand's share of the revenue of all 11 tracked brands in a SubCategory. It's used for "which competitor gained share" because it exists for every brand, and it's labelled as a within-dataset measure.
+
+## Diagnostics
+- Revenue change is split exactly into **Volume + Mix + Price** at SKU level (the residual is 0). MRP never changes, so the price effect is entirely discount-driven.
+- **Promotion impact** = discount effect + promo volume effect (change in promo transactions × extra units per promo transaction × previous ASP). In this data promotions add few units, so ending one barely moves revenue: the lost volume and the recovered discount almost cancel.
+- Candidate causes (promotions, competitor discounting, competitor events, share shift, stock-outs, ratings and leakage) are each checked with numbers. A cause is "supporting" when it points the same way as the revenue move and, if quantified, explains at least 10% of it.
+
 ## KPI definitions
 - Ratios (ASP, Margin %, Discount %, Price Index) are built from summed measures, never averages of row-level ratios.
 - **Promo lift** compares promo and non-promo transactions inside the same promo months (Summer Mar–May, Festive Sep–Nov), so seasonality isn't counted as a promotion effect.

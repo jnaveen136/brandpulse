@@ -128,6 +128,10 @@ def main() -> int:
         return 1
     model = build(tables)
     save(model)
+    from kpi.competitive import competitor_map  # local import: kpi depends on pipeline
+    cmap = competitor_map(model.products)
+    cmap.to_csv(REPORTS / "competitor_map.csv", index=False)
+    print(f"Competitor map: {len(cmap)} variant-rival pairs -> reports/competitor_map.csv")
     print(f"Wrote {len(TABLES)} tables to {PROCESSED.relative_to(ROOT)}/ "
           f"({len(model.sales):,} sales rows, {model.min_date.date()} to {model.max_date.date()})")
     return 0
