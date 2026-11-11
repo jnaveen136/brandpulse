@@ -102,21 +102,36 @@ class Knowledge:
         try:
             import chromadb
             from chromadb.utils import embedding_functions as ef
-            client = chromadb.PersistentClient(path=str(CHROMA_DIR))
-            digest = hashlib.md5(json.dumps(self.chunks, sort_keys=True).encode()).hexdigest()[:12]
-            name = f"brandpulse_{digest}"
-            existing = {c.name for c in client.list_collections()}
-            for old in existing - {name}:
-                if old.startswith("brandpulse_"):
-                    client.delete_collection(old)
-            self.collection = client.get_or_create_collection(name, embedding_function=ef.DefaultEmbeddingFunction(),
-                                                              metadata={"hnsw:space": "cosine"})
-            if self.collection.count() != len(self.chunks):
-                self.collection.upsert(ids=[c["id"] for c in self.chunks], documents=[c["text"] for c in self.chunks],
-                                       metadatas=[{"source": c["source"], "title": c["title"]} for c in self.chunks])
+            self._client = chromadb.PersistentClient(path=str(CHROMA_DIR))
+            self._ef = ef.DefaultEmbeddingFunction()
+            # One collection per knowledge-base version. Old versions are left in place: another process
+            # (API, tests, evaluation) may still be reading them; they are small and rebuilt on `make data`.
+            self._name = "brandpulse_" + hashlib.md5(json.dumps(self.chunks, sort_keys=True).encode()).hexdigest()[:12]
+            self._open()
             self.mode = "hybrid (Chroma all-MiniLM-L6-v2 + BM25)"
         except Exception:  # chromadb missing or model unavailable: keyword search still works
             self.collection = None
+
+    def _open(self) -> None:
+        self.collection = self._client.get_or_create_collection(self._name, embedding_function=self._ef,
+                                                                metadata={"hnsw:space": "cosine"})
+        if self.collection.count() != len(self.chunks):
+            self.collection.upsert(ids=[c["id"] for c in self.chunks], documents=[c["text"] for c in self.chunks],
+                                   metadatas=[{"source": c["source"], "title": c["title"]} for c in self.chunks])
+
+    def _semantic(self, query: str) -> list[str]:
+        for attempt in range(2):
+            try:
+                return self.collection.query(query_texts=[query], n_results=min(20, len(self.chunks)))["ids"][0]
+            except Exception:
+                if attempt == 0:
+                    try:
+                        self._open()  # collection removed underneath us: rebuild once
+                        continue
+                    except Exception:
+                        pass
+                self.collection, self.mode = None, "bm25 (semantic index unavailable)"
+        return []
 
     def search(self, query: str, k: int = 4) -> list[dict]:
         ranks: dict[int, float] = {}
@@ -125,9 +140,8 @@ class Knowledge:
             if bm[i] > 0:
                 ranks[i] = ranks.get(i, 0) + 1 / (60 + r)
         if self.collection is not None:
-            res = self.collection.query(query_texts=[query], n_results=min(20, len(self.chunks)))
             idx = {c["id"]: i for i, c in enumerate(self.chunks)}
-            for r, cid in enumerate(res["ids"][0]):
+            for r, cid in enumerate(self._semantic(query)):
                 ranks[idx[cid]] = ranks.get(idx[cid], 0) + 1 / (60 + r)
         best = sorted(ranks, key=lambda i: -ranks[i])[:k]
         return [{"source": self.chunks[i]["source"], "title": self.chunks[i]["title"], "text": self.chunks[i]["text"]} for i in best]

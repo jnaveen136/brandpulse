@@ -255,6 +255,8 @@ class Toolbox:
             return {"error": str(e)}
         except TypeError as e:
             return {"error": f"Bad arguments for {name}: {e}"}
+        except Exception as e:  # never crash the conversation: the model gets the error and can try another way
+            return {"error": f"{name} failed: {type(e).__name__}: {str(e)[:200]}"}
 
     @staticmethod
     def dumps(result: dict) -> str:

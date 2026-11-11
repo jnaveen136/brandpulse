@@ -51,7 +51,7 @@ From [the Phase 1 notebook](notebooks/phase1_eda.ipynb) and the dashboard:
 python -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
 make data        # validate the workbook and build data/processed/
-make test        # 100 tests: KPIs recomputed by hand from the raw Excel
+make test        # 118 tests: KPIs recomputed by hand from the raw Excel
 make notebook    # re-run the Phase 1 EDA notebook
 ```
 
@@ -106,6 +106,20 @@ How an answer is produced:
 3. `search_knowledge` retrieves definitions, rules and data caveats: Chroma with local all-MiniLM-L6-v2 embeddings, fused with BM25 (reciprocal-rank fusion).
 4. **Every figure in the draft answer is checked** against the tool results at the precision it is written (₹40.7 L = ₹40,70,000 ± ₹5,000). Unsupported figures trigger one retry naming them; if any remain, those sentences are dropped or the grounded offline answer is used.
 5. Missing data (e.g. Lizol market share, brand-level campaign spend, forecasts, 2023) is answered with "the data doesn't cover this", never a guess.
+
+### Evaluation results
+
+42 questions with expected answers computed live from the engine ([reports/llm_eval.md](reports/llm_eval.md)):
+
+| | Gemini (free tier: 3.5-flash → 3.5-flash-lite) |
+|---|---|
+| Accuracy, all questions | **41 / 42 (98%)** |
+| Accuracy, answerable questions | 37 / 37 (100%) |
+| Correct "the data doesn't cover this" | 4 / 5 |
+| Unsupported figures in first drafts | 6 of 174 (3.4%), **all caught by the verifier** |
+| Final answers fully verified | **100%** |
+
+The 6 caught figures were all lakh-conversion slips by the lite model (₹41.77 L written as "₹417.74 L"); the retry fixed each one. The one miss: asked for 2023 revenue, the model correctly said 2023 isn't in the data but then mislabelled a 2024 figure. The offline mode scores 42/42, but its keyword routing was tuned on these questions, so that number shows the template path, not general ability.
 
 ## API
 
@@ -174,6 +188,6 @@ The full variant-to-rival mapping is in [reports/competitor_map.csv](reports/com
 | 4 | React dashboard (7 pages, brand-centric, every chart reacts to brand/period/filters) | ✅ |
 | 5 | Streamlit workbench (data quality, KPI explorer, competitor map, Health Score lab, glossary, Q&A eval) | ✅ |
 | 6 | Grounded LLM Q&A (Gemini / Ollama / offline), hybrid retrieval, figure verifier, 42-question evaluation | ✅ |
-| 7 | Docs, screenshots | ⏳ |
+| 7 | README with screenshots, findings and evaluation; decisions log; CI for API + web | ✅ |
 
 See [docs/DECISIONS.md](docs/DECISIONS.md) for every definition and data caveat.

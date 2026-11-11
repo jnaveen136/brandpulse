@@ -128,3 +128,17 @@ def test_tool_results_go_back_with_the_assistant_message_intact(offline):
     second = a.client.seen[1]
     assert second[-2]["tool_calls"][0]["extra_content"]["google"]["thought_signature"] == "SIG"  # Gemini needs it back
     assert second[-1]["role"] == "tool" and json.loads(second[-1]["content"])["brand"] == "Veet"
+
+
+def test_knowledge_survives_its_collection_being_deleted(offline):
+    kb = offline.tools.kb
+    if kb.collection is None:
+        pytest.skip("chromadb not installed")
+    kb._client.delete_collection(kb._name)  # what another process used to do
+    hits = kb.search("how is promo lift calculated")
+    assert hits and "Promo" in hits[0]["title"]
+
+
+def test_unexpected_tool_failure_becomes_an_error_message(offline, monkeypatch):
+    monkeypatch.setattr(offline.tools, "get_health_scores", lambda period=None: 1 / 0)
+    assert "ZeroDivisionError" in offline.tools.run("get_health_scores", {})["error"]
