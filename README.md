@@ -35,6 +35,28 @@ make test        # 100 tests: KPIs recomputed by hand from the raw Excel
 make notebook    # re-run the Phase 1 EDA notebook
 ```
 
+## Dashboard
+
+```bash
+make build   # build the React app once
+make api     # serves API + dashboard on http://localhost:8000
+# or, while developing the UI:  make api  (one terminal)  +  make web  (another) → http://localhost:5173
+```
+
+Pick one of the 5 Reckitt brands; every page then shows only that brand and its real competitors:
+
+| Page | What it answers |
+|---|---|
+| Overview | KPI cards vs comparison, revenue trend vs same period last year, Health Score breakdown, revenue by sub-category / category / retailer / region / channel |
+| Variants & Competitors | each variant vs every same-sub-category SKU in 3 colours (same brand, other Reckitt, external), closest external rival, variant × rival matrix |
+| Competitor Intelligence | price gap, discount gap, competitor discount, market share gap, activity index; *who is discounting / gained share / launched* |
+| Retailer Performance | revenue, margin, price index, promo response, growth and top SKUs per retailer |
+| Marketing & Promotions | promo lift and cost for the brand; company-wide campaign spend and ROI (labelled) |
+| Diagnostics | exact volume / mix / price bridge, evidence-checked causes, where the change happened |
+| Ask the Data | questions answered from the KPI engine (Phase 6) |
+
+The view (brand, period, comparison, filters) is kept in the URL, so any view can be bookmarked or shared.
+
 ## API
 
 ```bash
@@ -99,7 +121,7 @@ The full variant-to-rival mapping is in [reports/competitor_map.csv](reports/com
 | 1 | Validation, data model, KPI engine, Time Intelligence, Health Score, tests, EDA notebook | ✅ |
 | 2 | Competitor mapping (3 tiers), competitor KPIs, diagnostics engine | ✅ |
 | 3 | FastAPI (page endpoints + generic KPI endpoint, global filters) | ✅ |
-| 4 | React dashboard | ⏳ |
+| 4 | React dashboard (7 pages, brand-centric, every chart reacts to brand/period/filters) | ✅ |
 | 5 | Streamlit workbench | ⏳ |
 | 6 | Grounded LLM Q&A (Gemini / Ollama) + evaluation | ⏳ |
 | 7 | Docs, screenshots | ⏳ |

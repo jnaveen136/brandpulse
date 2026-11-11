@@ -36,6 +36,11 @@ from .engine import Engine, PeriodLike, _clean
 from .filters import Filters
 
 
+def money(x: float, sign: bool = True) -> str:
+    """₹ amount with the sign in front of the symbol: +₹1,234 / −₹1,234."""
+    return f"{('+' if x >= 0 else '-') if sign else ''}₹{abs(x):,.0f}"
+
+
 def _r(x, n=2):
     x = _clean(x)
     return None if x is None else round(x, n)
@@ -221,9 +226,9 @@ class Diagnostics:
         main = max(bridge_items, key=lambda x: abs(x["value"] or 0))
         top_sku = self._contributors("ProductID", f, period, mode, as_of, 1)
         headline = (f"{brand}{' ' + subcategory if subcategory else ''} revenue {direction} "
-                    f"{abs(br['change']):,.0f} ({100 * br['change'] / br['revenue_prev']:+.1f}%) "
-                    f"vs {c.label.lower()}. Largest driver: {main['name'].lower()} effect ({main['value']:+,.0f})"
-                    + (f"; biggest SKU move: {top_sku[0]['name']} ({top_sku[0]['change']:+,.0f})." if top_sku else "."))
+                    f"{money(br['change'], sign=False)} ({100 * br['change'] / br['revenue_prev']:+.1f}%) "
+                    f"vs {c.label.lower()}. Largest driver: {main['name'].lower()} effect ({money(main['value'])})"
+                    + (f"; biggest SKU move: {top_sku[0]['name']} ({money(top_sku[0]['change'])})." if top_sku else "."))
         return {
             "brand": brand, "subcategory": subcategory, "product": product,
             "period": p.to_dict(), "comparison": c.to_dict(), "direction": direction,

@@ -19,3 +19,11 @@ notebook:
 ## REST API on http://localhost:8000 (docs at /docs)
 api:
 	$(PY) -m uvicorn api.main:app --reload --port 8000
+
+## React dashboard: dev server on http://localhost:5173 (needs `make api` running)
+web:
+	cd web && npm install && npm run dev
+
+## Build the dashboard; `make api` then serves it at http://localhost:8000
+build:
+	cd web && npm install && npm run build
