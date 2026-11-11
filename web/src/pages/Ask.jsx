@@ -40,7 +40,9 @@ export default function Ask() {
   const [status, setStatus] = useState(null)
   const end = useRef(null)
   useEffect(() => { fetch('/api/ask/status').then((r) => (r.ok ? r.json() : null)).then(setStatus).catch(() => setStatus(null)) }, [])
-  useEffect(() => end.current?.scrollIntoView({ behavior: 'smooth' }), [msgs])
+  // braces matter: newer browsers return a Promise from scrollIntoView, and a value returned from an
+  // effect is treated as its cleanup function (calling the Promise crashed the whole app)
+  useEffect(() => { end.current?.scrollIntoView({ behavior: 'smooth' }) }, [msgs])
 
   const send = async (text) => {
     const question = (text ?? q).trim()

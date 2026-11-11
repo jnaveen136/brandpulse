@@ -31,7 +31,7 @@ const Ctx = createContext(null)
 
 export function ViewProvider({ children }) {
   const [view, setView] = useState(readHash)
-  useEffect(() => writeHash(view), [view])
+  useEffect(() => { writeHash(view) }, [view])
   const set = useCallback((patch) => setView((v) => ({ ...v, ...patch })), [])
   return <Ctx.Provider value={{ view, set }}>{children}</Ctx.Provider>
 }
