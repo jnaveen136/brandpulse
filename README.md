@@ -4,26 +4,46 @@ Brand intelligence platform that tracks Reckitt's 5 core brands (Dettol, Harpic,
 
 Built during a Data Engineer internship at KaarTech on the *Brand Intelligence Accelerator* dataset: 20,440 transactions, 55 SKUs, 11 brands, 3 manufacturers, 2024–2025.
 
+![Overview](docs/screenshots/overview.png)
+
+<table><tr>
+<td><img src="docs/screenshots/variants.png" alt="Variants and competitors"/><br/><sub>Every variant vs its same-sub-category rivals in 3 tiers</sub></td>
+<td><img src="docs/screenshots/diagnostics.png" alt="Diagnostics"/><br/><sub>Why revenue moved: exact bridge + checked causes</sub></td>
+</tr><tr>
+<td><img src="docs/screenshots/competitors.png" alt="Competitor intelligence"/><br/><sub>Price gap, discounting, share and competitor activity</sub></td>
+<td><img src="docs/screenshots/overview-dark.png" alt="Dark mode"/><br/><sub>Dark mode · Lizol with the labelled market-position proxy</sub></td>
+</tr></table>
+
 ## Architecture
 
 ```
-Excel workbook
+Excel workbook (10 sheets)
    │
    ▼
-pipeline/      L0  ingest + 46 validation checks → reports/data_quality.md
-               L1  enriched model → data/processed/*.parquet
+pipeline/   L0  typed ingestion + 46 validation checks  → reports/data_quality.md
+            L1  enriched model                          → data/processed/*.parquet
    │
    ▼
-kpi/           L2  KPI registry + engine + Time Intelligence + Brand Health Score
-               L3  competitor mapping + diagnostics            (Phase 2)
+kpi/        L2  KPI registry (26 KPIs) · engine · Time Intelligence (12 presets × 2 comparisons) · Health Score
+            L3  competitor mapping (3 tiers) · competitor KPIs · diagnostics (exact revenue bridge + causes)
    │
-   ├──► api/            FastAPI                                  (Phase 3)
-   │      ├──► web/            React brand-manager dashboard     (Phase 4)
-   │      └──► streamlit_app/  analyst workbench                 (Phase 5)
-   └──► llm/            grounded Q&A, Gemini or Ollama           (Phase 6)
+   ├──► api/            FastAPI: one endpoint per page + generic KPI endpoint
+   │       ├──► web/            React dashboard for brand managers (7 pages)
+   │       └──► llm/            grounded Q&A: tools → engine, hybrid RAG, figure verifier (Gemini / Ollama / offline)
+   └──► streamlit_app/  analyst workbench
 ```
 
-All numbers in the dashboard, the workbench and the Q&A come from the same `kpi.engine.Engine`.
+All numbers in the dashboard, the workbench and the Q&A come from the same `kpi.engine.Engine`, so they always agree.
+
+## What the data shows (2025 vs 2024)
+
+From [the Phase 1 notebook](notebooks/phase1_eda.ipynb) and the dashboard:
+
+- Core brands' revenue fell **2.3%** while the competitor brands grew **1.2%**. Veet is the only growing core brand (+2.9%).
+- **Promotions cost revenue.** Units per promo transaction are only +1.3% vs non-promo transactions in the same months, so the 10–15% discount leaves revenue per promo transaction 12% lower.
+- **Dettol had a packaging-leakage incident**: all 27 leakage complaints in the data are Dettol, all in Q2 2025, across all 5 SKUs.
+- **Dettol is priced far below its rivals**: about 44% under the external rivals' average selling price in its sub-categories.
+- Lizol and Mortein have no market-share data; their Health Score uses a labelled proxy (Premium Retailer Share).
 
 ## Quick start
 
@@ -64,6 +84,28 @@ make streamlit   # http://localhost:8501
 ```
 
 Data-quality report · KPI explorer (any KPI × any brands × any dimension × any period) · competitor map with CSV download · Health Score lab (try other weights) · KPI glossary and Time Intelligence table · Q&A evaluation results.
+
+## Ask the Data (grounded LLM Q&A)
+
+```bash
+cp .env.example .env            # then set LLM_PROVIDER and the key / model
+make api                        # the Ask page and the Diagnostics "Explain" button use it
+make eval                       # 42-question evaluation → reports/llm_eval.md
+```
+
+| Provider | Setup | Cost |
+|---|---|---|
+| `gemini` | free key from aistudio.google.com/apikey in `GEMINI_API_KEY` | free tier (per-model daily quota; the client falls back along `GEMINI_MODELS`) |
+| `ollama` | install Ollama, `ollama pull qwen2.5:7b` | free, local |
+| `offline` | nothing | free; keyword routing + templates, also the automatic fallback |
+
+How an answer is produced:
+
+1. The model gets the question, the dashboard context and **8 tools** (`get_kpi`, `get_breakdown`, `get_trend`, `get_competitors`, `get_variants`, `explain_change`, `get_health_scores`, `search_knowledge`). It never sees raw data.
+2. Tool arguments are validated against the KPI registry, brand list and period presets; the KPI engine computes.
+3. `search_knowledge` retrieves definitions, rules and data caveats: Chroma with local all-MiniLM-L6-v2 embeddings, fused with BM25 (reciprocal-rank fusion).
+4. **Every figure in the draft answer is checked** against the tool results at the precision it is written (₹40.7 L = ₹40,70,000 ± ₹5,000). Unsupported figures trigger one retry naming them; if any remain, those sentences are dropped or the grounded offline answer is used.
+5. Missing data (e.g. Lizol market share, brand-level campaign spend, forecasts, 2023) is answered with "the data doesn't cover this", never a guess.
 
 ## API
 
@@ -131,7 +173,7 @@ The full variant-to-rival mapping is in [reports/competitor_map.csv](reports/com
 | 3 | FastAPI (page endpoints + generic KPI endpoint, global filters) | ✅ |
 | 4 | React dashboard (7 pages, brand-centric, every chart reacts to brand/period/filters) | ✅ |
 | 5 | Streamlit workbench (data quality, KPI explorer, competitor map, Health Score lab, glossary, Q&A eval) | ✅ |
-| 6 | Grounded LLM Q&A (Gemini / Ollama) + evaluation | ⏳ |
+| 6 | Grounded LLM Q&A (Gemini / Ollama / offline), hybrid retrieval, figure verifier, 42-question evaluation | ✅ |
 | 7 | Docs, screenshots | ⏳ |
 
 See [docs/DECISIONS.md](docs/DECISIONS.md) for every definition and data caveat.

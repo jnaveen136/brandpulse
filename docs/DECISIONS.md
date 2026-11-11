@@ -45,3 +45,10 @@ Short record of every judgement call, so anyone presenting the dashboard can exp
 | 2025-12-31 is missing | YTD 2025 runs to 30 Dec and is compared with 1 Jan–30 Dec 2024 |
 | ReviewText is 3 fixed phrases tied to rating | Sentiment = rating; only the leakage complaint is extra signal |
 | Retailer names are global chains with ₹ prices | Data is synthetic; treat retailers as labels |
+
+## Q&A layer
+- **Numbers only from tools.** The model never sees raw rows; it calls validated tools backed by the KPI engine, so the dashboard and the assistant always agree.
+- **Verifier instead of trust.** Every figure in an answer must match a tool number (or a difference / % change of two) at its displayed precision. Dates, labels (Variant 3, Q2, Tier1) and small counts are ignored. One retry; then unsupported sentences are dropped or the offline answer is used.
+- **Retrieval for meaning, not numbers.** The knowledge base (KPI definitions, DECISIONS.md, validation caveats, each brand's competitive set) explains *what* a number means; hybrid Chroma (all-MiniLM-L6-v2, local, free) + BM25.
+- **One client for Gemini and Ollama** via their OpenAI-compatible endpoints. Gemini's free tier caps requests per model per day, so the client walks a model chain and skips a model whose daily quota is used up instead of retrying.
+- **Offline mode** routes by keywords to the same tools and fills templates. It needs no key, is the fallback when the LLM is down, and is the baseline in the evaluation. Its routing was tuned on the evaluation questions, so its score there is not a measure of general ability.

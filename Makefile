@@ -31,3 +31,7 @@ build:
 ## Analyst workbench on http://localhost:8501
 streamlit:
 	$(PY) -m streamlit run streamlit_app/app.py
+
+## Evaluate the Q&A assistant (provider from .env); resumable, see llm/eval/run_eval.py
+eval:
+	$(PY) -m llm.eval.run_eval

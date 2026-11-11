@@ -9,7 +9,12 @@ export const inr = (v, digits = 1) => {
   if (a >= 1e3) return `${s}₹${(a / 1e3).toFixed(digits)} K`
   return `${s}₹${a.toFixed(a < 100 ? 1 : 0)}`
 }
-export const inrAxis = (v) => inr(v, 0)
+// Axis ticks: whole units when the tick is whole, one decimal otherwise (so ₹1.5 L and ₹2 L stay distinct)
+export const inrAxis = (v) => {
+  const a = Math.abs(v)
+  const unit = a >= 1e7 ? 1e7 : a >= 1e5 ? 1e5 : a >= 1e3 ? 1e3 : 1
+  return inr(v, Number.isInteger(Math.round((a / unit) * 1000) / 1000) ? 0 : 1)
+}
 export const num = (v, d = 0) => (v == null ? '—' : Number(v).toLocaleString('en-IN', { maximumFractionDigits: d, minimumFractionDigits: d }))
 export const pct = (v, d = 1) => (v == null ? '—' : `${Number(v).toFixed(d)}%`)
 export const signed = (v, d = 1, unit = '%') => {
