@@ -1,0 +1,17 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/
+.ipynb_checkpoints/
+
+# Generated data (rebuilt with `make data`)
+data/processed/
+data/chroma/
+
+# Node
+web/node_modules/
+web/dist/
+
+# Secrets
+.env

@@ -1,0 +1,425 @@
+{
+  "summary": {
+    "checks": 46,
+    "errors": 0,
+    "warnings": 4,
+    "info": 4,
+    "status": "pass"
+  },
+  "results": [
+    {
+      "check": "primary_key_unique",
+      "sheet": "Dim_Product",
+      "severity": "error",
+      "passed": true,
+      "failing_rows": 0,
+      "detail": "ProductID must be unique",
+      "sample": []
+    },
+    {
+      "check": "no_unexpected_nulls",
+      "sheet": "Dim_Product",
+      "severity": "error",
+      "passed": true,
+      "failing_rows": 0,
+      "detail": "No nulls outside none",
+      "sample": []
+    },
+    {
+      "check": "primary_key_unique",
+      "sheet": "Dim_Retailer",
+      "severity": "error",
+      "passed": true,
+      "failing_rows": 0,
+      "detail": "RetailerID must be unique",
+      "sample": []
+    },
+    {
+      "check": "no_unexpected_nulls",
+      "sheet": "Dim_Retailer",
+      "severity": "error",
+      "passed": true,
+      "failing_rows": 0,
+      "detail": "No nulls outside none",
+      "sample": []
+    },
+    {
+      "check": "primary_key_unique",
+      "sheet": "Dim_Warehouse",
+      "severity": "error",
+      "passed": true,
+      "failing_rows": 0,
+      "detail": "WarehouseID must be unique",
+      "sample": []
+    },
+    {
+      "check": "no_unexpected_nulls",
+      "sheet": "Dim_Warehouse",
+      "severity": "error",
+      "passed": true,
+      "failing_rows": 0,
+      "detail": "No nulls outside none",
+      "sample": []
+    },
+    {
+      "check": "primary_key_unique",
+      "sheet": "Dim_Date",
+      "severity": "error",
+      "passed": true,
+      "failing_rows": 0,
+      "detail": "Date must be unique",
+      "sample": []
+    },
+    {
+      "check": "no_unexpected_nulls",
+      "sheet": "Dim_Date",
+      "severity": "error",
+      "passed": true,
+      "failing_rows": 0,
+      "detail": "No nulls outside none",
+      "sample": []
+    },
+    {
+      "check": "primary_key_unique",
+      "sheet": "Fact_Sales",
+      "severity": "error",
+      "passed": true,
+      "failing_rows": 0,
+      "detail": "SalesID must be unique",
+      "sample": []
+    },
+    {
+      "check": "no_unexpected_nulls",
+      "sheet": "Fact_Sales",
+      "severity": "error",
+      "passed": true,
+      "failing_rows": 0,
+      "detail": "No nulls outside ['Promotion']",
+      "sample": []
+    },
+    {
+      "check": "primary_key_unique",
+      "sheet": "Fact_Reviews",
+      "severity": "error",
+      "passed": true,
+      "failing_rows": 0,
+      "detail": "ReviewID must be unique",
+      "sample": []
+    },
+    {
+      "check": "no_unexpected_nulls",
+      "sheet": "Fact_Reviews",
+      "severity": "error",
+      "passed": true,
+      "failing_rows": 0,
+      "detail": "No nulls outside none",
+      "sample": []
+    },
+    {
+      "check": "no_unexpected_nulls",
+      "sheet": "Fact_Inventory",
+      "severity": "error",
+      "passed": true,
+      "failing_rows": 0,
+      "detail": "No nulls outside none",
+      "sample": []
+    },
+    {
+      "check": "primary_key_unique",
+      "sheet": "Fact_MarketShare",
+      "severity": "error",
+      "passed": true,
+      "failing_rows": 0,
+      "detail": "Date+Brand must be unique",
+      "sample": []
+    },
+    {
+      "check": "no_unexpected_nulls",
+      "sheet": "Fact_MarketShare",
+      "severity": "error",
+      "passed": true,
+      "failing_rows": 0,
+      "detail": "No nulls outside none",
+      "sample": []
+    },
+    {
+      "check": "no_unexpected_nulls",
+      "sheet": "Fact_Marketing",
+      "severity": "error",
+      "passed": true,
+      "failing_rows": 0,
+      "detail": "No nulls outside none",
+      "sample": []
+    },
+    {
+      "check": "no_unexpected_nulls",
+      "sheet": "Fact_CompetitorEvents",
+      "severity": "error",
+      "passed": true,
+      "failing_rows": 0,
+      "detail": "No nulls outside none",
+      "sample": []
+    },
+    {
+      "check": "foreign_key",
+      "sheet": "Fact_Sales",
+      "severity": "error",
+      "passed": true,
+      "failing_rows": 0,
+      "detail": "Fact_Sales.ProductID must exist in Dim_Product.ProductID",
+      "sample": []
+    },
+    {
+      "check": "foreign_key",
+      "sheet": "Fact_Sales",
+      "severity": "error",
+      "passed": true,
+      "failing_rows": 0,
+      "detail": "Fact_Sales.RetailerID must exist in Dim_Retailer.RetailerID",
+      "sample": []
+    },
+    {
+      "check": "foreign_key",
+      "sheet": "Fact_Sales",
+      "severity": "error",
+      "passed": true,
+      "failing_rows": 0,
+      "detail": "Fact_Sales.WarehouseID must exist in Dim_Warehouse.WarehouseID",
+      "sample": []
+    },
+    {
+      "check": "foreign_key",
+      "sheet": "Fact_Sales",
+      "severity": "error",
+      "passed": true,
+      "failing_rows": 0,
+      "detail": "Fact_Sales.Date must exist in Dim_Date.Date",
+      "sample": []
+    },
+    {
+      "check": "foreign_key",
+      "sheet": "Fact_Reviews",
+      "severity": "error",
+      "passed": true,
+      "failing_rows": 0,
+      "detail": "Fact_Reviews.ProductID must exist in Dim_Product.ProductID",
+      "sample": []
+    },
+    {
+      "check": "foreign_key",
+      "sheet": "Fact_Inventory",
+      "severity": "error",
+      "passed": true,
+      "failing_rows": 0,
+      "detail": "Fact_Inventory.ProductID must exist in Dim_Product.ProductID",
+      "sample": []
+    },
+    {
+      "check": "foreign_key",
+      "sheet": "Fact_Inventory",
+      "severity": "error",
+      "passed": true,
+      "failing_rows": 0,
+      "detail": "Fact_Inventory.WarehouseID must exist in Dim_Warehouse.WarehouseID",
+      "sample": []
+    },
+    {
+      "check": "foreign_key",
+      "sheet": "Fact_MarketShare",
+      "severity": "error",
+      "passed": true,
+      "failing_rows": 0,
+      "detail": "Fact_MarketShare.Brand must exist in Dim_Product.Brand",
+      "sample": []
+    },
+    {
+      "check": "revenue_equals_units_x_price",
+      "sheet": "Fact_Sales",
+      "severity": "error",
+      "passed": true,
+      "failing_rows": 0,
+      "detail": "Revenue = UnitsSold x SellingPrice",
+      "sample": []
+    },
+    {
+      "check": "margin_equals_price_minus_cost",
+      "sheet": "Fact_Sales",
+      "severity": "error",
+      "passed": true,
+      "failing_rows": 0,
+      "detail": "Margin = (SellingPrice - UnitCost) x UnitsSold",
+      "sample": []
+    },
+    {
+      "check": "units_positive",
+      "sheet": "Fact_Sales",
+      "severity": "error",
+      "passed": true,
+      "failing_rows": 0,
+      "detail": "UnitsSold > 0",
+      "sample": []
+    },
+    {
+      "check": "revenue_positive",
+      "sheet": "Fact_Sales",
+      "severity": "error",
+      "passed": true,
+      "failing_rows": 0,
+      "detail": "Revenue > 0",
+      "sample": []
+    },
+    {
+      "check": "price_not_above_mrp",
+      "sheet": "Fact_Sales",
+      "severity": "error",
+      "passed": true,
+      "failing_rows": 0,
+      "detail": "SellingPrice <= MRP",
+      "sample": []
+    },
+    {
+      "check": "margin_positive",
+      "sheet": "Fact_Sales",
+      "severity": "warning",
+      "passed": true,
+      "failing_rows": 0,
+      "detail": "Margin > 0 (loss-making rows)",
+      "sample": []
+    },
+    {
+      "check": "cost_below_mrp",
+      "sheet": "Dim_Product",
+      "severity": "error",
+      "passed": true,
+      "failing_rows": 0,
+      "detail": "UnitCost < MRP",
+      "sample": []
+    },
+    {
+      "check": "rating_in_1_to_5",
+      "sheet": "Fact_Reviews",
+      "severity": "error",
+      "passed": true,
+      "failing_rows": 0,
+      "detail": "Rating between 1 and 5",
+      "sample": []
+    },
+    {
+      "check": "stock_non_negative",
+      "sheet": "Fact_Inventory",
+      "severity": "error",
+      "passed": true,
+      "failing_rows": 0,
+      "detail": "StockOnHand >= 0",
+      "sample": []
+    },
+    {
+      "check": "share_in_0_100",
+      "sheet": "Fact_MarketShare",
+      "severity": "error",
+      "passed": true,
+      "failing_rows": 0,
+      "detail": "MarketSharePct between 0 and 100",
+      "sample": []
+    },
+    {
+      "check": "non_promo_sold_at_mrp",
+      "sheet": "Fact_Sales",
+      "severity": "warning",
+      "passed": true,
+      "failing_rows": 0,
+      "detail": "Rows without a promotion should sell at MRP",
+      "sample": []
+    },
+    {
+      "check": "promo_rows_discounted",
+      "sheet": "Fact_Sales",
+      "severity": "warning",
+      "passed": true,
+      "failing_rows": 0,
+      "detail": "Promotion rows should carry a discount",
+      "sample": []
+    },
+    {
+      "check": "calendar_complete",
+      "sheet": "Dim_Date",
+      "severity": "warning",
+      "passed": false,
+      "failing_rows": 1,
+      "detail": "Calendar should cover every day of each year. Missing: 2025-12-31. Year-end comparisons treat the last year as ending one day early.",
+      "sample": []
+    },
+    {
+      "check": "sales_every_day",
+      "sheet": "Fact_Sales",
+      "severity": "info",
+      "passed": true,
+      "failing_rows": 0,
+      "detail": "Sales exist on 730 of 730 calendar days",
+      "sample": []
+    },
+    {
+      "check": "market_share_coverage",
+      "sheet": "Fact_MarketShare",
+      "severity": "warning",
+      "passed": false,
+      "failing_rows": 5,
+      "detail": "Market share exists for 6 of 11 brands. Missing: Gillette, Head & Shoulders, Lizol, Lux, Mortein. Core brands without share: Lizol, Mortein.",
+      "sample": []
+    },
+    {
+      "check": "market_share_is_within_tracked_set",
+      "sheet": "Fact_MarketShare",
+      "severity": "info",
+      "passed": true,
+      "failing_rows": 0,
+      "detail": "The 6 brands' shares add up to 99.0-101.8% each month, so the share is measured within this set of brands, not the whole market.",
+      "sample": []
+    },
+    {
+      "check": "marketing_has_no_brand",
+      "sheet": "Fact_Marketing",
+      "severity": "warning",
+      "passed": false,
+      "failing_rows": 48,
+      "detail": "Fact_Marketing has no Brand column: campaign spend and ROI can only be reported for the company as a whole.",
+      "sample": []
+    },
+    {
+      "check": "competitor_events_are_manufacturer_level",
+      "sheet": "Fact_CompetitorEvents",
+      "severity": "warning",
+      "passed": false,
+      "failing_rows": 51,
+      "detail": "Events are recorded per manufacturer (P&G, SC Johnson, Unilever), not per brand. SC Johnson has events but no products in the data.",
+      "sample": []
+    },
+    {
+      "check": "category_not_brand_consistent",
+      "sheet": "Dim_Product",
+      "severity": "info",
+      "passed": false,
+      "failing_rows": 11,
+      "detail": "11 of 11 brands have SKUs in more than one Category, so competitors are matched on SubCategory only (see docs/DECISIONS.md).",
+      "sample": []
+    },
+    {
+      "check": "review_text_templated",
+      "sheet": "Fact_Reviews",
+      "severity": "info",
+      "passed": false,
+      "failing_rows": 3,
+      "detail": "ReviewText has only 3 fixed phrases tied to rating: 2\u2605: Average quality, Packaging leakage issue; 3\u2605: Average quality, Packaging leakage issue; 4\u2605: Excellent quality; 5\u2605: Excellent quality. Only the leakage complaint adds information beyond the rating.",
+      "sample": []
+    },
+    {
+      "check": "core_brands_are_reckitt",
+      "sheet": "Dim_Product",
+      "severity": "error",
+      "passed": true,
+      "failing_rows": 0,
+      "detail": "All core brands belong to Reckitt (found: ['Reckitt'])",
+      "sample": []
+    }
+  ]
+}
