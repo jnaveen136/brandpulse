@@ -172,7 +172,7 @@ def write_report(results: list[CheckResult], out_dir: Path) -> dict:
     out_dir.mkdir(parents=True, exist_ok=True)
     summary = summarize(results)
     payload = {"summary": summary, "results": [asdict(r) for r in results]}
-    (out_dir / "data_quality.json").write_text(json.dumps(payload, indent=2, default=str))
+    (out_dir / "data_quality.json").write_text(json.dumps(payload, indent=2, default=str), encoding="utf-8")
 
     icon = {True: "✅", False: {"error": "❌", "warning": "⚠️", "info": "ℹ️"}}
     lines = [
@@ -184,5 +184,5 @@ def write_report(results: list[CheckResult], out_dir: Path) -> dict:
     for r in sorted(results, key=lambda r: (r.passed, ["error", "warning", "info"].index(r.severity))):
         mark = "ℹ️" if r.severity == "info" else (icon[True] if r.passed else icon[False][r.severity])
         lines.append(f"| {mark} | `{r.check}` | {r.sheet} | {r.failing_rows} | {r.detail} |")
-    (out_dir / "data_quality.md").write_text("\n".join(lines) + "\n")
+    (out_dir / "data_quality.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
     return summary

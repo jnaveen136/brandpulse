@@ -128,7 +128,7 @@ def kpi(kpi_id: str, c: Ctx = Depends(ctx), brands: str | None = None, subcatego
 @app.get("/api/data-quality")
 def data_quality():
     p = ROOT / "reports" / "data_quality.json"
-    return json.loads(p.read_text()) if p.exists() else {"detail": "Run `make data` first"}
+    return json.loads(p.read_text(encoding="utf-8")) if p.exists() else {"detail": "Run `make data` first"}
 
 
 # The LLM Q&A endpoint is registered by llm/ when that package is present (Phase 6)

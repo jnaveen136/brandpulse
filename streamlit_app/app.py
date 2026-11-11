@@ -71,7 +71,7 @@ if page == "Data quality":
     if not p.exists():
         st.error("No report yet. Run `make data`.")
         st.stop()
-    dq = json.loads(p.read_text())
+    dq = json.loads(p.read_text(encoding="utf-8"))
     s = dq["summary"]
     c = st.columns(4)
     c[0].metric("Status", s["status"].upper())
@@ -237,7 +237,7 @@ elif page == "Q&A evaluation":
     if not p.exists():
         st.info("No evaluation results yet. Run `make eval` after configuring an LLM provider (see .env.example).")
         st.stop()
-    ev = json.loads(p.read_text())
+    ev = json.loads(p.read_text(encoding="utf-8"))
     s = ev["summary"]
     c = st.columns(5)
     c[0].metric("Provider", s["provider"])

@@ -45,7 +45,7 @@ def build_chunks(service) -> list[dict]:
     dec = ROOT / "docs" / "DECISIONS.md"
     if dec.exists():
         section = "Decisions"
-        for line in dec.read_text().splitlines():
+        for line in dec.read_text(encoding="utf-8").splitlines():
             if line.startswith("## "):
                 section = line[3:].strip()
             elif line.startswith("- ") or (line.startswith("|") and not line.startswith("|---") and "Caveat" not in line):
@@ -54,7 +54,7 @@ def build_chunks(service) -> list[dict]:
                                "title": section, "text": f"{section}: {re.sub(r' +', ' ', text)}"})
     dq = ROOT / "reports" / "data_quality.json"
     if dq.exists():
-        for r in json.loads(dq.read_text())["results"]:
+        for r in json.loads(dq.read_text(encoding="utf-8"))["results"]:
             if not r["passed"] or r["severity"] == "info":
                 chunks.append({"id": f"caveat:{r['check']}", "source": "Data validation", "title": r["check"],
                                "text": f"Data caveat ({r['sheet']}): {r['detail']}"})

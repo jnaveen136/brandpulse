@@ -19,6 +19,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import sys
 import re
 import time
 from datetime import datetime, timezone
@@ -57,6 +58,10 @@ def score(item, ans: dict, expected: dict) -> tuple[bool, str]:
 
 
 def main() -> None:
+    # Windows consoles/pipes may not be UTF-8: never crash on a ★ or ₹ in a message
+    for stream in (sys.stdout, sys.stderr):
+        if hasattr(stream, "reconfigure"):
+            stream.reconfigure(errors="replace")
     ap = argparse.ArgumentParser()
     ap.add_argument("--limit", type=int, default=None, help="answer at most N new questions this run")
     ap.add_argument("--fresh", action="store_true")
@@ -69,7 +74,7 @@ def main() -> None:
     store = RUNS / f"{provider}.jsonl"
     saved = {}
     if store.exists() and not args.fresh:
-        for line in store.read_text().splitlines():
+        for line in store.read_text(encoding="utf-8").splitlines():
             r = json.loads(line)
             saved[r["q"]] = r
     elif args.fresh and store.exists():
@@ -90,7 +95,7 @@ def main() -> None:
                "figures": ans.get("figures", 0), "unsupported_draft": ans.get("unsupported_draft", []),
                "seconds": ans.get("seconds")}
         saved[item["q"]] = rec
-        with store.open("a") as fh:
+        with store.open("a", encoding="utf-8") as fh:
             fh.write(json.dumps(rec, ensure_ascii=False) + "\n")
         new += 1
         print(f"[{new}] {item['kind']:<10} {item['q'][:70]}")
@@ -130,7 +135,7 @@ def main() -> None:
         "run_at": datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC"),
     }
     out = ROOT / "reports" / ("llm_eval.json" if provider != "offline" else "llm_eval_offline.json")
-    out.write_text(json.dumps({"summary": summary, "results": results}, indent=2, ensure_ascii=False))
+    out.write_text(json.dumps({"summary": summary, "results": results}, indent=2, ensure_ascii=False), encoding="utf-8")
     lines = [f"# Q&A evaluation · {summary['provider']}", "",
              f"{n} of {len(QUESTIONS)} questions · run {summary['run_at']}", "",
              "| Metric | Value |", "|---|---|",
@@ -142,7 +147,7 @@ def main() -> None:
              "By kind: " + ", ".join(f"{k} {v}" for k, v in summary["by_kind"].items()), "",
              "| ✓ | Kind | Question | Why |", "|---|---|---|---|"]
     lines += [f"| {'✅' if r['correct'] else '❌'} | {r['kind']} | {r['q']} | {r['why']} |" for r in results]
-    out.with_suffix(".md").write_text("\n".join(lines) + "\n")
+    out.with_suffix(".md").write_text("\n".join(lines) + "\n", encoding="utf-8")
     print(json.dumps(summary, indent=2))
 
 

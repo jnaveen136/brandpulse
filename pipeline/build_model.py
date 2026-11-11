@@ -116,6 +116,10 @@ def load_model(rebuild: bool = False) -> Model:
 
 
 def main() -> int:
+    # Windows consoles/pipes may not be UTF-8: never crash on a ★ or ₹ in a message
+    for stream in (sys.stdout, sys.stderr):
+        if hasattr(stream, "reconfigure"):
+            stream.reconfigure(errors="replace")
     tables = load_workbook()
     results = run_checks(tables)
     summary = write_report(results, REPORTS)

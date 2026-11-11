@@ -116,7 +116,7 @@ class Service:
         dq_path = ROOT / "reports" / "data_quality.json"
         caveats = []
         if dq_path.exists():
-            dq = json.loads(dq_path.read_text())
+            dq = json.loads(dq_path.read_text(encoding="utf-8"))
             caveats = [{"check": r["check"], "severity": r["severity"], "detail": r["detail"]}
                        for r in dq["results"] if not r["passed"] or r["severity"] == "info"]
         brands = []
