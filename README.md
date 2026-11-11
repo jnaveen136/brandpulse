@@ -31,9 +31,28 @@ All numbers in the dashboard, the workbench and the Q&A come from the same `kpi.
 python -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
 make data        # validate the workbook and build data/processed/
-make test        # 61 tests: KPIs recomputed by hand from the raw Excel
+make test        # 100 tests: KPIs recomputed by hand from the raw Excel
 make notebook    # re-run the Phase 1 EDA notebook
 ```
+
+## API
+
+```bash
+make api   # http://localhost:8000/docs
+```
+
+| Endpoint | Page |
+|---|---|
+| `GET /api/meta` | brands, presets, filter options, KPI catalog, data caveats |
+| `GET /api/brands/{brand}/overview` | KPI cards, trend vs comparison, breakdowns, Health Score |
+| `GET /api/brands/{brand}/variants` | every variant vs its 3-tier rivals, closest rivals, variant × rival matrix |
+| `GET /api/brands/{brand}/competitors` | price gap, discount gap, market share gap, activity, answers |
+| `GET /api/brands/{brand}/retailers` | retailer table, top SKUs, price index, promo response, answers |
+| `GET /api/brands/{brand}/marketing` | brand promotions + company-wide campaigns |
+| `GET /api/brands/{brand}/diagnostics` | why revenue moved |
+| `GET /api/kpi/{kpi}` | any KPI as a value, breakdown (`by=`) or series (`grain=`) |
+
+All take `period` (or `start`+`end`), `mode` (`yoy`/`previous`/`none`), `as_of`, and comma-separated `retailers`, `channels`, `tiers`, `regions`.
 
 ## Using the KPI engine
 
@@ -79,7 +98,7 @@ The full variant-to-rival mapping is in [reports/competitor_map.csv](reports/com
 | 0 | Repo, CI, Makefile | ✅ |
 | 1 | Validation, data model, KPI engine, Time Intelligence, Health Score, tests, EDA notebook | ✅ |
 | 2 | Competitor mapping (3 tiers), competitor KPIs, diagnostics engine | ✅ |
-| 3 | FastAPI | ⏳ |
+| 3 | FastAPI (page endpoints + generic KPI endpoint, global filters) | ✅ |
 | 4 | React dashboard | ⏳ |
 | 5 | Streamlit workbench | ⏳ |
 | 6 | Grounded LLM Q&A (Gemini / Ollama) + evaluation | ⏳ |

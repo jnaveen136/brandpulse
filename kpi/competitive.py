@@ -47,6 +47,11 @@ def competitor_map(products: pd.DataFrame) -> pd.DataFrame:
 
 
 class Competitive:
+    @staticmethod
+    def _f(base: Filters | None, **kw) -> Filters:
+        """Merge brand/SubCategory/product scope into the page's global filters (retailer, channel, ...)."""
+        return (base or Filters()).with_(**{k: v for k, v in kw.items() if v is not None})
+
     def __init__(self, engine: Engine):
         self.e = engine
         self.products = engine.m.products
@@ -65,7 +70,7 @@ class Competitive:
     def rival_manufacturers(self, brand: str) -> list[str]:
         return sorted(self.external_rivals(brand)["RivalManufacturer"].unique())
 
-    def closest_rivals(self, brand: str, period: PeriodLike = "YTD", as_of=None) -> pd.DataFrame:
+    def closest_rivals(self, brand: str, period: PeriodLike = "YTD", as_of=None, base: Filters | None = None) -> pd.DataFrame:
         """External brands ranked by how many of `brand`'s variants they compete with.
         Ties are broken by the rival's revenue in the shared SubCategories."""
         ext = self.external_rivals(brand)
@@ -77,7 +82,7 @@ class Competitive:
         ).reset_index()
         rev = []
         for _, r in g.iterrows():
-            f = Filters.make(brands=r["RivalBrand"], subcategories=r["subcategories"])
+            f = self._f(base, brands=r["RivalBrand"], subcategories=r["subcategories"])
             rev.append(self.e.value("revenue", f, period, as_of))
         g["shared_subcategory_revenue"] = rev
         g["total_variants"] = n_var
@@ -86,13 +91,13 @@ class Competitive:
         return g
 
     # ------------------------------------------------------------------ variants
-    def variant_table(self, brand: str, period: PeriodLike = "YTD", mode: str = "yoy", as_of=None) -> dict:
+    def variant_table(self, brand: str, period: PeriodLike = "YTD", mode: str = "yoy", as_of=None, base: Filters | None = None) -> dict:
         """Each core variant with its KPIs and its tiered rivals' KPIs, grouped by SubCategory.
 
         Returns a JSON-ready dict used by the dashboard's Variants & Competitors page."""
         m = self.map[self.map["CoreBrand"] == brand]
         ids = sorted(set(m["CoreProductID"]) | set(m["RivalProductID"]))
-        f = Filters.make(products=ids)
+        f = self._f(base, products=ids)
         kp = {}
         for k in VARIANT_KPIS:
             b = self.e.breakdown_compare(k, "ProductID", f, period, mode, as_of).set_index("ProductID")
@@ -137,15 +142,15 @@ class Competitive:
         return {"brand": brand, "groups": groups}
 
     # ------------------------------------------------------------------ competitor KPIs
-    def _subcat_compare(self, brand: str, kpi: str, period, mode, as_of) -> pd.DataFrame:
+    def _subcat_compare(self, brand: str, kpi: str, period, mode, as_of, base: Filters | None = None) -> pd.DataFrame:
         """Our KPI vs. external rivals' KPI per SubCategory, current and previous."""
         rows = []
         for sc in self.subcategories(brand):
             rivals = sorted(self.external_rivals(brand, sc)["RivalBrand"].unique())
-            ours = self.e.compare(kpi, Filters.make(brands=brand, subcategories=sc), period, mode, as_of)
-            theirs = (self.e.compare(kpi, Filters.make(brands=rivals, subcategories=sc), period, mode, as_of)
+            ours = self.e.compare(kpi, self._f(base, brands=brand, subcategories=sc), period, mode, as_of)
+            theirs = (self.e.compare(kpi, self._f(base, brands=rivals, subcategories=sc), period, mode, as_of)
                       if rivals else {"current": None, "previous": None})
-            weight = self.e.value("revenue", Filters.make(brands=brand, subcategories=sc), period, as_of) or 0
+            weight = self.e.value("revenue", self._f(base, brands=brand, subcategories=sc), period, as_of) or 0
             rows.append({"SubCategory": sc, "rivals": rivals, "ours": ours["current"], "ours_prev": ours["previous"],
                          "theirs": theirs["current"], "theirs_prev": theirs["previous"], "weight": weight})
         return pd.DataFrame(rows)
@@ -155,12 +160,12 @@ class Competitive:
         d = df.dropna(subset=[col])
         return None if d.empty or d["weight"].sum() == 0 else float((d[col] * d["weight"]).sum() / d["weight"].sum())
 
-    def price_position(self, brand: str, period: PeriodLike = "YTD", mode: str = "yoy", as_of=None) -> dict:
+    def price_position(self, brand: str, period: PeriodLike = "YTD", mode: str = "yoy", as_of=None, base: Filters | None = None) -> dict:
         """Price Gap % (our ASP vs rivals' ASP, same SubCategory) and Discount Gap (pp).
         Brand-level values are weighted by our revenue in each SubCategory, so a brand is
         compared like for like (Soap vs Soap), not on its product mix."""
-        asp = self._subcat_compare(brand, "asp", period, mode, as_of)
-        disc = self._subcat_compare(brand, "discount_pct", period, mode, as_of)
+        asp = self._subcat_compare(brand, "asp", period, mode, as_of, base=base)
+        disc = self._subcat_compare(brand, "discount_pct", period, mode, as_of, base=base)
         asp["price_gap_pct"] = 100 * (asp["ours"] / asp["theirs"] - 1)
         asp["price_gap_pct_prev"] = 100 * (asp["ours_prev"] / asp["theirs_prev"] - 1)
         disc["discount_gap_pp"] = disc["ours"] - disc["theirs"]
@@ -181,14 +186,14 @@ class Competitive:
             "by_subcategory": by_sc.replace({np.nan: None}).to_dict(orient="records"),
         }
 
-    def market_share_gap(self, brand: str, period: PeriodLike = "YTD", mode: str = "yoy", as_of=None) -> dict:
+    def market_share_gap(self, brand: str, period: PeriodLike = "YTD", mode: str = "yoy", as_of=None, base: Filters | None = None) -> dict:
         """Our market share vs. each external rival that has share data."""
         have = set(self.e.m.market_share["Brand"])
-        ours = self.e.compare("market_share", Filters.make(brands=brand), period, mode, as_of) if brand in have else None
-        rivals = [b for b in self.closest_rivals(brand, period, as_of)["RivalBrand"] if b in have]
+        ours = self.e.compare("market_share", self._f(base, brands=brand), period, mode, as_of) if brand in have else None
+        rivals = [b for b in self.closest_rivals(brand, period, as_of, base=base)["RivalBrand"] if b in have]
         rows = []
         for r in rivals:
-            c = self.e.compare("market_share", Filters.make(brands=r), period, mode, as_of)
+            c = self.e.compare("market_share", self._f(base, brands=r), period, mode, as_of)
             rows.append({"brand": r, "share": c["current"], "share_prev": c["previous"], "change_pp": c["delta"],
                          "gap_pp": None if ours is None or ours["current"] is None else ours["current"] - c["current"]})
         return {
@@ -202,15 +207,15 @@ class Competitive:
                      f"No market-share data for {brand}. Use Share of SubCategory (tracked brands) instead."),
         }
 
-    def subcategory_share(self, brand: str, period: PeriodLike = "YTD", mode: str = "yoy", as_of=None) -> pd.DataFrame:
+    def subcategory_share(self, brand: str, period: PeriodLike = "YTD", mode: str = "yoy", as_of=None, base: Filters | None = None) -> pd.DataFrame:
         """Share of each SubCategory's revenue (across all 11 tracked brands) held by `brand`
         and by each external rival. A within-dataset measure, labelled as such."""
         rows = []
         for sc in self.subcategories(brand):
-            tot = self.e.compare("revenue", Filters.make(subcategories=sc), period, mode, as_of)
+            tot = self.e.compare("revenue", self._f(base, subcategories=sc), period, mode, as_of)
             players = [brand] + sorted(self.external_rivals(brand, sc)["RivalBrand"].unique())
             for b in players:
-                c = self.e.compare("revenue", Filters.make(brands=b, subcategories=sc), period, mode, as_of)
+                c = self.e.compare("revenue", self._f(base, brands=b, subcategories=sc), period, mode, as_of)
                 share = None if not tot["current"] else 100 * (c["current"] or 0) / tot["current"]
                 prev = None if not tot["previous"] else 100 * (c["previous"] or 0) / tot["previous"]
                 rows.append({"SubCategory": sc, "Brand": b, "is_focus": b == brand, "share_pct": share,
@@ -219,11 +224,11 @@ class Competitive:
                              "revenue": c["current"], "revenue_growth_pct": c["delta_pct"]})
         return pd.DataFrame(rows)
 
-    def activity(self, brand: str, period: PeriodLike = "YTD", mode: str = "yoy", as_of=None) -> dict:
+    def activity(self, brand: str, period: PeriodLike = "YTD", mode: str = "yoy", as_of=None, base: Filters | None = None) -> dict:
         """Competitor Activity Index and the events behind it, for the manufacturers of
         `brand`'s external rivals."""
         mfrs = self.rival_manufacturers(brand)
-        f = Filters.make(manufacturers=mfrs)
+        f = self._f(base, manufacturers=mfrs)
         idx = self.e.compare("competitor_activity_index", f, period, mode, as_of)
         p, _ = self.e.period(period, as_of)
         ev, _ = self.e.frame("events", f, p)
@@ -234,27 +239,27 @@ class Competitive:
                 "note": "Events are recorded per manufacturer, not per brand."}
 
     # ------------------------------------------------------------------ answer cards
-    def answers(self, brand: str, period: PeriodLike = "YTD", mode: str = "yoy", as_of=None) -> dict:
+    def answers(self, brand: str, period: PeriodLike = "YTD", mode: str = "yoy", as_of=None, base: Filters | None = None) -> dict:
         """Direct answers to the mentor's competitor questions, for `brand`'s competitive set."""
         rivals = sorted(self.external_rivals(brand)["RivalBrand"].unique())
         subcats = self.subcategories(brand)
         disc = []
         for r in rivals:
             sc = sorted(self.external_rivals(brand).query("RivalBrand == @r")["SubCategory"].unique())
-            c = self.e.compare("discount_pct", Filters.make(brands=r, subcategories=sc), period, mode, as_of)
+            c = self.e.compare("discount_pct", self._f(base, brands=r, subcategories=sc), period, mode, as_of)
             disc.append({"brand": r, "discount_pct": c["current"], "discount_pct_prev": c["previous"], "change_pp": c["delta"]})
         disc.sort(key=lambda x: -(x["discount_pct"] or 0))
-        ours_disc = self.e.compare("discount_pct", Filters.make(brands=brand), period, mode, as_of)
+        ours_disc = self.e.compare("discount_pct", self._f(base, brands=brand), period, mode, as_of)
 
-        share = self.subcategory_share(brand, period, mode, as_of)
+        share = self.subcategory_share(brand, period, mode, as_of, base=base)
         ext = share[~share["is_focus"]].dropna(subset=["change_pp"])
         gained = (ext.groupby("Brand").apply(
             lambda g: pd.Series({"change_pp": float((g["change_pp"] * g["share_pct"].fillna(0)).sum() / max(g["share_pct"].fillna(0).sum(), 1e-9)),
                                  "subcategories": sorted(g["SubCategory"])}), include_groups=False)
                   .sort_values("change_pp", ascending=False).reset_index())
-        ms = self.market_share_gap(brand, period, mode, as_of)
+        ms = self.market_share_gap(brand, period, mode, as_of, base=base)
 
-        act = self.activity(brand, period, mode, as_of)
+        act = self.activity(brand, period, mode, as_of, base=base)
         launches = [e for e in act["events"] if e["event"] == "New Launch"]
         cuts = [e for e in act["events"] if e["event"] == "Price Cut"]
         return {

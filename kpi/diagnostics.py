@@ -85,8 +85,9 @@ class Diagnostics:
                  "change": _r(r["delta"]), "change_pct": _r(r["delta_pct"])} for _, r in b.iterrows()]
 
     def explain(self, brand: str, period: PeriodLike = "MTD", mode: str = "yoy", as_of=None,
-                subcategory: str | None = None, product: str | None = None) -> dict:
-        f = Filters.make(brands=brand, subcategories=subcategory, products=product)
+                subcategory: str | None = None, product: str | None = None, base: Filters | None = None) -> dict:
+        f = (base or Filters()).with_(**{k: v for k, v in
+                                         {"brands": brand, "subcategories": subcategory, "products": product}.items() if v})
         p, preset = self.e.period(period, as_of)
         c = self.e.comparison_period(period, mode, as_of)
         if c is None or c.coverage(self.e.data_start, self.e.data_end) < 1:
@@ -144,7 +145,7 @@ class Diagnostics:
                 impact=net)
 
         # 2. Competitor discounting in our SubCategories
-        pos = self.c.price_position(brand, p, mode, as_of)
+        pos = self.c.price_position(brand, period, mode, as_of, base=base)
         cd, cdp = pos["competitor_discount_pct"], pos["competitor_discount_pct_prev"]
         if cd is not None and cdp is not None:
             d = cd - cdp
@@ -155,7 +156,7 @@ class Diagnostics:
                 f"External rivals in our SubCategories averaged a {cd:.1f}% discount vs {cdp:.1f}% before ({d:+.1f}pp).")
 
         # 3. Competitor events in the window
-        act = self.c.activity(brand, p, mode, as_of)
+        act = self.c.activity(brand, period, mode, as_of, base=base)
         cuts = [e for e in act["events"] if e["event"] == "Price Cut"]
         launches = [e for e in act["events"] if e["event"] == "New Launch"]
         ch = act["change_pct"]
@@ -170,7 +171,7 @@ class Diagnostics:
                 + (f"Launches: {', '.join(e['competitor'] + ' ' + e['date'] for e in launches)}." if launches else ""))
 
         # 4. Rivals gaining share of our SubCategories
-        sh = self.c.subcategory_share(brand, p, mode, as_of)
+        sh = self.c.subcategory_share(brand, period, mode, as_of, base=base)
         if subcategory:
             sh = sh[sh["SubCategory"] == subcategory]
         ours = sh[sh["is_focus"]]
@@ -218,7 +219,7 @@ class Diagnostics:
              "text": "Lower discounts" if br["price"] > 0 else "Deeper discounts"},
         ]
         main = max(bridge_items, key=lambda x: abs(x["value"] or 0))
-        top_sku = self._contributors("ProductID", f, p, mode, as_of, 1)
+        top_sku = self._contributors("ProductID", f, period, mode, as_of, 1)
         headline = (f"{brand}{' ' + subcategory if subcategory else ''} revenue {direction} "
                     f"{abs(br['change']):,.0f} ({100 * br['change'] / br['revenue_prev']:+.1f}%) "
                     f"vs {c.label.lower()}. Largest driver: {main['name'].lower()} effect ({main['value']:+,.0f})"
@@ -231,10 +232,10 @@ class Diagnostics:
             "headline": headline,
             "bridge": bridge_items, "bridge_residual": _r(br["residual"], 6),
             "contributors": {
-                "sku": self._contributors("ProductID", f, p, mode, as_of),
-                "retailer": self._contributors("Retailer", f, p, mode, as_of),
-                "region": self._contributors("Region", f, p, mode, as_of),
-                "channel": self._contributors("Channel", f, p, mode, as_of, top=3),
+                "sku": self._contributors("ProductID", f, period, mode, as_of),
+                "retailer": self._contributors("Retailer", f, period, mode, as_of),
+                "region": self._contributors("Region", f, period, mode, as_of),
+                "channel": self._contributors("Channel", f, period, mode, as_of, top=3),
             },
             "causes": causes,
         }
