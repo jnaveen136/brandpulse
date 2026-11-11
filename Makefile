@@ -27,3 +27,7 @@ web:
 ## Build the dashboard; `make api` then serves it at http://localhost:8000
 build:
 	cd web && npm install && npm run build
+
+## Analyst workbench on http://localhost:8501
+streamlit:
+	$(PY) -m streamlit run streamlit_app/app.py

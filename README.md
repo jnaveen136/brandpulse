@@ -57,6 +57,14 @@ Pick one of the 5 Reckitt brands; every page then shows only that brand and its 
 
 The view (brand, period, comparison, filters) is kept in the URL, so any view can be bookmarked or shared.
 
+## Analyst workbench (Streamlit)
+
+```bash
+make streamlit   # http://localhost:8501
+```
+
+Data-quality report · KPI explorer (any KPI × any brands × any dimension × any period) · competitor map with CSV download · Health Score lab (try other weights) · KPI glossary and Time Intelligence table · Q&A evaluation results.
+
 ## API
 
 ```bash
@@ -122,7 +130,7 @@ The full variant-to-rival mapping is in [reports/competitor_map.csv](reports/com
 | 2 | Competitor mapping (3 tiers), competitor KPIs, diagnostics engine | ✅ |
 | 3 | FastAPI (page endpoints + generic KPI endpoint, global filters) | ✅ |
 | 4 | React dashboard (7 pages, brand-centric, every chart reacts to brand/period/filters) | ✅ |
-| 5 | Streamlit workbench | ⏳ |
+| 5 | Streamlit workbench (data quality, KPI explorer, competitor map, Health Score lab, glossary, Q&A eval) | ✅ |
 | 6 | Grounded LLM Q&A (Gemini / Ollama) + evaluation | ⏳ |
 | 7 | Docs, screenshots | ⏳ |
 
