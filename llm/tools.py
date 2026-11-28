@@ -161,6 +161,9 @@ class Toolbox:
                            f"{'company-wide' if k.source == 'marketing' else 'unfiltered'} value. {k.scope_note}").strip()
         if k.source == "events":
             out["note"] = f"Competitor events of {', '.join(f.manufacturers)} (recorded per manufacturer, not per brand)."
+        if res["comparison_partial"] or (res.get("period_coverage") or 1) < 1:
+            out["coverage_note"] = ("Part of the period or its comparison is outside the data (1 Jan 2024 - 30 Dec 2025), "
+                                    "so no change is reported. Do not compute one.")
         return out
 
     def get_breakdown(self, kpi, by, brand, period=None, mode=None):
