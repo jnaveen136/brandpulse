@@ -269,7 +269,7 @@ class Assistant:
                     "model": None, "tool_calls": [], "verified": True, "figures": 0, "unsupported_draft": [], "refused": True}
         res = self.tools.run(name, call)
         text = self.offline.answer(name, args, res)
-        ok, bad = verifier.check(text, [res], question)
+        ok, bad = verifier.check(text, [res], question, self.tools.entities)
         return {"answer": text, "provider": "offline" + (f" (fallback: {reason})" if reason else ""), "model": None,
                 "tool_calls": [{"name": name, "args": call}], "verified": not bad, "figures": len(ok) + len(bad),
                 "unsupported_draft": [f.text for f in bad], "refused": res.get("available") is False or "error" in res}
@@ -289,7 +289,7 @@ class Assistant:
         calls, results = [], []
         try:
             text = self._loop(msgs, calls, results)
-            ok, bad = verifier.check(text, results, question)
+            ok, bad = verifier.check(text, results, question, self.tools.entities)
             draft_bad = [f.text for f in bad]
             draft_figures = len(ok) + len(bad)
             if bad:  # one retry, naming the problem figures
@@ -298,7 +298,7 @@ class Assistant:
                              f"These figures are not in any tool result: {', '.join(draft_bad)}. Rewrite the answer using only "
                              "numbers from the tool results (call another tool if you need a number). Do not mention this check."})
                 text = self._loop(msgs, calls, results)
-                ok, bad = verifier.check(text, results, question)
+                ok, bad = verifier.check(text, results, question, self.tools.entities)
             verified = not bad
             if bad:  # drop the sentences that still carry unsupported figures
                 sentences = re.split(r"(?<=[.!?])\s+", text)
@@ -351,7 +351,7 @@ class Assistant:
         try:
             m = self.client.chat([{"role": "system", "content": SYSTEM}, {"role": "user", "content": prompt}])
             text = (m.get("content") or "").strip()
-            ok, bad = verifier.check(text, [res])
+            ok, bad = verifier.check(text, [res], entities=self.tools.entities)
             if bad:
                 return {"answer": fallback, "provider": "offline (LLM narrative failed verification)", "verified": True,
                         "unsupported_draft": [f.text for f in bad], "tool_calls": [{"name": "explain_change", "args": args}]}

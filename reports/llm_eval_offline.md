@@ -1,14 +1,14 @@
 # Q&A evaluation · offline
 
-42 of 42 questions · run 2026-11-11 02:31 UTC
+42 of 42 questions · run 2026-11-28 02:13 UTC
 
 | Metric | Value |
 |---|---|
 | Accuracy (all) | 100% |
 | Accuracy (answerable questions) | 100% |
 | Correct refusals | 100% |
-| Unsupported figures in first drafts | 0 of 205 (0.0%) |
-| Final answers fully verified | 100% |
+| Unsupported figures in first drafts (checked at answer time) | 0 of 205 (0.0%) |
+| Final answers fully verified (current verifier, tools replayed) | 100% |
 
 By kind: lookup 10/10, time 8/8, breakdown 5/5, competitor 7/7, diagnostic 3/3, health 2/2, definition 2/2, refusal 5/5
 

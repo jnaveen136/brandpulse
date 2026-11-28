@@ -89,6 +89,10 @@ class Toolbox:
         self.brands = sorted(self.e.m.products["Brand"].unique())
         self.kb = Knowledge(self.s)
         self.specs = specs(self.brands)
+        m = self.e.m  # names the verifier binds figures to (see llm/verifier.py, entity binding)
+        self.entities = (set(m.products["Brand"]) | set(m.products["ProductName"]) | set(m.products["Manufacturer"])
+                         | set(m.products["SubCategory"]) | set(m.retailers["Retailer"]) | set(m.retailers["Channel"])
+                         | set(m.sales["Region"]) | set(m.events["Competitor"]))
 
     # ------------------------------------------------------------------ validation
     def _brand(self, b, core_only=False):

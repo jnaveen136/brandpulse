@@ -3,24 +3,24 @@
     "provider": "gemini (gemini-3.5-flash, gemini-3.5-flash-lite)",
     "questions": 42,
     "of_total": 42,
-    "accuracy_pct": 97.61904761904762,
-    "answer_accuracy_pct": 100.0,
+    "accuracy_pct": 92.85714285714286,
+    "answer_accuracy_pct": 94.5945945945946,
     "refusal_accuracy_pct": 80.0,
     "figures_in_drafts": 174,
     "unsupported_in_drafts": 6,
     "hallucination_rate_pct": 3.4482758620689653,
-    "final_verified_pct": 100.0,
+    "final_verified_pct": 95.23809523809524,
     "by_kind": {
       "lookup": "10/10",
       "time": "8/8",
-      "breakdown": "5/5",
+      "breakdown": "4/5",
       "competitor": "7/7",
-      "diagnostic": "3/3",
+      "diagnostic": "2/3",
       "health": "2/2",
       "definition": "2/2",
       "refusal": "4/5"
     },
-    "run_at": "2026-11-11 02:45 UTC"
+    "run_at": "2026-11-28 02:12 UTC"
   },
   "results": [
     {
@@ -43,6 +43,8 @@
       "figures": 3,
       "unsupported_draft": [],
       "seconds": 8.61,
+      "verified_at_answer_time": true,
+      "unsupported_final": [],
       "correct": true,
       "why": "found ₹40.67 L for 4,067,007.75"
     },
@@ -67,6 +69,8 @@
       "figures": 3,
       "unsupported_draft": [],
       "seconds": 13.13,
+      "verified_at_answer_time": true,
+      "unsupported_final": [],
       "correct": true,
       "why": "found 17,259 for 17,259.00"
     },
@@ -90,6 +94,8 @@
       "figures": 3,
       "unsupported_draft": [],
       "seconds": 19.65,
+      "verified_at_answer_time": true,
+      "unsupported_final": [],
       "correct": true,
       "why": "found ₹154.30 for 154.30"
     },
@@ -113,6 +119,8 @@
       "figures": 3,
       "unsupported_draft": [],
       "seconds": 25.52,
+      "verified_at_answer_time": true,
+      "unsupported_final": [],
       "correct": true,
       "why": "found 44.05% for 44.05"
     },
@@ -136,6 +144,8 @@
       "figures": 3,
       "unsupported_draft": [],
       "seconds": 12.55,
+      "verified_at_answer_time": true,
+      "unsupported_final": [],
       "correct": true,
       "why": "found 2.85% for 2.85"
     },
@@ -160,6 +170,8 @@
       "figures": 3,
       "unsupported_draft": [],
       "seconds": 20.01,
+      "verified_at_answer_time": true,
+      "unsupported_final": [],
       "correct": true,
       "why": "found 3.41 for 3.41"
     },
@@ -183,6 +195,8 @@
       "figures": 3,
       "unsupported_draft": [],
       "seconds": 11.93,
+      "verified_at_answer_time": true,
+      "unsupported_final": [],
       "correct": true,
       "why": "found 7.23% for 7.23"
     },
@@ -206,8 +220,10 @@
       "figures": 3,
       "unsupported_draft": [],
       "seconds": 30.09,
+      "verified_at_answer_time": true,
+      "unsupported_final": [],
       "correct": true,
-      "why": "found 21.58 for 21.58"
+      "why": "found 21.58 percent for 21.58"
     },
     {
       "q": "What is Dettol's market share this year?",
@@ -230,6 +246,8 @@
       "figures": 3,
       "unsupported_draft": [],
       "seconds": 13.97,
+      "verified_at_answer_time": true,
+      "unsupported_final": [],
       "correct": true,
       "why": "found 24.49% for 24.49"
     },
@@ -253,6 +271,8 @@
       "figures": 5,
       "unsupported_draft": [],
       "seconds": 7.98,
+      "verified_at_answer_time": true,
+      "unsupported_final": [],
       "correct": true,
       "why": "found ₹26.04 L for 2,603,888.15"
     },
@@ -289,6 +309,8 @@
         "₹406.70 L"
       ],
       "seconds": 22.29,
+      "verified_at_answer_time": true,
+      "unsupported_final": [],
       "correct": true,
       "why": "found -2.64% for -2.64"
     },
@@ -313,6 +335,8 @@
       "figures": 3,
       "unsupported_draft": [],
       "seconds": 15.51,
+      "verified_at_answer_time": true,
+      "unsupported_final": [],
       "correct": true,
       "why": "found 7.66% for -7.66"
     },
@@ -337,6 +361,8 @@
       "figures": 3,
       "unsupported_draft": [],
       "seconds": 10.28,
+      "verified_at_answer_time": true,
+      "unsupported_final": [],
       "correct": true,
       "why": "found 12.86% for -12.86"
     },
@@ -361,8 +387,10 @@
       "figures": 4,
       "unsupported_draft": [],
       "seconds": 14.54,
+      "verified_at_answer_time": true,
+      "unsupported_final": [],
       "correct": true,
-      "why": "found 69.88 for 69.88"
+      "why": "found 69.88 percent for 69.88"
     },
     {
       "q": "How is Lizol revenue quarter to date versus the same period last year?",
@@ -385,6 +413,8 @@
       "figures": 3,
       "unsupported_draft": [],
       "seconds": 20.56,
+      "verified_at_answer_time": true,
+      "unsupported_final": [],
       "correct": true,
       "why": "found 6.17% for 6.17"
     },
@@ -421,6 +451,8 @@
         "₹45.35 L"
       ],
       "seconds": 30.94,
+      "verified_at_answer_time": true,
+      "unsupported_final": [],
       "correct": true,
       "why": "found 336924.0 for 336,924.00"
     },
@@ -447,6 +479,8 @@
         "₹7.29 L"
       ],
       "seconds": 22.85,
+      "verified_at_answer_time": true,
+      "unsupported_final": [],
       "correct": true,
       "why": "found ₹37,537 for 37,537.00"
     },
@@ -470,6 +504,8 @@
       "figures": 5,
       "unsupported_draft": [],
       "seconds": 17.36,
+      "verified_at_answer_time": true,
+      "unsupported_final": [],
       "correct": true,
       "why": "found ₹25.29 L for 2,528,683.10"
     },
@@ -490,12 +526,19 @@
           }
         }
       ],
-      "verified": true,
+      "verified": false,
       "figures": 6,
       "unsupported_draft": [],
       "seconds": 18.65,
-      "correct": true,
-      "why": "all expected words present"
+      "verified_at_answer_time": true,
+      "unsupported_final": [
+        "₹49.39 L",
+        "₹38.96 L",
+        "₹45.34 L",
+        "₹44.34 L"
+      ],
+      "correct": false,
+      "why": "unsupported figures: ₹49.39 L, ₹38.96 L, ₹45.34 L, ₹44.34 L"
     },
     {
       "q": "Which retailer has the highest margin percentage for Harpic this year?",
@@ -518,6 +561,8 @@
       "figures": 4,
       "unsupported_draft": [],
       "seconds": 27.63,
+      "verified_at_answer_time": true,
+      "unsupported_final": [],
       "correct": true,
       "why": "all expected words present"
     },
@@ -542,6 +587,8 @@
       "figures": 10,
       "unsupported_draft": [],
       "seconds": 13.25,
+      "verified_at_answer_time": true,
+      "unsupported_final": [],
       "correct": true,
       "why": "all expected words present"
     },
@@ -566,6 +613,8 @@
       "figures": 6,
       "unsupported_draft": [],
       "seconds": 14.45,
+      "verified_at_answer_time": true,
+      "unsupported_final": [],
       "correct": true,
       "why": "all expected words present"
     },
@@ -590,6 +639,8 @@
       "figures": 5,
       "unsupported_draft": [],
       "seconds": 8.72,
+      "verified_at_answer_time": true,
+      "unsupported_final": [],
       "correct": true,
       "why": "all expected words present"
     },
@@ -613,6 +664,8 @@
       "figures": 0,
       "unsupported_draft": [],
       "seconds": 15.21,
+      "verified_at_answer_time": true,
+      "unsupported_final": [],
       "correct": true,
       "why": "all expected words present"
     },
@@ -636,6 +689,8 @@
       "figures": 18,
       "unsupported_draft": [],
       "seconds": 14.27,
+      "verified_at_answer_time": true,
+      "unsupported_final": [],
       "correct": true,
       "why": "all expected words present"
     },
@@ -659,6 +714,8 @@
       "figures": 6,
       "unsupported_draft": [],
       "seconds": 14.82,
+      "verified_at_answer_time": true,
+      "unsupported_final": [],
       "correct": true,
       "why": "all expected words present"
     },
@@ -682,8 +739,10 @@
       "figures": 6,
       "unsupported_draft": [],
       "seconds": 9.04,
+      "verified_at_answer_time": true,
+      "unsupported_final": [],
       "correct": true,
-      "why": "found 30.54 for 30.54"
+      "why": "found 30.54 percent for 30.54"
     },
     {
       "q": "What is the market share gap between Dettol and Lifebuoy this year?",
@@ -715,6 +774,8 @@
       "figures": 5,
       "unsupported_draft": [],
       "seconds": 14.09,
+      "verified_at_answer_time": true,
+      "unsupported_final": [],
       "correct": true,
       "why": "found 4.53 pp for 4.52"
     },
@@ -737,6 +798,8 @@
       "figures": 0,
       "unsupported_draft": [],
       "seconds": 9.49,
+      "verified_at_answer_time": true,
+      "unsupported_final": [],
       "correct": true,
       "why": "all expected words present"
     },
@@ -760,6 +823,8 @@
       "figures": 0,
       "unsupported_draft": [],
       "seconds": 6.08,
+      "verified_at_answer_time": true,
+      "unsupported_final": [],
       "correct": true,
       "why": "all expected words present"
     },
@@ -783,6 +848,8 @@
       "figures": 14,
       "unsupported_draft": [],
       "seconds": 9.77,
+      "verified_at_answer_time": true,
+      "unsupported_final": [],
       "correct": true,
       "why": "found ₹55,666 for -55,665.95"
     },
@@ -802,12 +869,21 @@
           }
         }
       ],
-      "verified": true,
+      "verified": false,
       "figures": 9,
       "unsupported_draft": [],
       "seconds": 9.98,
-      "correct": true,
-      "why": "found -2.6% for -2.64"
+      "verified_at_answer_time": true,
+      "unsupported_final": [
+        "₹1.10 Cr",
+        "₹40.67 Cr",
+        "₹63.4L",
+        "₹29.1L",
+        "₹17.9L",
+        "₹164.1L"
+      ],
+      "correct": false,
+      "why": "unsupported figures: ₹1.10 Cr, ₹40.67 Cr, ₹63.4L, ₹29.1L, ₹17.9L, ₹164.1L"
     },
     {
       "q": "What drove Mortein's revenue change last month compared with the month before?",
@@ -829,6 +905,8 @@
       "figures": 7,
       "unsupported_draft": [],
       "seconds": 19.98,
+      "verified_at_answer_time": true,
+      "unsupported_final": [],
       "correct": true,
       "why": "found ₹2,70,174 for -270,174.00"
     },
@@ -850,6 +928,8 @@
       "figures": 5,
       "unsupported_draft": [],
       "seconds": 9.55,
+      "verified_at_answer_time": true,
+      "unsupported_final": [],
       "correct": true,
       "why": "found 61.0 for 61.00"
     },
@@ -871,6 +951,8 @@
       "figures": 5,
       "unsupported_draft": [],
       "seconds": 9.19,
+      "verified_at_answer_time": true,
+      "unsupported_final": [],
       "correct": true,
       "why": "all expected words present"
     },
@@ -892,6 +974,8 @@
       "figures": 2,
       "unsupported_draft": [],
       "seconds": 15.23,
+      "verified_at_answer_time": true,
+      "unsupported_final": [],
       "correct": true,
       "why": "all expected words present"
     },
@@ -919,6 +1003,8 @@
       "figures": 0,
       "unsupported_draft": [],
       "seconds": 11.92,
+      "verified_at_answer_time": true,
+      "unsupported_final": [],
       "correct": true,
       "why": "all expected words present"
     },
@@ -943,6 +1029,8 @@
       "figures": 0,
       "unsupported_draft": [],
       "seconds": 9.41,
+      "verified_at_answer_time": true,
+      "unsupported_final": [],
       "correct": true,
       "why": "refused"
     },
@@ -973,6 +1061,8 @@
       "figures": 0,
       "unsupported_draft": [],
       "seconds": 14.69,
+      "verified_at_answer_time": true,
+      "unsupported_final": [],
       "correct": true,
       "why": "refused"
     },
@@ -997,6 +1087,8 @@
       "figures": 3,
       "unsupported_draft": [],
       "seconds": 7.6,
+      "verified_at_answer_time": true,
+      "unsupported_final": [],
       "correct": true,
       "why": "refused"
     },
@@ -1011,6 +1103,8 @@
       "figures": 0,
       "unsupported_draft": [],
       "seconds": 1.62,
+      "verified_at_answer_time": true,
+      "unsupported_final": [],
       "correct": true,
       "why": "refused"
     },
@@ -1065,6 +1159,8 @@
       "figures": 2,
       "unsupported_draft": [],
       "seconds": 20.93,
+      "verified_at_answer_time": true,
+      "unsupported_final": [],
       "correct": false,
       "why": "did not say the data is missing"
     }

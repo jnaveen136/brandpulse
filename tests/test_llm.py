@@ -151,3 +151,63 @@ def test_search_answers_immediately_while_index_builds(offline):
     hits = kb.search("which brands have no market share data")
     assert hits and any("market share" in h["text"].lower() for h in hits)
     assert kb.wait(300)
+
+
+# ---------------------------------------------------------------- stricter verifier (review fixes)
+from llm.eval import baseline_verifier  # noqa: E402
+
+DIAG = {"bridge": [{"name": "Volume", "value": -29063.11}, {"name": "Mix", "value": -63417.56}],
+        "contributors": {"retailer": [{"name": "Amazon", "revenue": 493886.5, "revenue_prev": 389558.5, "change_pct": 26.78},
+                                      {"name": "BigBasket", "revenue": 453356.25, "revenue_prev": 443376.75, "change_pct": 2.25}]},
+        "causes": [{"title": "Promotions changed", "evidence": {"discount_pct": 4.12, "discount_pct_prev": 3.87}}]}
+
+
+def test_derived_figures_only_between_sibling_numbers():
+    # 45.6% is a % change between two unrelated numbers (Amazon revenue vs a bridge effect): coincidence, not analysis
+    stray = 100 * abs(493886.5 - 63417.56) / 63417.56
+    txt = f"Revenue rose {stray:.1f}%."
+    assert not baseline_verifier.check(txt, [DIAG])[1]          # the original verifier accepted it
+    assert verifier.check(txt, [DIAG])[1]                        # now rejected
+    # a real comparison between siblings still passes: Amazon now vs last year, discount now vs before
+    assert not verifier.check("Amazon grew 26.8% (₹4.94 L vs ₹3.90 L); discount up 0.25 pp.", [DIAG])[1]
+
+
+def test_lakh_slip_from_the_gemini_run_is_caught():
+    # the saved Gemini answer that the original verifier passed: true Amazon revenue is ₹4.94 L
+    txt = "Amazon drives the most revenue at ₹49.39 L, up 26.78% from ₹38.96 L."
+    bad = [f.text for f in verifier.check(txt, [DIAG])[1]]
+    assert bad == ["₹49.39 L", "₹38.96 L"]
+
+
+def test_units_must_agree():
+    res = [{"kpi": "margin_pct", "unit": "pct", "value": 24.49, "comparison_value": 23.91}]
+    assert not verifier.check("Margin was 24.49%.", res)[1]
+    assert verifier.check("Margin was ₹24.49.", res)[1]   # a percentage written as rupees
+
+
+def test_gap_between_two_tool_calls_is_allowed():
+    a = {"kpi": "market_share", "unit": "pct", "brand": "Dettol", "value": 24.49}
+    b = {"kpi": "market_share", "unit": "pct", "brand": "Lifebuoy", "value": 19.96}
+    assert not verifier.check("Dettol 24.49% vs Lifebuoy 19.96%: a 4.53 pp gap.", [a, b])[1]
+
+
+def test_entity_binding_rejects_another_brands_number(offline):
+    hs = offline.tools.run("get_health_scores", {"period": "YTD"})
+    score = {r["Brand"]: r["health_score"] for r in hs["brands"]}
+    ents = offline.tools.entities
+    assert not verifier.check(f"Veet's health score is {score['Veet']:.1f}.", [hs], entities=ents)[1]
+    assert verifier.check(f"Veet's health score is {score['Lux']:.1f}.", [hs], entities=ents)[1]
+
+
+def test_percent_written_as_a_word():
+    f = verifier.extract("Units fell 1.83 percent.")
+    assert len(f) == 1 and f[0].kind == "pct"
+
+
+def test_verifier_evaluation_holds(offline):
+    """Regression guard for reports/verifier_eval.md: catch rate, false alarms and the real Gemini slips."""
+    from llm.eval.verifier_eval import corpus, evaluate
+    res = evaluate(corpus(offline), offline.tools.entities)["current"]
+    assert res["false_alarms"] == 0
+    assert res["real_hallucinations_caught"] == res["real_hallucinations"] == 10
+    assert res["catch_rate_overall_pct"] >= 90

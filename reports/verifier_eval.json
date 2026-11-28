@@ -1,0 +1,62 @@
+{
+  "baseline": {
+    "answers": 81,
+    "genuine_figures": 367,
+    "false_alarms": 0,
+    "false_alarm_pct": 0.0,
+    "catch_rate_pct": {
+      "\u00b11%": 80.3921568627451,
+      "\u00b13%": 76.19047619047619,
+      "\u00b110%": 76.5625,
+      "\u00b130%": 75.0,
+      "\u00d710 slip": 81.15942028985508
+    },
+    "catch_rate_overall_pct": 77.77777777777777,
+    "mutations": 315,
+    "random_pct_accepted_pct": 28.88888888888889,
+    "real_hallucinations": 10,
+    "real_hallucinations_caught": 0,
+    "per_source": {
+      "offline": {
+        "answers": 40,
+        "figures": 205,
+        "false_alarms": 0
+      },
+      "gemini": {
+        "answers": 41,
+        "figures": 162,
+        "false_alarms": 0
+      }
+    }
+  },
+  "current": {
+    "answers": 81,
+    "genuine_figures": 367,
+    "false_alarms": 0,
+    "false_alarm_pct": 0.0,
+    "catch_rate_pct": {
+      "\u00b11%": 96.07843137254902,
+      "\u00b13%": 88.88888888888889,
+      "\u00b110%": 95.3125,
+      "\u00b130%": 92.6470588235294,
+      "\u00d710 slip": 98.55072463768116
+    },
+    "catch_rate_overall_pct": 94.28571428571429,
+    "mutations": 315,
+    "random_pct_accepted_pct": 8.88888888888889,
+    "real_hallucinations": 10,
+    "real_hallucinations_caught": 10,
+    "per_source": {
+      "offline": {
+        "answers": 40,
+        "figures": 205,
+        "false_alarms": 0
+      },
+      "gemini": {
+        "answers": 41,
+        "figures": 162,
+        "false_alarms": 0
+      }
+    }
+  }
+}

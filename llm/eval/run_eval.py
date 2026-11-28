@@ -13,7 +13,13 @@ several days. Metrics:
                   correct when the answer says the data does not cover it
   unsupported     share of figures in first drafts that no tool result
                   supports (what the verifier catches before the user sees it)
-  final verified  share of answers whose final text passed the verifier
+  final verified  share of answers whose final text passes the CURRENT verifier,
+                  re-checked against the replayed tool calls (the tools are
+                  deterministic). Saved answers are re-judged on every run, so an
+                  old answer that only passed a weaker verifier is not counted.
+
+An answer is only correct when it is also fully verified: a right headline
+number next to a wrong rupee figure is a wrong answer.
 """
 from __future__ import annotations
 
@@ -25,6 +31,7 @@ import time
 from datetime import datetime, timezone
 from pathlib import Path
 
+from llm import verifier
 from llm.assistant import Assistant
 from llm.verifier import extract
 
@@ -38,8 +45,10 @@ REFUSAL = re.compile(r"not available|isn.t available|no (?:market.share )?data|d
                      r"unable to|no forecast|starts? (?:on|in|from) (?:1 jan|jan)|not possible|only (?:has|covers|includes)", re.I)
 
 
-def score(item, ans: dict, expected: dict) -> tuple[bool, str]:
+def score(item, ans: dict, expected: dict, unsupported: list[str] | None = None) -> tuple[bool, str]:
     text = ans["answer"]
+    if unsupported:
+        return False, f"unsupported figures: {', '.join(unsupported)}"
     if item.get("refuse"):
         ok = bool(REFUSAL.search(text))
         return ok, "refused" if ok else "did not say the data is missing"
@@ -108,8 +117,12 @@ def main() -> None:
         if item["q"] not in saved:
             continue
         rec = saved[item["q"]]
-        ok, why = score(item, rec, item["expect"](a.tools))
-        results.append({**rec, "correct": ok, "why": why})
+        replay = [a.tools.run(c["name"], c["args"]) for c in rec["tool_calls"]]
+        _, bad = verifier.check(rec["answer"], replay, item["q"], a.tools.entities)
+        unsupported = [f.text for f in bad]
+        ok, why = score(item, rec, item["expect"](a.tools), unsupported)
+        results.append({**rec, "verified_at_answer_time": rec["verified"], "verified": not unsupported,
+                        "unsupported_final": unsupported, "correct": ok, "why": why})
     n = len(results)
     if not n:
         print("No answers yet.")
@@ -143,8 +156,8 @@ def main() -> None:
              f"| Accuracy (all) | {summary['accuracy_pct']:.0f}% |",
              f"| Accuracy (answerable questions) | {summary['answer_accuracy_pct']:.0f}% |",
              f"| Correct refusals | {summary['refusal_accuracy_pct']:.0f}% |",
-             f"| Unsupported figures in first drafts | {bad} of {figs} ({summary['hallucination_rate_pct']:.1f}%) |",
-             f"| Final answers fully verified | {summary['final_verified_pct']:.0f}% |", "",
+             f"| Unsupported figures in first drafts (checked at answer time) | {bad} of {figs} ({summary['hallucination_rate_pct']:.1f}%) |",
+             f"| Final answers fully verified (current verifier, tools replayed) | {summary['final_verified_pct']:.0f}% |", "",
              "By kind: " + ", ".join(f"{k} {v}" for k, v in summary["by_kind"].items()), "",
              "| ✓ | Kind | Question | Why |", "|---|---|---|---|"]
     lines += [f"| {'✅' if r['correct'] else '❌'} | {r['kind']} | {r['q']} | {r['why']} |" for r in results]
