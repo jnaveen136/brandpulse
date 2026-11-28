@@ -67,3 +67,35 @@ def test_week_buckets_start_monday():
 def test_unknown_preset_raises():
     with pytest.raises(ValueError):
         T.resolve("XYZ", AS_OF)
+
+
+# ---------------------------------------------------------------- calendar alignment at month / quarter ends
+@pytest.mark.parametrize("preset,as_of,mode,start,end", [
+    # a complete month is compared with the complete previous month (31 May was dropped before)
+    ("MTD", "2025-06-30", "previous", "2025-05-01", "2025-05-31"),
+    ("MTD", "2025-02-28", "previous", "2025-01-01", "2025-01-31"),
+    # a partial month: the same day-of-month span
+    ("MTD", "2025-06-15", "previous", "2025-05-01", "2025-05-15"),
+    # 1-30 Mar -> 1-28 Feb (Feb has no 30th: clipped to the month end)
+    ("MTD", "2025-03-30", "previous", "2025-02-01", "2025-02-28"),
+    # a complete quarter vs the complete previous quarter (was 1 Oct-29 Dec)
+    ("QTD", "2025-03-31", "previous", "2024-10-01", "2024-12-31"),
+    # the dashboard default: QTD to 30 Dec vs 1 Jul-30 Sep (was 29 Sep: day-count, not calendar)
+    ("QTD", "2025-12-30", "previous", "2025-07-01", "2025-09-30"),
+    ("QTD", "2025-11-15", "previous", "2025-07-01", "2025-08-15"),
+    # leap years: a complete Feb 2025 vs the complete Feb 2024 (29 days)
+    ("YTD", "2025-02-28", "yoy", "2024-01-01", "2024-02-29"),
+    ("MTD", "2025-02-28", "yoy", "2024-02-01", "2024-02-29"),
+    ("YTD", "2025-12-30", "yoy", "2024-01-01", "2024-12-30"),   # 31 Dec 2025 is missing: compare to 30 Dec
+])
+def test_calendar_aligned_comparisons(preset, as_of, mode, start, end):
+    c = T.comparison(T.resolve(preset, as_of), preset, mode)
+    assert (c.start, c.end) == (pd.Timestamp(start), pd.Timestamp(end))
+
+
+@pytest.mark.parametrize("preset", ["WTD", "MTD", "QTD", "YTD", "R7", "R30", "R90", "PM", "PQ", "L13W", "PY"])
+@pytest.mark.parametrize("as_of", ["2025-01-01", "2025-02-28", "2025-03-31", "2025-06-30", "2025-12-30", "2024-02-29"])
+def test_previous_period_never_overlaps(preset, as_of):
+    p = T.resolve(preset, as_of)
+    c = T.comparison(p, preset, "previous")
+    assert c.end < p.start and c.start <= c.end

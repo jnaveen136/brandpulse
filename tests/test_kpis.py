@@ -154,3 +154,43 @@ def test_health_score_covers_all_brands_and_labels_source(eng):
     h = health_scores(eng)
     assert len(h) == 11 and h["health_score"].between(0, 100).all()
     assert set(h[h["position_source"] == "proxy"].index) == {"Gillette", "Head & Shoulders", "Lizol", "Lux", "Mortein"}
+
+
+# ---------------------------------------------------------------- aggregation edge cases (review fixes)
+def test_market_share_of_several_brands_adds_up(eng, raw):
+    # Dettol + Harpic = Reckitt's combined share: summed within a month, averaged over months
+    m = _ytd(raw["Fact_MarketShare"])
+    m = m[m["Brand"].isin(["Dettol", "Harpic"])]
+    want = m.groupby("Date")["MarketSharePct"].sum().mean()
+    got = eng.value("market_share", Filters.make(brands=["Dettol", "Harpic"]), "YTD")
+    assert got == pytest.approx(want)
+    assert got == pytest.approx(eng.value("market_share", Filters.make(brands="Dettol"), "YTD")
+                                + eng.value("market_share", Filters.make(brands="Harpic"), "YTD"))
+
+
+def test_market_share_breakdown_by_brand_is_unchanged(eng):
+    b = eng.breakdown("market_share", "Brand", None, "YTD").set_index("Brand")["value"]
+    assert b["Dettol"] == pytest.approx(eng.value("market_share", F, "YTD"))
+
+
+def test_per_day_kpi_is_not_diluted_past_the_data_end(eng):
+    f = Filters.make(manufacturers=["Unilever", "P&G"])
+    inside = eng.value("competitor_activity_index", f, ("2025-12-01", "2025-12-30"))
+    beyond = eng.value("competitor_activity_index", f, ("2025-12-01", "2026-01-30"))
+    assert beyond == pytest.approx(inside)
+
+
+def test_no_growth_against_a_partly_covered_comparison(eng):
+    # Mar 2024 - Feb 2025 vs a year earlier: the comparison is only 2 of 12 months inside the data
+    res = eng.compare("revenue", F, ("2024-03-01", "2025-02-28"), mode="yoy")
+    assert 0 < res["comparison_coverage"] < 1
+    assert res["previous"] is not None and res["delta"] is None and res["delta_pct"] is None
+
+
+def test_growth_kpi_matches_hand_computed_previous_month(eng, raw):
+    # Harpic MTD (1-30 Dec 2025) vs the same days of November
+    s = raw["sales"][raw["sales"]["Brand"] == "Harpic"]
+    cur = s[s["Date"].between("2025-12-01", "2025-12-30")]["Revenue"].sum()
+    prev = s[s["Date"].between("2025-11-01", "2025-11-30")]["Revenue"].sum()
+    got = eng.value("revenue_growth_pct", Filters.make(brands="Harpic"), "MTD", mode="previous")
+    assert got == pytest.approx(100 * (cur / prev - 1))

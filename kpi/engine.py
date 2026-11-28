@@ -88,8 +88,24 @@ class Engine:
         mdf = pd.DataFrame({name: f(df) for name, f in measures.items()}, index=df.index)
         if by:
             mdf[by] = df[by]
-            return mdf.groupby(by, observed=True, sort=False)[list(measures)].sum().reset_index()
-        return mdf.sum().to_frame().T
+            out = mdf.groupby(by, observed=True, sort=False)[list(measures)].sum().reset_index()
+        else:
+            out = mdf.sum().to_frame().T
+        if kpi.source == "market_share":
+            # Shares of different brands in the same month ADD UP (Dettol + Harpic = Reckitt's
+            # combined share); only months are averaged. So the denominator is the number of
+            # distinct months, not the number of rows.
+            if by:
+                months = df.groupby(by, observed=True, sort=False)["Date"].nunique().rename("ShareObs")
+                out = out.drop(columns="ShareObs").merge(months.reset_index(), on=by, how="left")
+            else:
+                out["ShareObs"] = df["Date"].nunique()
+        return out
+
+    def _covered_days(self, p: T.Period) -> int:
+        """Days of `p` that fall inside the data. Per-day KPIs divide by these, so a range that runs
+        past the last data date is not diluted by days that have no data."""
+        return max(round(p.coverage(self.data_start, self.data_end) * p.days), 0)
 
     def _apply(self, kpi: R.KPI, agg: pd.DataFrame, days: int | pd.Series | None = None) -> np.ndarray:
         if agg.empty:
@@ -108,7 +124,7 @@ class Engine:
             return self.compare(kpi.base, filters, period, mode=mode, as_of=as_of)["delta_pct"]
         p, _ = self.period(period, as_of)
         df, _ = self.frame(kpi.source, filters, p)
-        v = self._apply(kpi, self._aggregate(kpi, df, []), p.days)
+        v = self._apply(kpi, self._aggregate(kpi, df, []), self._covered_days(p))
         return _clean(v[0]) if len(v) else None
 
     def compare(self, kpi_id: str, filters: Filters | None = None, period: PeriodLike = "ALL",
@@ -122,23 +138,28 @@ class Engine:
         p, preset = self.period(period, as_of)
         c = T.comparison(p, preset, mode)
         df, ignored = self.frame(kpi.source, filters, p)
-        cur = self._apply(kpi, self._aggregate(kpi, df, []), p.days)
+        cur = self._apply(kpi, self._aggregate(kpi, df, []), self._covered_days(p))
         cur = _clean(cur[0]) if len(cur) else None
+        cur_cov = round(p.coverage(self.data_start, self.data_end), 4)
 
         prev, cov = None, None
         if c is not None:
             cov = round(c.coverage(self.data_start, self.data_end), 4)
             if cov > 0:
                 dfc, _ = self.frame(kpi.source, filters, c)
-                pv = self._apply(kpi, self._aggregate(kpi, dfc, []), c.days)
+                pv = self._apply(kpi, self._aggregate(kpi, dfc, []), self._covered_days(c))
                 prev = _clean(pv[0]) if len(pv) else None
-        delta = None if cur is None or prev is None else cur - prev
+        # A change is only reported when both periods are fully inside the data: growth of a full
+        # period over a half-covered one (or vice versa) is an artefact, not a business change.
+        complete = cov == 1 and cur_cov == 1
+        delta = None if cur is None or prev is None or not complete else cur - prev
         delta_pct = None if delta is None or not prev else 100 * delta / abs(prev)
         return {
             "kpi": kpi.id, "name": kpi.name, "unit": kpi.unit, "group": kpi.group,
             "current": cur, "previous": prev, "delta": delta, "delta_pct": delta_pct,
             "higher_is_better": kpi.higher_is_better,
             "period": p.to_dict(), "comparison": c.to_dict() if c else None,
+            "period_coverage": cur_cov,
             "comparison_coverage": cov,
             "comparison_partial": cov is not None and cov < 1,
             "ignored_filters": ignored, "scope_note": kpi.scope_note,
@@ -160,7 +181,7 @@ class Engine:
         df, _ = self.frame(kpi.source, filters, p)
         agg = self._aggregate(kpi, df, by)
         out = agg[by].copy()
-        out["value"] = self._apply(kpi, agg, p.days)
+        out["value"] = self._apply(kpi, agg, self._covered_days(p))
         if sort:
             out = out.sort_values("value", ascending=False, na_position="last")
         return out.reset_index(drop=True)
@@ -172,12 +193,14 @@ class Engine:
         p, preset = self.period(period, as_of)
         c = T.comparison(p, preset, mode)
         cur = self.breakdown(kpi_id, by, filters, p, sort=False).rename(columns={"value": "current"})
+        complete = (c is not None and c.coverage(self.data_start, self.data_end) == 1
+                    and p.coverage(self.data_start, self.data_end) == 1)
         if c is None or c.coverage(self.data_start, self.data_end) == 0:
             cur["previous"] = np.nan
         else:
             prev = self.breakdown(kpi_id, by, filters, c, sort=False).rename(columns={"value": "previous"})
             cur = cur.merge(prev, on=by, how="outer")
-        cur["delta"] = cur["current"] - cur["previous"]
+        cur["delta"] = (cur["current"] - cur["previous"]) if complete else np.nan
         cur["delta_pct"] = 100 * cur["delta"] / cur["previous"].abs().replace(0, np.nan)
         return cur.sort_values("current", ascending=False, na_position="last").reset_index(drop=True)
 

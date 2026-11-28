@@ -65,8 +65,29 @@ def _quarter_start(d: pd.Timestamp) -> pd.Timestamp:
     return pd.Timestamp(d.year, 3 * ((d.month - 1) // 3) + 1, 1)
 
 
+def _is_month_end(d: pd.Timestamp) -> bool:
+    return (d + pd.Timedelta(days=1)).day == 1
+
+
+def _shift_months(d: pd.Timestamp, months: int) -> pd.Timestamp:
+    """Move a date by whole months, calendar-aligned (the DAX DATEADD convention).
+
+    A month-end date stays a month-end date: 30 Jun -> 31 May, 31 Mar -> 31 Dec,
+    28 Feb 2025 -> 29 Feb 2024. Without this rule a complete month or quarter is
+    compared with a truncated one (30 Jun MTD vs 1-30 May would drop 31 May)."""
+    out = d + pd.DateOffset(months=months)  # 31 Mar - 1 month -> 28/29 Feb (clipped)
+    return out + pd.offsets.MonthEnd(0) if _is_month_end(d) else out
+
+
 def _shift_years(d: pd.Timestamp, years: int) -> pd.Timestamp:
-    return d + pd.DateOffset(years=years)  # Feb 29 -> Feb 28 in non-leap years
+    return _shift_months(d, 12 * years)  # 29 Feb 2024 -> 28 Feb 2023; 28 Feb 2025 -> 29 Feb 2024
+
+
+def _shift_back(period: "Period", months: int, label: str) -> "Period":
+    """The same calendar span `months` earlier, ending before the original period starts."""
+    start = _shift_months(period.start, -months)
+    end = min(_shift_months(period.end, -months), period.start - pd.Timedelta(days=1))
+    return Period(start, end, label)
 
 
 def resolve(preset: str, as_of, data_start=None) -> Period:
@@ -113,14 +134,12 @@ def comparison(period: Period, preset: str | None, mode: str) -> Period | None:
 
     p = (preset or "").upper()
     s, e = period.start, period.end
-    if p == "MTD":   # same day-of-month span in the previous month
-        prev_start = s - pd.DateOffset(months=1)
-        prev_end = min(e - pd.DateOffset(months=1), s - pd.Timedelta(days=1))
-        return Period(prev_start, prev_end, "Same days last month")
+    # MTD / QTD: the same days of the previous month / quarter, calendar-aligned. If the current
+    # period ends on a month end (a complete month), so does the comparison: 1-30 Jun vs 1-31 May.
+    if p == "MTD":
+        return _shift_back(period, 1, "Same days last month")
     if p == "QTD":
-        prev_start = s - pd.DateOffset(months=3)
-        prev_end = min(prev_start + pd.Timedelta(days=period.days - 1), s - pd.Timedelta(days=1))
-        return Period(prev_start, prev_end, "Same days last quarter")
+        return _shift_back(period, 3, "Same days last quarter")
     if p == "YTD":
         return Period(_shift_years(s, -1), _shift_years(e, -1), "Same days last year")
     if p == "PM":
