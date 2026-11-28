@@ -28,7 +28,13 @@ Short record of every judgement call, so anyone presenting the dashboard can exp
 - **Promo lift** compares promo and non-promo transactions inside the same promo months (Summer Mar–May, Festive Sep–Nov), so seasonality isn't counted as a promotion effect.
 - **Price Index** compares each SKU with its own average price across the selection (mix-adjusted), so a retailer that sells more expensive SKUs isn't wrongly labelled "premium priced".
 - **Competitor Activity Index** = Σ event weight × (1 + |price impact %| / 10), per 30 days. Weights: Price Cut 3, New Launch 2, TV Campaign 1. A price cut hits our sales directly; a launch adds a rival product; a TV campaign is awareness only.
-- **Market share** for a period is the average of the monthly shares of the months that overlap it. The data is monthly, so windows shorter than a month (WTD, R7) show the month's value and no change.
+- **Market share** for a period is the average of the monthly shares of the months that overlap it. For several brands at once the shares are **added within each month** first (Dettol + Harpic = Reckitt's combined share), then averaged over months. The data is monthly, so windows shorter than a month (WTD, R7) show the month's value and no change.
+
+## Time Intelligence conventions
+- Comparisons are **calendar-aligned** (the DAX `DATEADD` convention): MTD/QTD/YTD and same-period-last-year shift every date by whole months, and a month-end date stays a month end. So a complete month is compared with the complete previous month (1–30 Jun vs 1–31 May), a complete quarter with the complete previous quarter, and a complete Feb 2025 with Feb 2024 including the 29th. A partial period is compared with the same days (1–15 Jun vs 1–15 May). The previous period never overlaps the current one.
+- Rolling windows (R7/R30/R90, L13W), WTD and custom ranges compare with the same number of days immediately before.
+- **No change is reported** when the period or its comparison is only partly inside the data (1 Jan 2024 – 30 Dec 2025): a growth % against half a period is an artefact. The UI badges the comparison as partial.
+- Per-day KPIs (Competitor Activity Index) divide by the days *with data*, so a range that runs past 30 Dec 2025 is not diluted.
 
 ## Brand Health Score
 - Components: revenue growth (30%), margin % (25%), average rating (25%), market position change (20%).
@@ -48,7 +54,9 @@ Short record of every judgement call, so anyone presenting the dashboard can exp
 
 ## Q&A layer
 - **Numbers only from tools.** The model never sees raw rows; it calls validated tools backed by the KPI engine, so the dashboard and the assistant always agree.
-- **Verifier instead of trust.** Every figure in an answer must match a tool number (or a difference / % change of two) at its displayed precision. Dates, labels (Variant 3, Q2, Tier1) and small counts are ignored. One retry; then unsupported sentences are dropped or the offline answer is used.
+- **Verifier instead of trust.** Every figure in an answer must match a tool number at its displayed precision, with three rules: (1) a difference or % change is only allowed between numbers in the **same tool object** (a KPI and its comparison, our ASP and the rivals' ASP), or between the top-level values of two tool calls; (2) **units must agree** (₹ figures never match % fields and vice versa); (3) **entity binding**: a figure in a sentence naming a brand / retailer / variant must come from that entity's object. Dates, labels (Variant 3, Q2, Tier1) and small counts are ignored. One retry; then unsupported sentences are dropped or the offline answer is used.
+- Why the rules: the first version allowed a difference between *any* two of the ~170 numbers in a diagnostics result, so 93% of random invented percentages passed and two Gemini answers with 10× and 100× lakh/crore slips were marked verified. Measured in `reports/verifier_eval.md` (deterministic, no API key needed).
+- **An evaluation answer is only correct if it is also fully verified** (tool calls replayed against the current verifier): a right headline number next to a wrong rupee figure is a wrong answer.
 - **Retrieval for meaning, not numbers.** The knowledge base (KPI definitions, DECISIONS.md, validation caveats, each brand's competitive set) explains *what* a number means; hybrid Chroma (all-MiniLM-L6-v2, local, free) + BM25.
 - **One client for Gemini and Ollama** via their OpenAI-compatible endpoints. Gemini's free tier caps requests per model per day, so the client walks a model chain and skips a model whose daily quota is used up instead of retrying.
 - **Offline mode** routes by keywords to the same tools and fills templates. It needs no key, is the fallback when the LLM is down, and is the baseline in the evaluation. Its routing was tuned on the evaluation questions, so its score there is not a measure of general ability.

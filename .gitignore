@@ -15,3 +15,6 @@ web/dist/
 
 # Secrets
 .env
+
+# Personal study notes (not part of the project)
+study-notes/
