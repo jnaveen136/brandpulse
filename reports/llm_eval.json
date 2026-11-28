@@ -3,46 +3,47 @@
     "provider": "gemini (gemini-3.5-flash, gemini-3.5-flash-lite)",
     "questions": 42,
     "of_total": 42,
-    "accuracy_pct": 92.85714285714286,
-    "answer_accuracy_pct": 94.5945945945946,
+    "accuracy_pct": 97.61904761904762,
+    "answer_accuracy_pct": 100.0,
     "refusal_accuracy_pct": 80.0,
-    "figures_in_drafts": 174,
-    "unsupported_in_drafts": 6,
-    "hallucination_rate_pct": 3.4482758620689653,
-    "final_verified_pct": 95.23809523809524,
+    "figures_in_drafts": 157,
+    "unsupported_in_drafts": 13,
+    "hallucination_rate_pct": 8.280254777070065,
+    "final_verified_pct": 100.0,
     "by_kind": {
       "lookup": "10/10",
       "time": "8/8",
-      "breakdown": "4/5",
+      "breakdown": "5/5",
       "competitor": "7/7",
-      "diagnostic": "2/3",
+      "diagnostic": "3/3",
       "health": "2/2",
       "definition": "2/2",
       "refusal": "4/5"
     },
-    "run_at": "2026-11-28 02:12 UTC"
+    "run_at": "2026-11-28 02:33 UTC"
   },
   "results": [
     {
       "q": "What is Dettol's revenue this year?",
       "kind": "lookup",
-      "answer": "Dettol's revenue year to date (YTD 2025) is ₹40.67 L, compared to ₹41.77 L in the same period last year. This represents a decrease of 2.64% year-over-year.",
+      "answer": "Dettol's total revenue Year-to-Date (YTD 2025) is ₹40.67 L, compared to ₹41.77 L during the same period last year. This represents a decrease of 2.64% year-over-year.",
       "provider": "gemini",
       "model": "gemini-3.5-flash",
       "tool_calls": [
         {
           "name": "get_kpi",
           "args": {
+            "kpi": "revenue",
             "period": "YTD",
-            "brand": "Dettol",
-            "kpi": "revenue"
+            "mode": "yoy",
+            "brand": "Dettol"
           }
         }
       ],
       "verified": true,
       "figures": 3,
       "unsupported_draft": [],
-      "seconds": 8.61,
+      "seconds": 8.89,
       "verified_at_answer_time": true,
       "unsupported_final": [],
       "correct": true,
@@ -51,24 +52,23 @@
     {
       "q": "How many units did Harpic sell last quarter?",
       "kind": "lookup",
-      "answer": "In the previous quarter (July 1 to September 30, 2025), Harpic sold 17,259 units, which is a 1.83 percent decrease compared to 17,580 units sold in the same period last year.",
+      "answer": "In the previous quarter (Q3 2025, July 1 to September 30, 2025), Harpic sold 17,259 units. This represents a 1.83% decline compared to the 17,580 units sold in the same period last year.",
       "provider": "gemini",
-      "model": "gemini-3.5-flash-lite",
+      "model": "gemini-3.5-flash",
       "tool_calls": [
         {
           "name": "get_kpi",
           "args": {
-            "period": "PQ",
+            "kpi": "units",
             "brand": "Harpic",
-            "mode": "yoy",
-            "kpi": "units"
+            "period": "PQ"
           }
         }
       ],
       "verified": true,
       "figures": 3,
       "unsupported_draft": [],
-      "seconds": 13.13,
+      "seconds": 96.9,
       "verified_at_answer_time": true,
       "unsupported_final": [],
       "correct": true,
@@ -77,23 +77,24 @@
     {
       "q": "What is Veet's average selling price year to date?",
       "kind": "lookup",
-      "answer": "Veet's average selling price year to date is ₹154.30, which is a decrease of 0.05 percent compared to ₹154.37 in the same period last year (YTD, 1 Jan to 30 Dec 2025).",
+      "answer": "Veet's average selling price (ASP) year to date is ₹154.30, compared to ₹154.37 in the same period last year. This represents a slight decline of 0.05%.",
       "provider": "gemini",
-      "model": "gemini-3.5-flash-lite",
+      "model": "gemini-3.5-flash",
       "tool_calls": [
         {
           "name": "get_kpi",
           "args": {
-            "period": "YTD",
+            "mode": "yoy",
+            "kpi": "asp",
             "brand": "Veet",
-            "kpi": "asp"
+            "period": "YTD"
           }
         }
       ],
       "verified": true,
       "figures": 3,
       "unsupported_draft": [],
-      "seconds": 19.65,
+      "seconds": 3.47,
       "verified_at_answer_time": true,
       "unsupported_final": [],
       "correct": true,
@@ -102,23 +103,24 @@
     {
       "q": "What is Mortein's margin percentage this year?",
       "kind": "lookup",
-      "answer": "Mortein's margin percentage for Year to date (2025-01-01 to 2025-12-30) is 44.05%. This compares to 44.35% for the same period last year, representing a change of -0.29 pp.",
+      "answer": "Mortein's margin percentage for Year to Date 2025 is 44.05%, down by 0.29 pp compared to 44.35% in the same period last year.",
       "provider": "gemini",
-      "model": "gemini-3.5-flash-lite",
+      "model": "gemini-3.5-flash",
       "tool_calls": [
         {
           "name": "get_kpi",
           "args": {
-            "kpi": "margin_pct",
             "period": "YTD",
-            "brand": "Mortein"
+            "mode": "yoy",
+            "brand": "Mortein",
+            "kpi": "margin_pct"
           }
         }
       ],
       "verified": true,
       "figures": 3,
       "unsupported_draft": [],
-      "seconds": 25.52,
+      "seconds": 97.45,
       "verified_at_answer_time": true,
       "unsupported_final": [],
       "correct": true,
@@ -127,23 +129,24 @@
     {
       "q": "What is Lizol's average discount this year?",
       "kind": "lookup",
-      "answer": "Lizol's average discount YTD (Year to date, 1 Jan 2025 to 30 Dec 2025) is 2.85%, which is a 0.05 pp increase compared to 2.80% in the same period last year.",
+      "answer": "Lizol's average discount year to date (YTD 2025) is 2.85%. This is a slight increase of 0.05 percentage points compared to 2.80% in the same period last year.",
       "provider": "gemini",
-      "model": "gemini-3.5-flash-lite",
+      "model": "gemini-3.5-flash",
       "tool_calls": [
         {
           "name": "get_kpi",
           "args": {
-            "brand": "Lizol",
+            "kpi": "discount_pct",
             "period": "YTD",
-            "kpi": "discount_pct"
+            "brand": "Lizol",
+            "mode": "yoy"
           }
         }
       ],
       "verified": true,
       "figures": 3,
       "unsupported_draft": [],
-      "seconds": 12.55,
+      "seconds": 32.53,
       "verified_at_answer_time": true,
       "unsupported_final": [],
       "correct": true,
@@ -152,24 +155,24 @@
     {
       "q": "What is Dettol's average customer rating this year?",
       "kind": "lookup",
-      "answer": "Dettol's average customer rating for YTD (Year to date: 2025-01-01 to 2025-12-30) is 3.41, compared to 3.48 for the same period last year, representing a change of -2.12%.",
+      "answer": "Dettol's average customer rating for Year to Date (2025) is 3.41 out of 5. This represents a 2.12% decline compared to the same period last year, when the average rating was 3.48.",
       "provider": "gemini",
-      "model": "gemini-3.5-flash-lite",
+      "model": "gemini-3.5-flash",
       "tool_calls": [
         {
           "name": "get_kpi",
           "args": {
             "brand": "Dettol",
-            "mode": "yoy",
+            "period": "YTD",
             "kpi": "avg_rating",
-            "period": "YTD"
+            "mode": "yoy"
           }
         }
       ],
       "verified": true,
       "figures": 3,
       "unsupported_draft": [],
-      "seconds": 20.01,
+      "seconds": 3.92,
       "verified_at_answer_time": true,
       "unsupported_final": [],
       "correct": true,
@@ -178,23 +181,34 @@
     {
       "q": "What is Harpic's stock-out risk this month?",
       "kind": "lookup",
-      "answer": "For Harpic in MTD (01 Dec 2025 to 30 Dec 2025), the stock-out risk is 7.23%.\nThis is an increase of 5.08 percentage points compared to 2.15% in the same period last year.",
+      "answer": "Harpic's stock-out risk is 7.23% for Month to Date (1–30 Dec 2025). This is up by 5.08 pp compared to 2.15% in the same period last year.",
       "provider": "gemini",
-      "model": "gemini-3.5-flash-lite",
+      "model": "gemini-3.5-flash",
       "tool_calls": [
         {
           "name": "get_kpi",
           "args": {
-            "period": "MTD",
             "kpi": "stockout_risk_pct",
+            "mode": "yoy",
+            "period": "MTD",
             "brand": "Harpic"
+          }
+        },
+        {
+          "name": "get_breakdown",
+          "args": {
+            "brand": "Harpic",
+            "kpi": "stockout_risk_pct",
+            "by": "Retailer",
+            "mode": "yoy",
+            "period": "MTD"
           }
         }
       ],
       "verified": true,
       "figures": 3,
       "unsupported_draft": [],
-      "seconds": 11.93,
+      "seconds": 4.86,
       "verified_at_answer_time": true,
       "unsupported_final": [],
       "correct": true,
@@ -203,23 +217,24 @@
     {
       "q": "What share of Veet revenue comes from promotions this year?",
       "kind": "lookup",
-      "answer": "For Veet year to date (2025-01-01 to 2025-12-30), the promotion revenue share is 21.58 percent, compared to 21.41 percent in the same period last year, representing an increase of 0.17 percentage points.",
+      "answer": "For Year to date (2025-01-01 to 2025-12-30) compared to the same period last year, Veet promo revenue share is 21.58 percent, which is an increase of 0.17 pp compared to 21.41 percent last year.",
       "provider": "gemini",
       "model": "gemini-3.5-flash-lite",
       "tool_calls": [
         {
           "name": "get_kpi",
           "args": {
-            "period": "YTD",
+            "kpi": "promo_revenue_share",
             "brand": "Veet",
-            "kpi": "promo_revenue_share"
+            "period": "YTD",
+            "mode": "yoy"
           }
         }
       ],
       "verified": true,
       "figures": 3,
       "unsupported_draft": [],
-      "seconds": 30.09,
+      "seconds": 33.48,
       "verified_at_answer_time": true,
       "unsupported_final": [],
       "correct": true,
@@ -228,49 +243,49 @@
     {
       "q": "What is Dettol's market share this year?",
       "kind": "lookup",
-      "answer": "For YTD 2025 (1 January 2025 to 30 December 2025), Dettol's market share is 24.49%.\nThis represents an increase of 0.58 percentage points compared to 23.91% in the same period last year.",
+      "answer": "For YTD 2025 (1 Jan 2025 to 30 Dec 2025), Dettol's market share is 24.49 percent.\nThis is an increase of 0.58 percentage points compared to 23.91 percent in the same period last year (YOY).\nMarket share is measured as the average monthly share within the 6 brands that track this data.",
       "provider": "gemini",
       "model": "gemini-3.5-flash-lite",
       "tool_calls": [
         {
           "name": "get_kpi",
           "args": {
-            "mode": "yoy",
-            "brand": "Dettol",
+            "kpi": "market_share",
             "period": "YTD",
-            "kpi": "market_share"
+            "mode": "yoy",
+            "brand": "Dettol"
           }
         }
       ],
       "verified": true,
       "figures": 3,
       "unsupported_draft": [],
-      "seconds": 13.97,
+      "seconds": 1.71,
       "verified_at_answer_time": true,
       "unsupported_final": [],
       "correct": true,
-      "why": "found 24.49% for 24.49"
+      "why": "found 24.49 percent for 24.49"
     },
     {
       "q": "What was Lizol's revenue in the last 13 weeks?",
       "kind": "lookup",
-      "answer": "Lizol's revenue in the last 13 weeks (2025-10-01 to 2025-12-30) was ₹26.04 L (₹26,03,888.15), representing a 6.17% increase compared to ₹24.53 L (₹24,52,635.15) in the same period last year.",
+      "answer": "Lizol's revenue in the last 13 weeks (from 1 October 2025 to 30 December 2025) was ₹26.04 L, representing a 6.17 percent increase compared to ₹24.53 L in the same period last year.",
       "provider": "gemini",
       "model": "gemini-3.5-flash-lite",
       "tool_calls": [
         {
           "name": "get_kpi",
           "args": {
-            "kpi": "revenue",
             "brand": "Lizol",
+            "kpi": "revenue",
             "period": "L13W"
           }
         }
       ],
       "verified": true,
-      "figures": 5,
+      "figures": 3,
       "unsupported_draft": [],
-      "seconds": 7.98,
+      "seconds": 1.57,
       "verified_at_answer_time": true,
       "unsupported_final": [],
       "correct": true,
@@ -279,7 +294,7 @@
     {
       "q": "How did Dettol revenue change this year compared with last year?",
       "kind": "time",
-      "answer": "Dettol revenue changed by -2.64% for Year to date compared with the same period last year. Revenue was 4067007.75 compared to the previous 4177388.75.",
+      "answer": "For YTD compared to the same period last year, Dettol revenue changed by -2.64 percent.\nThe current value is 4,067,007.75 and the comparison value is 4,177,388.75.",
       "provider": "gemini",
       "model": "gemini-3.5-flash-lite",
       "tool_calls": [
@@ -295,29 +310,29 @@
         {
           "name": "get_kpi",
           "args": {
+            "brand": "Dettol",
             "period": "YTD",
             "mode": "yoy",
-            "kpi": "revenue",
-            "brand": "Dettol"
+            "kpi": "revenue"
           }
         }
       ],
       "verified": true,
-      "figures": 3,
+      "figures": 4,
       "unsupported_draft": [
-        "₹417.74 L",
-        "₹406.70 L"
+        "₹4.18 Cr",
+        "₹4.07 Cr"
       ],
-      "seconds": 22.29,
+      "seconds": 2.66,
       "verified_at_answer_time": true,
       "unsupported_final": [],
       "correct": true,
-      "why": "found -2.64% for -2.64"
+      "why": "found -2.64 percent for -2.64"
     },
     {
       "q": "How did Harpic revenue this month compare with last month?",
       "kind": "time",
-      "answer": "For MTD (01 Dec 2025 to 30 Dec 2025) compared to the previous period (01 Nov 2025 to 30 Nov 2025), Harpic revenue was ₹6.71 L compared to ₹7.27 L last month, which is a decrease of 7.66%.",
+      "answer": "For MTD (01 Dec to 30 Dec 2025) compared to the previous period (01 Nov to 30 Nov 2025), Harpic revenue was ₹6.71 L compared to ₹7.27 L previously. This represents a decrease of 7.66%.",
       "provider": "gemini",
       "model": "gemini-3.5-flash-lite",
       "tool_calls": [
@@ -325,16 +340,16 @@
           "name": "get_kpi",
           "args": {
             "kpi": "revenue",
-            "brand": "Harpic",
+            "period": "MTD",
             "mode": "previous",
-            "period": "MTD"
+            "brand": "Harpic"
           }
         }
       ],
       "verified": true,
       "figures": 3,
       "unsupported_draft": [],
-      "seconds": 15.51,
+      "seconds": 1.44,
       "verified_at_answer_time": true,
       "unsupported_final": [],
       "correct": true,
@@ -343,7 +358,7 @@
     {
       "q": "How did Veet's units last quarter compare with the quarter before?",
       "kind": "time",
-      "answer": "For the previous quarter (2025-07-01 to 2025-09-30) compared with the quarter before (2025-04-01 to 2025-06-30), Veet sold 15,747 units compared to 18,070 units in the prior period.\nThis represents a decrease of 12.86%.",
+      "answer": "In the previous quarter (2025-07-01 to 2025-09-30), Veet sold 15,747 units compared to 18,070 units in the quarter before (2025-04-01 to 2025-06-30). This represents a decrease of 12.86%.",
       "provider": "gemini",
       "model": "gemini-3.5-flash-lite",
       "tool_calls": [
@@ -351,16 +366,16 @@
           "name": "get_kpi",
           "args": {
             "brand": "Veet",
+            "period": "PQ",
             "kpi": "units",
-            "mode": "previous",
-            "period": "PQ"
+            "mode": "previous"
           }
         }
       ],
       "verified": true,
       "figures": 3,
       "unsupported_draft": [],
-      "seconds": 10.28,
+      "seconds": 1.35,
       "verified_at_answer_time": true,
       "unsupported_final": [],
       "correct": true,
@@ -369,7 +384,7 @@
     {
       "q": "Mortein revenue in the last 30 days versus the 30 days before?",
       "kind": "time",
-      "answer": "Mortein revenue in the rolling 30 days (Dec 1 to Dec 30, 2025) was ₹9.05 L compared to ₹5.33 L in the previous 30 days (Nov 1 to Nov 30, 2025), representing an increase of 69.88 percent.",
+      "answer": "In the last 30 days (R30, from 1 Dec 2025 to 30 Dec 2025), Mortein's revenue was ₹9.05 L (905,318.0), compared to ₹5.33 L (532,908.8) in the previous period. This represents an increase of 69.88%.",
       "provider": "gemini",
       "model": "gemini-3.5-flash-lite",
       "tool_calls": [
@@ -377,34 +392,34 @@
           "name": "get_kpi",
           "args": {
             "brand": "Mortein",
-            "mode": "previous",
             "kpi": "revenue",
-            "period": "R30"
+            "period": "R30",
+            "mode": "previous"
           }
         }
       ],
       "verified": true,
-      "figures": 4,
+      "figures": 5,
       "unsupported_draft": [],
-      "seconds": 14.54,
+      "seconds": 2.62,
       "verified_at_answer_time": true,
       "unsupported_final": [],
       "correct": true,
-      "why": "found 69.88 percent for 69.88"
+      "why": "found 69.88% for 69.88"
     },
     {
       "q": "How is Lizol revenue quarter to date versus the same period last year?",
       "kind": "time",
-      "answer": "Lizol revenue for the quarter to date (period starting 2025-10-01 to 2025-12-30) is ₹26.04 L compared to ₹24.53 L for the same period last year. This represents an increase of 6.17%.",
+      "answer": "Lizol revenue quarter to date (1 October 2025 to 30 December 2025) is ₹26.04 L compared to ₹24.53 L for the same period last year, representing a growth of 6.17%.",
       "provider": "gemini",
       "model": "gemini-3.5-flash-lite",
       "tool_calls": [
         {
           "name": "get_kpi",
           "args": {
+            "kpi": "revenue",
             "period": "QTD",
             "brand": "Lizol",
-            "kpi": "revenue",
             "mode": "yoy"
           }
         }
@@ -412,7 +427,7 @@
       "verified": true,
       "figures": 3,
       "unsupported_draft": [],
-      "seconds": 20.56,
+      "seconds": 1.59,
       "verified_at_answer_time": true,
       "unsupported_final": [],
       "correct": true,
@@ -429,17 +444,17 @@
           "name": "get_kpi",
           "args": {
             "kpi": "revenue",
-            "brand": "Dettol",
             "period": "PM",
-            "mode": "previous"
+            "mode": "previous",
+            "brand": "Dettol"
           }
         },
         {
           "name": "get_kpi",
           "args": {
-            "kpi": "revenue",
             "period": "PM",
             "brand": "Dettol",
+            "kpi": "revenue",
             "mode": "previous"
           }
         }
@@ -450,7 +465,7 @@
         "₹33.69 L",
         "₹45.35 L"
       ],
-      "seconds": 30.94,
+      "seconds": 33.54,
       "verified_at_answer_time": true,
       "unsupported_final": [],
       "correct": true,
@@ -459,35 +474,32 @@
     {
       "q": "What is Harpic's revenue week to date?",
       "kind": "time",
-      "answer": "Harpic's revenue week to date (29 Dec 2025 to 30 Dec 2025) is ₹37,537, which is a decrease of 48.48 percent compared to the same period last year (29 Dec 2024 to 30 Dec 2024) when revenue was ₹72,864.",
+      "answer": "Harpic's revenue week to date (29 Dec to 30 Dec 2025) is ₹0.38 L, which is a decrease of 48.48% compared to ₹0.73 L in the same period last year (29 Dec to 30 Dec 2024).",
       "provider": "gemini",
       "model": "gemini-3.5-flash-lite",
       "tool_calls": [
         {
           "name": "get_kpi",
           "args": {
-            "period": "WTD",
             "kpi": "revenue",
-            "brand": "Harpic"
+            "brand": "Harpic",
+            "period": "WTD"
           }
         }
       ],
       "verified": true,
-      "figures": 5,
-      "unsupported_draft": [
-        "₹3.75 L",
-        "₹7.29 L"
-      ],
-      "seconds": 22.85,
+      "figures": 3,
+      "unsupported_draft": [],
+      "seconds": 1.54,
       "verified_at_answer_time": true,
       "unsupported_final": [],
       "correct": true,
-      "why": "found ₹37,537 for 37,537.00"
+      "why": "found ₹0.38 L for 37,537.00"
     },
     {
       "q": "What is Veet's revenue over the rolling 90 days?",
       "kind": "time",
-      "answer": "Veet's revenue over the rolling 90 days (2 Oct 2025 to 30 Dec 2025) is ₹25.29 L (25,28,683.10), which is a decrease of 9.27% compared to ₹27.87 L (27,86,908.05) over the same period last year.",
+      "answer": "Veet's revenue over the rolling 90 days ending 30 December 2025 is ₹25.29 L (₹25,28,683.10), representing a 9.27% decrease compared to ₹27.87 L (₹27,86,908.05) during the same period last year.",
       "provider": "gemini",
       "model": "gemini-3.5-flash-lite",
       "tool_calls": [
@@ -495,6 +507,7 @@
           "name": "get_kpi",
           "args": {
             "brand": "Veet",
+            "mode": "yoy",
             "period": "R90",
             "kpi": "revenue"
           }
@@ -503,7 +516,7 @@
       "verified": true,
       "figures": 5,
       "unsupported_draft": [],
-      "seconds": 17.36,
+      "seconds": 1.41,
       "verified_at_answer_time": true,
       "unsupported_final": [],
       "correct": true,
@@ -512,55 +525,62 @@
     {
       "q": "Which retailer drives the most revenue for Dettol this year?",
       "kind": "breakdown",
-      "answer": "For Dettol year to date in 2025 compared to the same period last year, Amazon drives the most revenue at ₹49.39 L, which is a 26.78% increase over its previous value of ₹38.96 L. BigBasket follows closely as the second highest revenue driver at ₹45.34 L, showing a 2.25% increase from ₹44.34 L.",
+      "answer": "For Dettol year to date in 2025 compared with the same period last year, Amazon drives the most revenue with a value of 493886.5 and a comparison value of 389558.5, representing a 26.78% increase. BigBasket follows with a revenue value of 453356.25 and a comparison value of 443376.75, showing a 2.25% increase.",
       "provider": "gemini",
       "model": "gemini-3.5-flash-lite",
       "tool_calls": [
         {
           "name": "get_breakdown",
           "args": {
-            "kpi": "revenue",
             "period": "YTD",
+            "brand": "Dettol",
             "by": "Retailer",
-            "brand": "Dettol"
+            "kpi": "revenue"
           }
-        }
-      ],
-      "verified": false,
-      "figures": 6,
-      "unsupported_draft": [],
-      "seconds": 18.65,
-      "verified_at_answer_time": true,
-      "unsupported_final": [
-        "₹49.39 L",
-        "₹38.96 L",
-        "₹45.34 L",
-        "₹44.34 L"
-      ],
-      "correct": false,
-      "why": "unsupported figures: ₹49.39 L, ₹38.96 L, ₹45.34 L, ₹44.34 L"
-    },
-    {
-      "q": "Which retailer has the highest margin percentage for Harpic this year?",
-      "kind": "breakdown",
-      "answer": "For Harpic, the retailer with the highest margin percentage in the Year to Date period (ending 30 Dec 2025) is Reliance with a margin percentage of 45.04%, which is up 0.6 pp compared to the same period last year. Flipkart follows closely at 45.02%, up 0.43 pp.",
-      "provider": "gemini",
-      "model": "gemini-3.5-flash-lite",
-      "tool_calls": [
+        },
         {
           "name": "get_breakdown",
           "args": {
-            "brand": "Harpic",
-            "kpi": "margin_pct",
-            "period": "YTD",
-            "by": "Retailer"
+            "by": "Retailer",
+            "brand": "Dettol",
+            "kpi": "revenue",
+            "period": "YTD"
           }
         }
       ],
       "verified": true,
       "figures": 4,
+      "unsupported_draft": [
+        "₹49.4 L",
+        "₹45.3 L"
+      ],
+      "seconds": 3.56,
+      "verified_at_answer_time": true,
+      "unsupported_final": [],
+      "correct": true,
+      "why": "all expected words present"
+    },
+    {
+      "q": "Which retailer has the highest margin percentage for Harpic this year?",
+      "kind": "breakdown",
+      "answer": "For YTD (period ending 30 Dec 2025 compared with same period last year), Reliance has the highest margin percentage for Harpic at 45.04 percent, followed closely by Flipkart at 45.02 percent.",
+      "provider": "gemini",
+      "model": "gemini-3.5-flash-lite",
+      "tool_calls": [
+        {
+          "name": "get_breakdown",
+          "args": {
+            "kpi": "margin_pct",
+            "period": "YTD",
+            "by": "Retailer",
+            "brand": "Harpic"
+          }
+        }
+      ],
+      "verified": true,
+      "figures": 2,
       "unsupported_draft": [],
-      "seconds": 27.63,
+      "seconds": 1.52,
       "verified_at_answer_time": true,
       "unsupported_final": [],
       "correct": true,
@@ -569,7 +589,7 @@
     {
       "q": "Which region brings Veet the most revenue this year?",
       "kind": "breakdown",
-      "answer": "For Veet Year to Date (01 Jan 2025 to 30 Dec 2025) compared to the same period last year, the West region brings in the most revenue at ₹28.5 L (growth of 16.55% vs PY). \n\nHere is the breakdown by region:\n• West: ₹28.5 L (+16.55%)\n• South: ₹25.6 L (-1.64%)\n• East: ₹25.5 L (+0.24%)\n• North: ₹22.7 L (-3.63%)",
+      "answer": "For Veet year to date in 2025 compared to the same period last year, the West region brings in the most revenue at ₹28.5 L (growth of 16.55%). \n\nHere is the breakdown by region:\n• West: ₹28.5 L\n• South: ₹25.6 L\n• East: ₹25.5 L\n• North: ₹22.7 L",
       "provider": "gemini",
       "model": "gemini-3.5-flash-lite",
       "tool_calls": [
@@ -577,16 +597,16 @@
           "name": "get_breakdown",
           "args": {
             "kpi": "revenue",
+            "period": "YTD",
             "by": "Region",
-            "brand": "Veet",
-            "period": "YTD"
+            "brand": "Veet"
           }
         }
       ],
       "verified": true,
-      "figures": 10,
+      "figures": 6,
       "unsupported_draft": [],
-      "seconds": 13.25,
+      "seconds": 1.43,
       "verified_at_answer_time": true,
       "unsupported_final": [],
       "correct": true,
@@ -595,24 +615,24 @@
     {
       "q": "Which Lizol sub-category earns the most revenue this year?",
       "kind": "breakdown",
-      "answer": "For YTD compared to the same period last year, Lizol's Spray sub-category earns the most revenue at ₹32.3 L (or ₹32,27,561.45), showing a 6.93% increase. The Soap sub-category follows at ₹30.1 L, Liquid at ₹26.5 L, and Cleaner at ₹7.5 L.",
+      "answer": "For the YTD period ending 30 Dec 2025 compared to the same period last year, Lizol Spray is the top-earning sub-category with ₹32.3 L (₹32,27,561.45), up 6.93%.\nLiquid earned ₹26.5 L (₹26,47,953.70), Soap earned ₹30.1 L (₹30,10,696.35), and Cleaner earned ₹7.5 L (₹7,47,667.25).",
       "provider": "gemini",
       "model": "gemini-3.5-flash-lite",
       "tool_calls": [
         {
           "name": "get_breakdown",
           "args": {
-            "period": "YTD",
             "kpi": "revenue",
             "brand": "Lizol",
+            "period": "YTD",
             "by": "SubCategory"
           }
         }
       ],
       "verified": true,
-      "figures": 6,
+      "figures": 9,
       "unsupported_draft": [],
-      "seconds": 14.45,
+      "seconds": 1.52,
       "verified_at_answer_time": true,
       "unsupported_final": [],
       "correct": true,
@@ -621,24 +641,24 @@
     {
       "q": "Which channel is growing fastest for Mortein this year compared with last year?",
       "kind": "breakdown",
-      "answer": "For Mortein YTD compared with last year, Online is the fastest-growing channel, though it declined by -2.24 percent (from ₹61.4 L to ₹60.1 L). General Trade declined by -9.47 percent and Modern Trade declined by -9.30 percent over the same period.",
+      "answer": "For Mortein YTD compared with last year, Online is the fastest growing channel with a revenue change of -2.24 percent (compared with General Trade at -9.47 percent and Modern Trade at -9.30 percent).",
       "provider": "gemini",
       "model": "gemini-3.5-flash-lite",
       "tool_calls": [
         {
           "name": "get_breakdown",
           "args": {
-            "by": "Channel",
+            "kpi": "revenue_growth_pct",
             "brand": "Mortein",
-            "period": "YTD",
-            "kpi": "revenue_growth_pct"
+            "by": "Channel",
+            "period": "YTD"
           }
         }
       ],
       "verified": true,
-      "figures": 5,
+      "figures": 3,
       "unsupported_draft": [],
-      "seconds": 8.72,
+      "seconds": 56.27,
       "verified_at_answer_time": true,
       "unsupported_final": [],
       "correct": true,
@@ -647,23 +667,23 @@
     {
       "q": "Who is Dettol's closest external rival?",
       "kind": "competitor",
-      "answer": "For the year to date compared to the same period last year, Dettol's closest external rivals are Domex and Ariel, both of which overlap across all 5 of Dettol's sub-category variants.",
+      "answer": "For the YTD period compared to the same period last year, Dettol's closest external rivals are Domex and Ariel, both of which overlap across all 5 of Dettol's variants in the cleaner, liquid, and soap subcategories. Lifebuoy follows closely with an overlap in 4 of 5 variants.",
       "provider": "gemini",
       "model": "gemini-3.5-flash-lite",
       "tool_calls": [
         {
           "name": "get_competitors",
           "args": {
-            "period": "YTD",
             "brand": "Dettol",
-            "mode": "yoy"
+            "mode": "yoy",
+            "period": "YTD"
           }
         }
       ],
       "verified": true,
       "figures": 0,
       "unsupported_draft": [],
-      "seconds": 15.21,
+      "seconds": 2.66,
       "verified_at_answer_time": true,
       "unsupported_final": [],
       "correct": true,
@@ -672,23 +692,22 @@
     {
       "q": "Who is discounting the most in Harpic's sub-categories this year?",
       "kind": "competitor",
-      "answer": "For Year to date compared to the same period last year, the competitors discounting the most in Harpic sub-categories are:\n\n• Lifebuoy at 3.47%, up 0.51 pp from 2.96%\n• Head & Shoulders at 3.34%, up 0.26 pp from 3.08%\n• Domex at 3.16%, down 0.07 pp from 3.23%\n• Ariel at 3.03%, down 0.66 pp from 3.70%\n• Lux at 2.76%, down 0.34 pp from 3.10%\n• Gillette at 2.73%, down 0.29 pp from 3.02%",
+      "answer": "For the year to date comparison against the same period last year, Lifebuoy is discounting the most among Harpic's competitors at 3.47 percent, followed by Head and Shoulders at 3.34 percent and Domex at 3.16 percent.",
       "provider": "gemini",
       "model": "gemini-3.5-flash-lite",
       "tool_calls": [
         {
           "name": "get_competitors",
           "args": {
-            "period": "YTD",
             "brand": "Harpic",
-            "mode": "yoy"
+            "period": "YTD"
           }
         }
       ],
       "verified": true,
-      "figures": 18,
+      "figures": 3,
       "unsupported_draft": [],
-      "seconds": 14.27,
+      "seconds": 2.24,
       "verified_at_answer_time": true,
       "unsupported_final": [],
       "correct": true,
@@ -697,7 +716,7 @@
     {
       "q": "Which competitor gained the most share in Veet's sub-categories this year?",
       "kind": "competitor",
-      "answer": "For YTD compared to the same period last year, Domex gained the most share in Veet's sub-categories with an increase of 0.43 pp across Cleaner, Soap, and Spray. Head & Shoulders followed with a gain of 0.35 pp in Soap, Gillette gained 0.28 pp, and Lux gained 0.12 pp. Meanwhile, Ariel lost 0.22 pp and Lifebuoy lost 1.46 pp.",
+      "answer": "For the year to date compared to the same period last year, Domex gained the most sub-category share among Veet competitors, increasing by 0.43 pp across Cleaner, Soap, and Spray sub-categories. Head & Shoulders followed with a gain of 0.35 pp in Soap, while Gillette increased by 0.28 pp.",
       "provider": "gemini",
       "model": "gemini-3.5-flash-lite",
       "tool_calls": [
@@ -705,15 +724,14 @@
           "name": "get_competitors",
           "args": {
             "period": "YTD",
-            "mode": "yoy",
             "brand": "Veet"
           }
         }
       ],
       "verified": true,
-      "figures": 6,
+      "figures": 3,
       "unsupported_draft": [],
-      "seconds": 14.82,
+      "seconds": 2.65,
       "verified_at_answer_time": true,
       "unsupported_final": [],
       "correct": true,
@@ -722,362 +740,49 @@
     {
       "q": "What is Lizol's price gap versus competitors this year?",
       "kind": "competitor",
-      "answer": "For the Year to date period versus the same period last year, Lizol's overall price gap versus competitors is 30.54 percent, compared to 31.06 percent in the previous period. Here is the price gap breakdown by subcategory:\n• Cleaner: minus 45.56 percent\n• Liquid: 94.16 percent\n• Soap: 42.27 percent\n• Spray: minus 14.95 percent",
+      "answer": "For the year to date up to 30 December 2025, Lizol's overall price gap versus competitors is 30.54% higher, compared to 31.06% in the same period last year. \nBy sub-category, the price gaps are:\n• Cleaner: -45.56% (our ASP ₹53.41 vs rival ASP ₹98.12)\n• Liquid: 94.16% (our ASP ₹193.59 vs rival ASP ₹99.71)\n• Soap: 42.27% (our ASP ₹241.45 vs rival ASP ₹169.71)\n• Spray: -14.95% (our ASP ₹119.79 vs rival ASP ₹140.86)",
       "provider": "gemini",
       "model": "gemini-3.5-flash-lite",
       "tool_calls": [
         {
           "name": "get_competitors",
           "args": {
-            "period": "YTD",
             "brand": "Lizol",
-            "mode": "yoy"
-          }
-        }
-      ],
-      "verified": true,
-      "figures": 6,
-      "unsupported_draft": [],
-      "seconds": 9.04,
-      "verified_at_answer_time": true,
-      "unsupported_final": [],
-      "correct": true,
-      "why": "found 30.54 percent for 30.54"
-    },
-    {
-      "q": "What is the market share gap between Dettol and Lifebuoy this year?",
-      "kind": "competitor",
-      "answer": "For Year to Date 2025 compared to the same period last year, Dettol has a market share of 24.49% (up 0.58 pp) and Lifebuoy has 19.96% (down 0.04 pp).\nThis results in a market share gap of 4.53 pp in favor of Dettol.",
-      "provider": "gemini",
-      "model": "gemini-3.5-flash-lite",
-      "tool_calls": [
-        {
-          "name": "get_kpi",
-          "args": {
-            "brand": "Dettol",
-            "kpi": "market_share",
-            "mode": "yoy",
-            "period": "YTD"
-          }
-        },
-        {
-          "name": "get_kpi",
-          "args": {
-            "brand": "Lifebuoy",
             "period": "YTD",
-            "mode": "yoy",
-            "kpi": "market_share"
-          }
-        }
-      ],
-      "verified": true,
-      "figures": 5,
-      "unsupported_draft": [],
-      "seconds": 14.09,
-      "verified_at_answer_time": true,
-      "unsupported_final": [],
-      "correct": true,
-      "why": "found 4.53 pp for 4.52"
-    },
-    {
-      "q": "Which external brands compete with Dettol Variant 1?",
-      "kind": "competitor",
-      "answer": "For Dettol Variant 1, the external rival brands in the YTD period are Ariel, Domex, and Head & Shoulders.",
-      "provider": "gemini",
-      "model": "gemini-3.5-flash-lite",
-      "tool_calls": [
-        {
-          "name": "get_variants",
-          "args": {
-            "brand": "Dettol",
-            "period": "YTD"
-          }
-        }
-      ],
-      "verified": true,
-      "figures": 0,
-      "unsupported_draft": [],
-      "seconds": 9.49,
-      "verified_at_answer_time": true,
-      "unsupported_final": [],
-      "correct": true,
-      "why": "all expected words present"
-    },
-    {
-      "q": "Did any competitor manufacturer launch a product last quarter?",
-      "kind": "competitor",
-      "answer": "Yes, competitor manufacturers launched products last quarter in the previous quarter (PQ) compared to the same period last year. P&G launched new products on 2025-07-01, 2025-08-27, and 2025-09-23. Unilever also launched new products on 2025-07-30 and 2025-08-04.",
-      "provider": "gemini",
-      "model": "gemini-3.5-flash-lite",
-      "tool_calls": [
-        {
-          "name": "get_competitors",
-          "args": {
-            "mode": "yoy",
-            "brand": "Dettol",
-            "period": "PQ"
-          }
-        }
-      ],
-      "verified": true,
-      "figures": 0,
-      "unsupported_draft": [],
-      "seconds": 6.08,
-      "verified_at_answer_time": true,
-      "unsupported_final": [],
-      "correct": true,
-      "why": "all expected words present"
-    },
-    {
-      "q": "Why did Harpic revenue change this month compared with last month?",
-      "kind": "diagnostic",
-      "answer": "For the Month to Date period compared with the previous month, Harpic revenue fell by ₹55,666 (-7.7%) from ₹7,26,920 to ₹6,71,254.\n\n• The drop was mainly driven by a volume effect of -₹93,632 from fewer units sold and a mix effect of -₹18,263, partially offset by a price and discount effect of ₹56,229.\n• The largest SKU contributor to the decline was Harpic Variant 3, down ₹63,839 (-37.4%).\n• Key headwinds included a 2.7 pp loss in subcategory market share, an increase in stock-out risk from 3.6% to 7.2%, and lower customer ratings (average 3.29 down from 3.44).",
-      "provider": "gemini",
-      "model": "gemini-3.5-flash-lite",
-      "tool_calls": [
-        {
-          "name": "explain_change",
-          "args": {
-            "period": "MTD",
-            "brand": "Harpic",
-            "mode": "previous"
+            "mode": "yoy"
           }
         }
       ],
       "verified": true,
       "figures": 14,
       "unsupported_draft": [],
-      "seconds": 9.77,
+      "seconds": 3.01,
       "verified_at_answer_time": true,
       "unsupported_final": [],
       "correct": true,
-      "why": "found ₹55,666 for -55,665.95"
+      "why": "found 30.54% for 30.54"
     },
     {
-      "q": "Why did Dettol revenue fall this year?",
-      "kind": "diagnostic",
-      "answer": "For the year to date compared to the same period last year, Dettol revenue fell by ₹1.10 Cr (-2.6%) to ₹40.67 Cr. The drop was driven by a negative mix effect of ₹63.4L as sales shifted to lower-priced SKUs, alongside a volume decrease of ₹29.1L and deeper discounts of ₹17.9L. The largest SKU decline came from Dettol Variant 2, down ₹164.1L (-12.2%). Contributing factors included an increase in promotional discounting, heightened competitor activity with 25 events, and a slight dip in average customer ratings.",
+      "q": "What is the market share gap between Dettol and Lifebuoy this year?",
+      "kind": "competitor",
+      "answer": "For Year to Date (2025-01-01 to 2025-12-30) compared to the same period last year, Dettol's market share is 24.49 percent and Lifebuoy's market share is 19.96 percent.\nThe market share gap between Dettol and Lifebuoy is 4.53 pp in favour of Dettol.",
       "provider": "gemini",
       "model": "gemini-3.5-flash-lite",
       "tool_calls": [
         {
-          "name": "explain_change",
+          "name": "get_kpi",
           "args": {
-            "brand": "Dettol",
+            "kpi": "market_share",
             "period": "YTD",
+            "brand": "Dettol",
             "mode": "yoy"
           }
-        }
-      ],
-      "verified": false,
-      "figures": 9,
-      "unsupported_draft": [],
-      "seconds": 9.98,
-      "verified_at_answer_time": true,
-      "unsupported_final": [
-        "₹1.10 Cr",
-        "₹40.67 Cr",
-        "₹63.4L",
-        "₹29.1L",
-        "₹17.9L",
-        "₹164.1L"
-      ],
-      "correct": false,
-      "why": "unsupported figures: ₹1.10 Cr, ₹40.67 Cr, ₹63.4L, ₹29.1L, ₹17.9L, ₹164.1L"
-    },
-    {
-      "q": "What drove Mortein's revenue change last month compared with the month before?",
-      "kind": "diagnostic",
-      "answer": "Mortein's revenue dropped by ₹2,70,174, or 33.6 percent, last month (November 2025) compared to the previous month (October 2025).\nThe drop was mainly driven by a volume decrease of ₹2,08,073 due to selling fewer units, alongside a mix shift of ₹70,516 toward lower-priced SKUs.\nThis was partly offset by a positive price and discount effect of ₹8,416 from lower discounts.\nThe largest SKU decline came from Mortein Variant 5, which fell by ₹1,95,278, and the biggest regional drop occurred in the South, down by ₹1,54,307.",
-      "provider": "gemini",
-      "model": "gemini-3.5-flash-lite",
-      "tool_calls": [
-        {
-          "name": "explain_change",
-          "args": {
-            "mode": "previous",
-            "brand": "Mortein",
-            "period": "PM"
-          }
-        }
-      ],
-      "verified": true,
-      "figures": 7,
-      "unsupported_draft": [],
-      "seconds": 19.98,
-      "verified_at_answer_time": true,
-      "unsupported_final": [],
-      "correct": true,
-      "why": "found ₹2,70,174 for -270,174.00"
-    },
-    {
-      "q": "What is Veet's brand health score?",
-      "kind": "health",
-      "answer": "Veet's brand health score is 61.0 for the Year to date period compared to the same period last year, placing it 3rd among all 11 brands. This score is built from a growth component of 2.85 percent, margin of 43.89 percent, average rating of 3.52, and a competitive position metric of 0.04.",
-      "provider": "gemini",
-      "model": "gemini-3.5-flash-lite",
-      "tool_calls": [
-        {
-          "name": "get_health_scores",
-          "args": {
-            "period": "YTD"
-          }
-        }
-      ],
-      "verified": true,
-      "figures": 5,
-      "unsupported_draft": [],
-      "seconds": 9.55,
-      "verified_at_answer_time": true,
-      "unsupported_final": [],
-      "correct": true,
-      "why": "found 61.0 for 61.00"
-    },
-    {
-      "q": "Which Reckitt brand has the highest brand health score?",
-      "kind": "health",
-      "answer": "For the YTD period compared to the same period last year, Veet has the highest brand health score among Reckitt brands at 61.0, ranking 3rd overall. Lizol follows with a score of 58.1 (rank 4), Dettol at 51.0 (rank 7), Harpic at 39.5 (rank 8), and Mortein at 34.9 (rank 9).",
-      "provider": "gemini",
-      "model": "gemini-3.5-flash-lite",
-      "tool_calls": [
-        {
-          "name": "get_health_scores",
-          "args": {
-            "period": "YTD"
-          }
-        }
-      ],
-      "verified": true,
-      "figures": 5,
-      "unsupported_draft": [],
-      "seconds": 9.19,
-      "verified_at_answer_time": true,
-      "unsupported_final": [],
-      "correct": true,
-      "why": "all expected words present"
-    },
-    {
-      "q": "How is the competitor activity index calculated?",
-      "kind": "definition",
-      "answer": "The Competitor Activity Index measures competitor activity per 30 days based on event types and their price impacts. \n\nEach competitor event is assigned a base weight depending on the event type:\n• Price Cut: weight of 3\n• New Launch: weight of 2\n• TV Campaign: weight of 1\n\nEach event is scaled by (1 + |Price Impact %| / 10), and the overall formula is SUM(weight × (1 + |Price Impact %| / 10)) × 30 / days in period. A lower index score is better, and the metric is recorded at the manufacturer level rather than per brand.",
-      "provider": "gemini",
-      "model": "gemini-3.5-flash",
-      "tool_calls": [
-        {
-          "name": "search_knowledge",
-          "args": {
-            "query": "competitor activity index calculation formula"
-          }
-        }
-      ],
-      "verified": true,
-      "figures": 2,
-      "unsupported_draft": [],
-      "seconds": 15.23,
-      "verified_at_answer_time": true,
-      "unsupported_final": [],
-      "correct": true,
-      "why": "all expected words present"
-    },
-    {
-      "q": "How are competitors matched to our variants?",
-      "kind": "definition",
-      "answer": "Competitors are matched to our variants strictly based on SubCategory, while Category is ignored since SKUs span multiple categories. Each core variant competes with every external SKU sharing its SubCategory. Rivals are categorized across three tiers: same brand's other variants, other Reckitt core brands, and external competitor brands. A core brand's closest rival is defined as the external brand present across the highest number of that core brand's variants.",
-      "provider": "gemini",
-      "model": "gemini-3.5-flash",
-      "tool_calls": [
-        {
-          "name": "search_knowledge",
-          "args": {
-            "query": "how competitors are matched"
-          }
         },
-        {
-          "name": "search_knowledge",
-          "args": {
-            "query": "competitor variant matching"
-          }
-        }
-      ],
-      "verified": true,
-      "figures": 0,
-      "unsupported_draft": [],
-      "seconds": 11.92,
-      "verified_at_answer_time": true,
-      "unsupported_final": [],
-      "correct": true,
-      "why": "all expected words present"
-    },
-    {
-      "q": "What is Lizol's market share?",
-      "kind": "refusal",
-      "answer": "Market share is not available for Lizol because the data only covers Ariel, Dettol, Domex, Harpic, Lifebuoy, and Veet. For Lizol, we can look at other performance metrics such as revenue, units, or price index for the YTD period compared to the same period last year.",
-      "provider": "gemini",
-      "model": "gemini-3.5-flash-lite",
-      "tool_calls": [
         {
           "name": "get_kpi",
           "args": {
-            "brand": "Lizol",
+            "brand": "Lifebuoy",
             "kpi": "market_share",
-            "mode": "yoy",
-            "period": "YTD"
-          }
-        }
-      ],
-      "verified": true,
-      "figures": 0,
-      "unsupported_draft": [],
-      "seconds": 9.41,
-      "verified_at_answer_time": true,
-      "unsupported_final": [],
-      "correct": true,
-      "why": "refused"
-    },
-    {
-      "q": "What is Mortein's market share trend this year?",
-      "kind": "refusal",
-      "answer": "Mortein market share data is not available for Mortein because market share is only tracked for Ariel, Dettol, Domex, Harpic, Lifebuoy, and Veet. The closest available metrics in the data for Mortein are revenue and units for the Year to date period ending 30 Dec 2025 compared to the same period last year.",
-      "provider": "gemini",
-      "model": "gemini-3.5-flash-lite",
-      "tool_calls": [
-        {
-          "name": "get_kpi",
-          "args": {
-            "period": "YTD",
-            "mode": "yoy",
-            "brand": "Mortein",
-            "kpi": "market_share"
-          }
-        },
-        {
-          "name": "search_knowledge",
-          "args": {
-            "query": "market share Mortein"
-          }
-        }
-      ],
-      "verified": true,
-      "figures": 0,
-      "unsupported_draft": [],
-      "seconds": 14.69,
-      "verified_at_answer_time": true,
-      "unsupported_final": [],
-      "correct": true,
-      "why": "refused"
-    },
-    {
-      "q": "How much did we spend on marketing for Dettol specifically?",
-      "kind": "refusal",
-      "answer": "For Dettol in the Year to date period (ending 30 Dec 2025), campaign spend was ₹26.1 L (down 6.59% compared to ₹28.0 L in the same period last year). Please note that campaign spend is not recorded by individual brands in the data; this is the company-wide value.",
-      "provider": "gemini",
-      "model": "gemini-3.5-flash-lite",
-      "tool_calls": [
-        {
-          "name": "get_kpi",
-          "args": {
-            "kpi": "campaign_spend",
-            "brand": "Dettol",
             "period": "YTD",
             "mode": "yoy"
           }
@@ -1086,7 +791,331 @@
       "verified": true,
       "figures": 3,
       "unsupported_draft": [],
-      "seconds": 7.6,
+      "seconds": 1.55,
+      "verified_at_answer_time": true,
+      "unsupported_final": [],
+      "correct": true,
+      "why": "found 4.53 pp for 4.52"
+    },
+    {
+      "q": "Which external brands compete with Dettol Variant 1?",
+      "kind": "competitor",
+      "answer": "For the YTD period compared to the previous year, the external brands that compete with Dettol Variant 1 are Ariel, Domex, and Head & Shoulders.",
+      "provider": "gemini",
+      "model": "gemini-3.5-flash-lite",
+      "tool_calls": [
+        {
+          "name": "get_variants",
+          "args": {
+            "period": "YTD",
+            "mode": "yoy",
+            "brand": "Dettol"
+          }
+        }
+      ],
+      "verified": true,
+      "figures": 0,
+      "unsupported_draft": [],
+      "seconds": 1.66,
+      "verified_at_answer_time": true,
+      "unsupported_final": [],
+      "correct": true,
+      "why": "all expected words present"
+    },
+    {
+      "q": "Did any competitor manufacturer launch a product last quarter?",
+      "kind": "competitor",
+      "answer": "Yes, competitor manufacturers launched multiple products last quarter during the previous quarter (PQ) compared to the same period last year. P&G launched new products on 1 July 2025, 27 August 2025, and 23 September 2025. Unilever also launched new products on 30 July 2025 and 4 August 2025.",
+      "provider": "gemini",
+      "model": "gemini-3.5-flash-lite",
+      "tool_calls": [
+        {
+          "name": "get_competitors",
+          "args": {
+            "period": "PQ",
+            "brand": "Dettol",
+            "mode": "yoy"
+          }
+        }
+      ],
+      "verified": true,
+      "figures": 0,
+      "unsupported_draft": [],
+      "seconds": 31.82,
+      "verified_at_answer_time": true,
+      "unsupported_final": [],
+      "correct": true,
+      "why": "all expected words present"
+    },
+    {
+      "q": "Why did Harpic revenue change this month compared with last month?",
+      "kind": "diagnostic",
+      "answer": "Harpic revenue for MTD compared with the previous period (same days last month) fell by ₹55,666 (-7.7%) to ₹6.7 L.\n\n• Volume was the largest negative driver, reducing revenue by ₹93,632 due to fewer units sold.\n• Mix effect also weighed on sales (-₹18,263) as customers shifted to lower-priced SKUs, offset partly by a price/discount effect of +₹56,229.\n• The biggest SKU drop came from Harpic Variant 3 (-₹63,839), while the East region suffered the sharpest regional decline (-₹2,15,480).\n• Supporting pressures included an increase in stock-out risk (7.2% vs 3.6%), a drop in average customer rating (3.29 vs 3.44), and a drop in promo revenue share to 0.0% from 52.5%.",
+      "provider": "gemini",
+      "model": "gemini-3.5-flash-lite",
+      "tool_calls": [
+        {
+          "name": "explain_change",
+          "args": {
+            "period": "MTD",
+            "mode": "previous",
+            "brand": "Harpic"
+          }
+        }
+      ],
+      "verified": true,
+      "figures": 14,
+      "unsupported_draft": [],
+      "seconds": 2.41,
+      "verified_at_answer_time": true,
+      "unsupported_final": [],
+      "correct": true,
+      "why": "found ₹55,666 for -55,665.95"
+    },
+    {
+      "q": "Why did Dettol revenue fall this year?",
+      "kind": "diagnostic",
+      "answer": "Dettol revenue fell by -₹110,381.0 (-2.64%) in YTD compared to the same period last year.\nThe decrease was driven by a mix effect of -₹63,417.56, volume of -₹29,063.11, and price or discount changes of -₹17,900.34.\nThe largest SKU drop came from Dettol Variant 2, which changed by -₹164,098.25 (-12.2%).\nPromotional share of revenue increased from 19.2% to 21.3%, and average ratings moved from 3.48 to 3.41.",
+      "provider": "gemini",
+      "model": "gemini-3.5-flash-lite",
+      "tool_calls": [
+        {
+          "name": "explain_change",
+          "args": {
+            "mode": "yoy",
+            "period": "YTD",
+            "brand": "Dettol"
+          }
+        },
+        {
+          "name": "explain_change",
+          "args": {
+            "mode": "yoy",
+            "brand": "Dettol",
+            "period": "YTD"
+          }
+        }
+      ],
+      "verified": true,
+      "figures": 10,
+      "unsupported_draft": [
+        "₹1.10 Cr",
+        "₹63.4 L",
+        "₹29.1 L",
+        "₹17.9 L",
+        "₹1.64 Cr"
+      ],
+      "seconds": 3.84,
+      "verified_at_answer_time": true,
+      "unsupported_final": [],
+      "correct": true,
+      "why": "found ₹110,381.0 for -110,381.00"
+    },
+    {
+      "q": "What drove Mortein's revenue change last month compared with the month before?",
+      "kind": "diagnostic",
+      "answer": "Mortein revenue dropped by ₹2,70,174 (-33.6%) last month (November 2025) compared with the month before (October 2025). \n• The largest driver was a volume effect of -₹2,08,073 due to selling fewer units, alongside a mix shift of -₹70,517 toward lower-priced SKUs.\n• By SKU, Mortein Variant 5 saw the biggest decline at -₹1,95,278 (-60.0%).\n• By region, the South region took the heaviest hit, falling by ₹1,54,307 (-58.4%).\n• Contributing external factors included higher competitor discounting (averaging 7.8% vs 7.2%) and increased competitor activity.",
+      "provider": "gemini",
+      "model": "gemini-3.5-flash-lite",
+      "tool_calls": [
+        {
+          "name": "explain_change",
+          "args": {
+            "period": "PM",
+            "mode": "previous",
+            "brand": "Mortein"
+          }
+        }
+      ],
+      "verified": true,
+      "figures": 10,
+      "unsupported_draft": [],
+      "seconds": 2.32,
+      "verified_at_answer_time": true,
+      "unsupported_final": [],
+      "correct": true,
+      "why": "found ₹2,70,174 for -270,174.00"
+    },
+    {
+      "q": "What is Veet's brand health score?",
+      "kind": "health",
+      "answer": "Veet's brand health score is 61.0 for the Year to date period ending 30 Dec 2025 compared to the same period last year, ranking it 3rd among all 11 brands. This score is composed of a 2.85% growth component, a 43.89% margin component, an average rating of 3.52, and a position value of 0.04.",
+      "provider": "gemini",
+      "model": "gemini-3.5-flash-lite",
+      "tool_calls": [
+        {
+          "name": "get_health_scores",
+          "args": {
+            "period": "YTD"
+          }
+        }
+      ],
+      "verified": true,
+      "figures": 5,
+      "unsupported_draft": [],
+      "seconds": 1.61,
+      "verified_at_answer_time": true,
+      "unsupported_final": [],
+      "correct": true,
+      "why": "found 61.0 for 61.00"
+    },
+    {
+      "q": "Which Reckitt brand has the highest brand health score?",
+      "kind": "health",
+      "answer": "For the YTD period compared to the same period last year, Veet has the highest brand health score among the Reckitt core brands with a score of 61.0, ranking 3rd overall. Lizol follows with a score of 58.1, Dettol with 51.0, Harpic with 39.5, and Mortein with 34.9.",
+      "provider": "gemini",
+      "model": "gemini-3.5-flash-lite",
+      "tool_calls": [
+        {
+          "name": "get_health_scores",
+          "args": {
+            "period": "YTD"
+          }
+        }
+      ],
+      "verified": true,
+      "figures": 5,
+      "unsupported_draft": [],
+      "seconds": 1.37,
+      "verified_at_answer_time": true,
+      "unsupported_final": [],
+      "correct": true,
+      "why": "all expected words present"
+    },
+    {
+      "q": "How is the competitor activity index calculated?",
+      "kind": "definition",
+      "answer": "The competitor activity index is calculated as the sum of event weights multiplied by one plus the absolute value of price impact percent divided by ten, scaled to a thirty day period.\nThe weights assigned to events are three for price cuts, two for new launches, and one for TV campaigns.\nThis metric is recorded per manufacturer rather than per brand, with lower index values indicating less competitor activity.",
+      "provider": "gemini",
+      "model": "gemini-3.5-flash-lite",
+      "tool_calls": [
+        {
+          "name": "search_knowledge",
+          "args": {
+            "query": "competitor activity index"
+          }
+        }
+      ],
+      "verified": true,
+      "figures": 0,
+      "unsupported_draft": [],
+      "seconds": 32.04,
+      "verified_at_answer_time": true,
+      "unsupported_final": [],
+      "correct": true,
+      "why": "all expected words present"
+    },
+    {
+      "q": "How are competitors matched to our variants?",
+      "kind": "definition",
+      "answer": "• Competitors are matched based on SubCategory only because all 11 brands have SKUs in more than one Category.\n• External competitors are the external SKUs present in the same sub-categories as the core brand.\n• The closest rival counts external competitors only, defined as the brand present in the most of the core brand's variants.",
+      "provider": "gemini",
+      "model": "gemini-3.5-flash-lite",
+      "tool_calls": [
+        {
+          "name": "search_knowledge",
+          "args": {
+            "query": "how are competitors matched to variants"
+          }
+        }
+      ],
+      "verified": true,
+      "figures": 0,
+      "unsupported_draft": [],
+      "seconds": 1.57,
+      "verified_at_answer_time": true,
+      "unsupported_final": [],
+      "correct": true,
+      "why": "all expected words present"
+    },
+    {
+      "q": "What is Lizol's market share?",
+      "kind": "refusal",
+      "answer": "Market share data is not available for Lizol because market share is only tracked for Ariel, Dettol, Domex, Harpic, Lifebuoy, and Veet. For the YTD period compared to the same period last year, Lizol recorded a revenue of ₹96.3 L with a change of -3.76 percent.",
+      "provider": "gemini",
+      "model": "gemini-3.5-flash-lite",
+      "tool_calls": [
+        {
+          "name": "get_kpi",
+          "args": {
+            "kpi": "market_share",
+            "brand": "Lizol",
+            "period": "YTD"
+          }
+        },
+        {
+          "name": "get_kpi",
+          "args": {
+            "period": "YTD",
+            "brand": "Lizol",
+            "kpi": "revenue"
+          }
+        }
+      ],
+      "verified": true,
+      "figures": 2,
+      "unsupported_draft": [
+        "₹77.5 Cr",
+        "16.2 percent"
+      ],
+      "seconds": 2.77,
+      "verified_at_answer_time": true,
+      "unsupported_final": [],
+      "correct": true,
+      "why": "refused"
+    },
+    {
+      "q": "What is Mortein's market share trend this year?",
+      "kind": "refusal",
+      "answer": "Market share data is not available for Mortein as market share is only tracked for six brands: Ariel, Dettol, Domex, Harpic, Lifebuoy, and Veet. For Mortein, competitor analysis and variants data can be viewed instead.",
+      "provider": "gemini",
+      "model": "gemini-3.5-flash-lite",
+      "tool_calls": [
+        {
+          "name": "get_kpi",
+          "args": {
+            "period": "YTD",
+            "kpi": "market_share",
+            "brand": "Mortein"
+          }
+        },
+        {
+          "name": "search_knowledge",
+          "args": {
+            "query": "Mortein market share"
+          }
+        }
+      ],
+      "verified": true,
+      "figures": 0,
+      "unsupported_draft": [],
+      "seconds": 2.19,
+      "verified_at_answer_time": true,
+      "unsupported_final": [],
+      "correct": true,
+      "why": "refused"
+    },
+    {
+      "q": "How much did we spend on marketing for Dettol specifically?",
+      "kind": "refusal",
+      "answer": "For Dettol, YTD campaign spend (Year to date vs same period last year ending 30 Dec 2025) was ₹26.1 L (down 6.59% from ₹28.0 L). Note that campaign spend is not recorded by individual brands in the data; this is the company-wide value.",
+      "provider": "gemini",
+      "model": "gemini-3.5-flash-lite",
+      "tool_calls": [
+        {
+          "name": "get_kpi",
+          "args": {
+            "brand": "Dettol",
+            "kpi": "campaign_spend",
+            "period": "YTD",
+            "mode": "yoy"
+          }
+        }
+      ],
+      "verified": true,
+      "figures": 3,
+      "unsupported_draft": [],
+      "seconds": 1.56,
       "verified_at_answer_time": true,
       "unsupported_final": [],
       "correct": true,
@@ -1095,14 +1124,14 @@
     {
       "q": "What will Dettol revenue be next quarter?",
       "kind": "refusal",
-      "answer": "I do not make predictions or forecasts, so I cannot provide Dettol's revenue for next quarter. However, I can look at Dettol's YTD revenue up to December 30, 2025, if you would like to review recent performance.",
+      "answer": "BrandPulse does not have forecasting data or predictive tools to project Dettol's revenue for next quarter. I can only report historical performance using the available data tools.",
       "provider": "gemini",
       "model": "gemini-3.5-flash-lite",
       "tool_calls": [],
       "verified": true,
       "figures": 0,
       "unsupported_draft": [],
-      "seconds": 1.62,
+      "seconds": 0.67,
       "verified_at_answer_time": true,
       "unsupported_final": [],
       "correct": true,
@@ -1111,7 +1140,7 @@
     {
       "q": "What was Harpic's revenue in 2023?",
       "kind": "refusal",
-      "answer": "The available data does not provide the total revenue for the year 2023. The earliest full-year revenue available is ₹82.82 L for the previous year (2024), and the dataset comparison period shows a revenue of ₹82.53 L for the same period last year (referring to 2024 versus 2023).",
+      "answer": "The available data covers the period from 1 January 2024 to 30 December 2025, so revenue figures for the year 2023 are not present in the dataset. For the previous year (2024), Harpic's total revenue was ₹82.8 L (₹82,82,476.15).",
       "provider": "gemini",
       "model": "gemini-3.5-flash-lite",
       "tool_calls": [
@@ -1126,39 +1155,25 @@
         {
           "name": "get_kpi",
           "args": {
-            "kpi": "revenue",
             "brand": "Harpic",
+            "kpi": "revenue",
             "period": "ALL"
           }
         },
         {
           "name": "get_trend",
           "args": {
-            "kpi": "revenue",
-            "period": "PY",
             "brand": "Harpic",
-            "grain": "M"
-          }
-        },
-        {
-          "name": "search_knowledge",
-          "args": {
-            "query": "2023 revenue Harpic"
-          }
-        },
-        {
-          "name": "get_kpi",
-          "args": {
-            "period": "YTD",
+            "grain": "M",
             "kpi": "revenue",
-            "brand": "Harpic"
+            "period": "ALL"
           }
         }
       ],
       "verified": true,
       "figures": 2,
       "unsupported_draft": [],
-      "seconds": 20.93,
+      "seconds": 33.38,
       "verified_at_answer_time": true,
       "unsupported_final": [],
       "correct": false,

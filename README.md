@@ -51,7 +51,7 @@ From [the Phase 1 notebook](notebooks/phase1_eda.ipynb) and the dashboard:
 python -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
 make data        # validate the workbook and build data/processed/
-make test        # 118 tests: KPIs recomputed by hand from the raw Excel
+make test        # 207 tests: KPIs recomputed by hand from the raw Excel
 make notebook    # re-run the Phase 1 EDA notebook
 ```
 
@@ -104,22 +104,46 @@ How an answer is produced:
 1. The model gets the question, the dashboard context and **8 tools** (`get_kpi`, `get_breakdown`, `get_trend`, `get_competitors`, `get_variants`, `explain_change`, `get_health_scores`, `search_knowledge`). It never sees raw data.
 2. Tool arguments are validated against the KPI registry, brand list and period presets; the KPI engine computes.
 3. `search_knowledge` retrieves definitions, rules and data caveats: Chroma with local all-MiniLM-L6-v2 embeddings, fused with BM25 (reciprocal-rank fusion).
-4. **Every figure in the draft answer is checked** against the tool results at the precision it is written (₹40.7 L = ₹40,70,000 ± ₹5,000). Unsupported figures trigger one retry naming them; if any remain, those sentences are dropped or the grounded offline answer is used.
+4. **Every figure in the draft answer is checked** against the tool results at the precision it is written (₹40.7 L = ₹40,70,000 ± ₹5,000), with matching units (₹ never matches a % field), from the object of the entity the sentence names, and with differences / % changes allowed only between related numbers (a value and its comparison, ours and the rivals'). Unsupported figures trigger one retry naming them; if any remain, those sentences are dropped or the grounded offline answer is used.
 5. Missing data (e.g. Lizol market share, brand-level campaign spend, forecasts, 2023) is answered with "the data doesn't cover this", never a guess.
 
 ### Evaluation results
 
-42 questions with expected answers computed live from the engine ([reports/llm_eval.md](reports/llm_eval.md)):
+**Q&A**: 42 questions with expected answers computed live from the engine ([reports/llm_eval.md](reports/llm_eval.md)). An answer only counts as correct if every figure in it also verifies (tool calls replayed).
 
-| | Gemini (free tier: 3.5-flash → 3.5-flash-lite) |
+| | Gemini (free tier: 3.5-flash → 3.5-flash-lite), 28 Nov 2026 |
 |---|---|
 | Accuracy, all questions | **41 / 42 (98%)** |
 | Accuracy, answerable questions | 37 / 37 (100%) |
 | Correct "the data doesn't cover this" | 4 / 5 |
-| Unsupported figures in first drafts | 6 of 174 (3.4%), **all caught by the verifier** |
+| Unsupported figures in first drafts | 13 of 157 (8.3%), **all caught by the verifier** and fixed on retry |
 | Final answers fully verified | **100%** |
+| Median latency | 2.5 s (max 97 s, during free-tier rate-limit back-off) |
 
-The 6 caught figures were all lakh-conversion slips by the lite model (₹41.77 L written as "₹417.74 L"); the retry fixed each one. The one miss: asked for 2023 revenue, the model correctly said 2023 isn't in the data but then mislabelled a 2024 figure. The offline mode scores 42/42, but its keyword routing was tuned on these questions, so that number shows the template path, not general ability.
+All 13 caught figures were lakh/crore slips by the lite model (₹41.8 L written as "₹4.18 Cr", Amazon's ₹4.94 L as "₹49.4 L"). The one miss is a scoring false negative: asked for 2023 revenue, the model said 2023 is "not present in the dataset", a phrase the refusal regex doesn't list; it was left unscored rather than tuning the scorer after seeing the answers. The offline mode scores 42/42, but its keyword routing was tuned on these questions, so that number shows the template path, not general ability.
+
+**Verifier**: does it catch hallucinated figures? ([reports/verifier_eval.md](reports/verifier_eval.md), `python -m llm.eval.verifier_eval`, offline and deterministic.) One correct figure per answer is replaced by the true value ±1/3/10/30% or ×10, across 81 grounded answers:
+
+| | Original verifier | Current verifier |
+|---|---|---|
+| Injected hallucinations caught | 78% | **94%** |
+| Real Gemini lakh/crore slips caught (11 Nov run, hand-audited) | 0 of 10 | **10 of 10** |
+| Random 1-decimal % accepted | 29% | 9% |
+| False alarms on 367 correct figures | 0 | **0** |
+
+The original verifier allowed a difference or % change between *any* two numbers in the tool results (~14,000 candidates for a diagnostics answer), so it rarely failed: the 11 Nov Gemini run reported "100% verified, 41/42" while two answers had every rupee figure 10× or 100× too big. Rescored strictly, that run is 39/42.
+
+## Review fixes (what changed)
+
+| Area | Problem | Fix |
+|---|---|---|
+| Time Intelligence | Month/quarter-end comparisons dropped days: 30 Jun MTD vs 1–30 May, 31 Mar QTD vs 1 Oct–29 Dec, default QTD vs 1 Jul–29 Sep, Feb 2025 vs 1–28 Feb 2024 | Calendar-aligned shifting (DAX `DATEADD` convention); previous period never overlaps |
+| KPI engine | Market share of several brands was averaged (Dettol + Harpic = 21.3%) | Summed within a month, averaged over months (42.6%) |
+| KPI engine | Per-day KPIs diluted by days after the data ends; growth % reported against a partly covered comparison | Divide by covered days; no change unless both periods are fully inside the data |
+| Q&A verifier | Accepted coincidental figures (see above) | Related-number arithmetic only, unit agreement, entity binding |
+| Evaluation | A right headline next to wrong ₹ figures scored correct; no measure of the verifier itself | Correct ⇒ fully verified; hallucination-injection evaluation + a test that guards it |
+
+Tests: 119 → 207 (the 9 new KPI / Time Intelligence cases that check the fixes fail on the previous code). Details in [docs/DECISIONS.md](docs/DECISIONS.md).
 
 ## API
 
@@ -188,6 +212,7 @@ The full variant-to-rival mapping is in [reports/competitor_map.csv](reports/com
 | 4 | React dashboard (7 pages, brand-centric, every chart reacts to brand/period/filters) | ✅ |
 | 5 | Streamlit workbench (data quality, KPI explorer, competitor map, Health Score lab, glossary, Q&A eval) | ✅ |
 | 6 | Grounded LLM Q&A (Gemini / Ollama / offline), hybrid retrieval, figure verifier, 42-question evaluation | ✅ |
+| 8 | Review: Time Intelligence month-end fixes, market-share aggregation, stricter verifier + its evaluation, fresh Gemini run | ✅ |
 | 7 | README with screenshots, findings and evaluation; decisions log; CI for API + web | ✅ |
 
 See [docs/DECISIONS.md](docs/DECISIONS.md) for every definition and data caveat.
